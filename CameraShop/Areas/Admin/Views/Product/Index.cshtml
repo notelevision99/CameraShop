@@ -1,0 +1,73 @@
+﻿@model IEnumerable<CameraShop.Models.Product>
+@using CameraShop.HelperCode
+@{
+    ViewBag.Title = "Danh sach san pham";
+}
+
+<h2>Danh sach san pham</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Anh</th>
+        <th>
+            @Html.DisplayName("Category Name")
+        </th>
+        <th>
+            @Html.DisplayName("Product name")
+        </th>
+        <th>
+            @Html.DisplayName("Ori Price")
+        </th>
+        <th>
+            @Html.DisplayName("DiscountedPrice")
+        </th>
+    
+        <th></th>
+    </tr>
+
+@foreach (var item in Model){
+<tr>
+    
+    <td>
+
+        @{
+            if (item.FileImgs!= null)
+            {
+                int count = 0;
+                foreach (var img in item.FileImgs)
+                {
+                    count++;
+                    if (count == 1)
+                    {
+                        @Html.ImageDetail(img.file_base6)
+                    }
+                }
+            }
+
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem=>item.ProductName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OriPrice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DiscountedPrice)
+    </td>
+    
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+    </td>
+</tr>
+}
+
+</table>
