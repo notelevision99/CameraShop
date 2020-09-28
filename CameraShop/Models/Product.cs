@@ -24,7 +24,7 @@ namespace CameraShop.Models
 
         public virtual Category Category { get; set; }
         public virtual ProductSpecification ProductSpecification { get; set; }
-        public virtual ICollection<EnrollmentImage> EnrollmentImages  { get; set; }
+       
         public virtual ICollection<FileImg> FileImgs { get; set; }
 
 

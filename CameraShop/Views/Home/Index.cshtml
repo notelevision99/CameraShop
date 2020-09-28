@@ -69,56 +69,62 @@
                     <!-- Best Deal Product Activation Start Here -->
                     <div class="feature-pro-active owl-carousel">
                         <!-- Single Product Start -->
-                        @foreach (var item in Model)
+                        @if (Model != null)
                         {
-                            <div class="single-ponno-product">
-                                <!-- Product Image Start -->
-                                <div class="pro-img">
-                                    @{
-                                        int count = 0;
-                                        foreach (var img in item.FileImgs)
-                                        {
-                                            count++;
-                                            if (count == 1)
+
+                            foreach (var item in Model)
+                            {
+                                <div class="single-ponno-product">
+                                    <!-- Product Image Start -->
+                                    <div class="pro-img">
+                                        @{
+                                            
+                                            int count = 0;
+                                            foreach (var img in item.FileImgs)
                                             {
-                                                <a href="@Url.Action("Details","Home",new { id = item.ProductID})">
-                                                     @Html.ImageSlick(img.file_base6)
-                                                </a>
-                                              
+                                                count++;
+                                                if (count == 1)
+                                                {
+                                                    <a href="@Url.Action("Details","Home",new { id = item.ProductID})">
+                                                        @Html.ImageSlick(img.file_base6)
+                                                    </a>
+
+                                                }
                                             }
                                         }
-                                    }
 
 
-                                    <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                    <span class="sticker-sale">new</span>
-                                </div>
-                                <!-- Product Image End -->
-                                <!-- Product Content Start -->
-                                <div class="pro-content">
-                                    <div class="pro-info">
-                                        <h4><a href="product-details.html">@Html.DisplayFor(modelItem => item.ProductName)</a></h4>
-                                        <p><span class="special-price">@Html.DisplayFor(modelItem => item.DiscountedPrice) </span></p>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="quantity-pro">(200+)</span>
+                                        <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
+                                        <span class="sticker-sale">new</span>
+                                    </div>
+                                    <!-- Product Image End -->
+                                    <!-- Product Content Start -->
+                                    <div class="pro-content">
+                                        <div class="pro-info">
+                                            <h4><a href="product-details.html">@Html.DisplayFor(modelItem => item.ProductName)</a></h4>
+                                            <p><span class="special-price">@Html.DisplayFor(modelItem => item.DiscountedPrice) </span></p>
+                                            <div class="product-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <span class="quantity-pro">(200+)</span>
+                                            </div>
+                                        </div>
+                                        <div class="pro-add-cart">
+                                            <a href="cart.html" title="Add to Cart">Add To Cart</a>
                                         </div>
                                     </div>
-                                    <div class="pro-add-cart">
-                                        <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                    </div>
+                                    <!-- Product Content End -->
                                 </div>
-                                <!-- Product Content End -->
-                            </div>
+                            }
                         }
+
                         <!-- Single Product End -->
-                       
-                       
-                       
+
+
+
                     </div>
                     <!-- Best Deal Product Activation End Here -->
                 </div>

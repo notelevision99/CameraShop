@@ -166,9 +166,12 @@
     <Compile Include="Migrations\202009221108305_Add-ProductSpec.designer.cs">
       <DependentUpon>202009221108305_Add-ProductSpec.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009280703241_something.cs" />
+    <Compile Include="Migrations\202009280703241_something.designer.cs">
+      <DependentUpon>202009280703241_something.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\EnrollmentImage.cs" />
     <Compile Include="Models\FileImg.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductSpecification.cs" />
@@ -722,6 +725,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009221108305_Add-ProductSpec.resx">
       <DependentUpon>202009221108305_Add-ProductSpec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009280703241_something.resx">
+      <DependentUpon>202009280703241_something.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

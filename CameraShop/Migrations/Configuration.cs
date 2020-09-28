@@ -46,25 +46,8 @@
             fileimgs.ForEach(s => context.FileImgs.AddOrUpdate(p => p.file_name, s));
             context.SaveChanges();
 
-            var enrollmentImages = new List<EnrollmentImage>
-            {
-                new EnrollmentImage {
-                    ProductID = products.Single(s => s.ProductName == "Camera b022").ProductID,
-                    file_id = fileimgs.Single(c => c.file_name == "hinh hd.jpg").file_id    
-                 }
-            };
+           
 
-            foreach (EnrollmentImage e in enrollmentImages)
-            {
-                var enrollmentInDataBase = context.EnrollmentImages.Where(
-                    s => 
-                         s.Product.ProductID == e.ProductID &&
-                         s.FileImg.file_id == e.file_id).SingleOrDefault();
-                if (enrollmentInDataBase == null)
-                {
-                    context.EnrollmentImages.Add(e);
-                }
-            }
             
             context.SaveChanges();
         }

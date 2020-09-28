@@ -16,12 +16,11 @@ namespace CameraShop.Controllers
         private ShopContext db = new ShopContext();
 
         // GET: Home
-        public ActionResult Index(string Category = null)
+        public ActionResult Index()
         {
-            var products = db.Products.Include(i => i.Category);
-
-            
-            return View(products.ToList());
+            var products = db.Products.Include(i => i.Category)
+                .Include(p => p.FileImgs);
+             return View(products.ToList());
         }
 
         // GET: Home/Details/5

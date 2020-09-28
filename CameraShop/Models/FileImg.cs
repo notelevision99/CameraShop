@@ -14,9 +14,7 @@ namespace CameraShop.Models
         public int  file_id { get; set; }
         public string file_name { get; set; }
         public string file_ext { get; set; }
-        public string file_base6 { get; set; }
-
-        public virtual ICollection<EnrollmentImage> EnrollmentImages { get; set; }
+        public string file_base6 { get; set; }     
         public virtual ICollection<Product> Products { get; set; }
     }
 }

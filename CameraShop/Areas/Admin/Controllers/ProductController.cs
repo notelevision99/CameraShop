@@ -19,7 +19,9 @@ namespace CameraShop.Areas.Admin.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).ToList();
+            var products = db.Products.Include(p => p.Category)
+                .Include(i => i.FileImgs)
+                .ToList();
             
 
             return View(products);
