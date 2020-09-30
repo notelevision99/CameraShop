@@ -24,11 +24,16 @@ namespace CameraShop.Controllers
 
             if (Category == null)
             {
-                products = db.Products.ToList();
+                products = db.Products
+                    .Include(i => i.FileImgs)
+                    .ToList();
+               
             }
             else
             {
                 products = db.Products.Where(p => p.Category.CategoryName == Category).ToList();
+                ViewBag.CountProd = products.Count();
+                ViewBag.Category = Category;
             }
             ProductListViewModel model = new ProductListViewModel();
             model.Products = products;

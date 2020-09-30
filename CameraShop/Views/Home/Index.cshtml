@@ -3,7 +3,9 @@
 @using CameraShop.HelperCode
 
 
-
+@{ 
+    int countProductBestSeal = 1;
+}
 @*<table class="table">
            <tr>
                <th>
@@ -74,50 +76,52 @@
 
                             foreach (var item in Model)
                             {
-                                <div class="single-ponno-product">
-                                    <!-- Product Image Start -->
-                                    <div class="pro-img">
-                                        @{
-                                            
-                                            int count = 0;
-                                            foreach (var img in item.FileImgs)
-                                            {
-                                                count++;
-                                                if (count == 1)
-                                                {
-                                                    <a href="@Url.Action("Details","Home",new { id = item.ProductID})">
-                                                        @Html.ImageSlick(img.file_base6)
-                                                    </a>
+                                if (countProductBestSeal <= 10)
+                                {
+                                    <div class="single-ponno-product">
+                                        <!-- Product Image Start -->
+                                        <div class="pro-img">
+                                            @{
 
+                                                int count = 0;
+                                                foreach (var img in item.FileImgs)
+                                                {
+                                                    count++;
+                                                    if (count == 1)
+                                                    {
+                                                        <a href="@Url.Action("Details","Home",new { id = item.ProductID})">
+                                                            @Html.ImageSlick(img.file_base6)
+                                                        </a>
+
+                                                    }
                                                 }
                                             }
-                                        }
-
-
-                                        <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                        <span class="sticker-sale">new</span>
-                                    </div>
-                                    <!-- Product Image End -->
-                                    <!-- Product Content Start -->
-                                    <div class="pro-content">
-                                        <div class="pro-info">
-                                            <h4><a href="product-details.html">@Html.DisplayFor(modelItem => item.ProductName)</a></h4>
-                                            <p><span class="special-price text-danger">@Html.DisplayFor(modelItem => item.DiscountedPrice) </span></p>
-                                            <div class="product-rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <span class="quantity-pro">(200+)</span>
+                                            <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
+                                            <span class="sticker-sale">new</span>
+                                        </div>
+                                        <!-- Product Image End -->
+                                        <!-- Product Content Start -->
+                                        <div class="pro-content">
+                                            <div class="pro-info">
+                                                <h6 class="font-weight-bold" display="flex"><a href="@Url.Action("Details","Home", new { id = item.ProductID})">@Html.DisplayFor(modelItem => item.ProductName)</a></h6>
+                                                <p><span class="special-price text-danger">@if (item.DiscountedPrice > 10000) { @Html.DisplayFor(modelItem => item.DiscountedPrice)} else {@Html.DisplayName("Liên hệ");  } </span></p>
+                                                <div class="product-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <span class="quantity-pro">(200+)</span>
+                                                </div>
+                                            </div>
+                                            <div class="pro-add-cart">
+                                                <a href="cart.html" title="Add to Cart">Add To Cart</a>
                                             </div>
                                         </div>
-                                        <div class="pro-add-cart">
-                                            <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                        </div>
+                                        <!-- Product Content End -->
                                     </div>
-                                    <!-- Product Content End -->
-                                </div>
+                                }
+                                countProductBestSeal++;
                             }
                         }
 

@@ -2,6 +2,8 @@
 
 @using CameraShop.HelperCode
 
+
+
 @*<!DOCTYPE html>
 
     <html>
@@ -38,7 +40,9 @@
     </body>
     </html>*@
 
-
+@{ 
+    int countProduct = 0;
+}
 <div class="breadcrumb-area">
     <div class="container">
         <ol class="breadcrumb breadcrumb-list">
@@ -59,7 +63,7 @@
            
 
         </ol>
-        </ol>
+       
     </div>
 </div>
 <!-- Breadcrumb Area End Here -->
@@ -72,13 +76,13 @@
             <div class="col-lg-3 order-2 order-lg-1 mt-all-30">
                 <div class="sidebar shop-sidebar">
                     <!-- Price Filter Options Start -->
-                    <div class="search-filter mb-100">
+                    @*<div class="search-filter mb-100">
                         <h3 class="sidebar-title">filter by price</h3>
                         <form action="#" class="slider-sidebar">
                             <div id="slider-range"></div>
                             <input type="text" id="amount" class="amount-range" readonly="">
                         </form>
-                    </div>
+                    </div>*@
                     <!-- Price Filter Options End -->
                     <!-- Sidebar Categorie Start -->
                     <div class="sidebar-categorie mb-30">
@@ -95,19 +99,15 @@
                                 {
                                     <li class="form-check">
                                         @Html.ActionLink(item.CategoryName, "Index", new { Category = item.CategoryName }, new { @class = Request["Category"] == item.CategoryName ? "text-danger" : null})
+                                       
                                     </li>
-
                                 }
                             }
-
-
-
-
                         </ul>
                     </div>
                     <!-- Sidebar Categorie Start -->
                     <!-- Product Size Start -->
-                    <div class="size mb-30">
+                    @*<div class="size mb-30">
                         <h3 class="sidebar-title">size</h3>
                         <ul class="size-list sidbar-style">
                             <li class="form-check">
@@ -123,10 +123,10 @@
                                 <label class="form-check-label" for="large">L (8)</label>
                             </li>
                         </ul>
-                    </div>
+                    </div>*@
                     <!-- Product Size End -->
                     <!-- Product Color Start -->
-                    <div class="color mb-30">
+                    @*<div class="color mb-30">
                         <h3 class="sidebar-title">color</h3>
                         <ul class="color-option sidbar-style">
                             <li>
@@ -146,13 +146,13 @@
                                 <a href="#">Yellow (8)</a>
                             </li>
                         </ul>
-                    </div>
+                    </div>*@
                     <!-- Product Color End -->
                   
                     <!-- Sidebar Categorie Start -->
                   
                     <!-- Sidebar Categorie Start -->
-                    <div class="sidebar-categorie">
+                    @*<div class="sidebar-categorie">
                         <h3 class="sidebar-title">Properties</h3>
                         <ul class="sidbar-style">
                             <li class="form-check">
@@ -176,7 +176,7 @@
                                 <label class="form-check-label">short sleve (3) </label>
                             </li>
                         </ul>
-                    </div>
+                    </div>*@
                     <!-- Sidebar Categorie Start -->
                 </div>
             </div>
@@ -186,8 +186,15 @@
                 <!-- Grid & List View Start -->
                 <div class="grid-list-top border-default universal-padding d-md-flex justify-content-md-between align-items-center mb-30">
                     <div class="grid-list-view d-flex align-items-center  mb-sm-15">
-                       
-                        <span class="show-items"> </span>
+                        @if (ViewBag.Category != null)
+                        {
+                            <span class=" text-danger font-weight-bold">Tìm thấy @ViewBag.CountProd sản phẩm trong "@ViewBag.Category" </span>
+                        }
+                        else
+                        {
+                    <span class=" text-danger font-weight-bold">Tất cả sản phẩm  </span>
+                        }
+
                     </div>
                     <!-- Toolbar Short Area Start -->
                     <div class="main-toolbar-sorter clearfix">
@@ -212,8 +219,10 @@
                             <div class="row border-hover-effect ">
                                 @if (Model.Products != null)
                                 {
+                                    
                                     foreach (var item in Model.Products)
                                     {
+                                        
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-6">
                                             <!-- Single Product Start -->
 
@@ -246,7 +255,7 @@
                                                 <div class="pro-content">
                                                     <div class="pro-info">
                                                         <h4>
-                                                            <a href="product-details.html">@Html.DisplayFor(modelItem => item.ProductName)</a>
+                                                            <a href="@Url.Action("Details","Home",new { id = item.ProductID })">@Html.DisplayFor(modelItem => item.ProductName)</a>
                                                         </h4>
                                                         <p>
                                                             <span class="special-price text-danger">@Html.DisplayFor(modelItem => item.DiscountedPrice)</span>
@@ -268,204 +277,14 @@
                                             </div>
                                             <!-- Single Product End -->
                                         </div>
+                                        countProduct++;
                                     }
                                 }
 
                             </div>
                             <!-- Row End -->
                         </div>
-                        <!-- #grid view End -->
-                        <div id="list-view" class="tab-pane fade fix">
-                            <!-- Single Product Start -->
-                            <div class="single-ponno-product">
-                                <!-- Product Image Start -->
-                                <div class="pro-img">
-                                    <a href="product-details.html">
-                                        <img class="primary-img" src="img\products\p2.jpeg" alt="single-product">
-                                    </a>
-                                </div>
-                                <!-- Product Image End -->
-                                <!-- Product Content Start -->
-                                <div class="pro-content">
-                                    <div class="pro-info">
-                                        <h4>
-                                            <a href="product-details.html">jenon Real Box</a>
-                                        </h4>
-                                        <p>
-                                            <span class="special-price">$70.00</span>
-                                        </p>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <span class="quantity-pro">(200+)</span>
-                                        </div>
-                                        <p>
-                                            Phone is a revolutionary new mobile phone that allows you to make a call
-                                            by simply tapping a name or number in your address book, a favorites
-                                            list, or a call log. It also automatically syncs all your..
-                                        </p>
-                                        <p>
-                                            <div class="pro-actions">
-                                                <div class="pro-add-cart">
-                                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                                </div>
-                                                <div class="pro-actions-link">
-                                                    <a href="compare.html" title="Compare">
-                                                        <span class="icon icon-MusicMixer"></span>
-                                                    </a>
-                                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View">
-                                                        <span class="icon icon-Eye"></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                <!-- Product Content End -->
-                            </div>
-                            <!-- Single Product End -->
-                            <!-- Single Product Start -->
-                            <div class="single-ponno-product">
-                                <!-- Product Image Start -->
-                                <div class="pro-img">
-                                    <a href="product-details.html">
-                                        <img class="primary-img" src="img\products\p3.jpeg" alt="single-product">
-                                    </a>
-                                </div>
-                                <!-- Product Image End -->
-                                <!-- Product Content Start -->
-                                <div class="pro-content">
-                                    <div class="pro-info">
-                                        <h4>
-                                            <a href="product-details.html">xer jenon dslr</a>
-                                        </h4>
-                                        <p>
-                                            <span class="special-price">$140.00</span>
-                                        </p>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <span class="quantity-pro">(200+)</span>
-                                        </div>
-                                        <p>Latest Intel mobile architecture Powered by the most advanced mobile processors from Intel, the new Core 2 Duo MacBook Pro is over 50% faster than the original Core Duo MacBook Pro and now sup..</p>
-                                        <p>
-                                            <div class="pro-actions">
-                                                <div class="pro-add-cart">
-                                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                                </div>
-                                                <div class="pro-actions-link">
-                                                    <a href="compare.html" title="Compare">
-                                                        <span class="icon icon-MusicMixer"></span>
-                                                    </a>
-                                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View">
-                                                        <span class="icon icon-Eye"></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                <!-- Product Content End -->
-                            </div>
-                            <!-- Single Product End -->
-                            <!-- Single Product Start -->
-                            <div class="single-ponno-product">
-                                <!-- Product Image Start -->
-                                <div class="pro-img">
-                                    <a href="product-details.html">
-                                        <img class="primary-img" src="img\products\p7.jpeg" alt="single-product">
-                                    </a>
-                                </div>
-                                <!-- Product Image End -->
-                                <!-- Product Content Start -->
-                                <div class="pro-content">
-                                    <div class="pro-info">
-                                        <h4>
-                                            <a href="product-details.html">jibon mouse pad</a>
-                                        </h4>
-                                        <p>
-                                            <span class="special-price">$110.00</span>
-                                        </p>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <span class="quantity-pro">(100+)</span>
-                                        </div>
-                                        <p>More room to move. With 80GB or 160GB of storage and up to 40 hours of battery life, the new iPod classic lets you enjoy up to 40,000 songs or up to 200 hours of video or any combination where..</p>
-                                        <p>
-                                            <div class="pro-actions">
-                                                <div class="pro-add-cart">
-                                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                                </div>
-                                                <div class="pro-actions-link">
-                                                    <a href="compare.html" title="Compare">
-                                                        <span class="icon icon-MusicMixer"></span>
-                                                    </a>
-                                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View">
-                                                        <span class="icon icon-Eye"></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                <!-- Product Content End -->
-                            </div>
-                            <!-- Single Product End -->
-                            <!-- Single Product Start -->
-                            <div class="single-ponno-product">
-                                <!-- Product Image Start -->
-                                <div class="pro-img">
-                                    <a href="product-details.html">
-                                        <img class="primary-img" src="img\products\p8.jpeg" alt="single-product">
-                                    </a>
-                                </div>
-                                <!-- Product Image End -->
-                                <!-- Product Content Start -->
-                                <div class="pro-content">
-                                    <div class="pro-info">
-                                        <h4>
-                                            <a href="product-details.html">jenon Real Box</a>
-                                        </h4>
-                                        <p>
-                                            <span class="special-price">$140.00</span>
-                                        </p>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="quantity-pro">(120+)</span>
-                                        </div>
-                                        <p>Latest Intel mobile architecture Powered by the most advanced mobile processors from Intel, the new Core 2 Duo MacBook Pro is over 50% faster than the original Core Duo MacBook Pro and now sup..</p>
-                                        <p>
-                                            <div class="pro-actions">
-                                                <div class="pro-add-cart">
-                                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                                </div>
-                                                <div class="pro-actions-link">
-                                                    <a href="compare.html" title="Compare">
-                                                        <span class="icon icon-MusicMixer"></span>
-                                                    </a>
-                                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View">
-                                                        <span class="icon icon-Eye"></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                <!-- Product Content End -->
-                            </div>
-                            <!-- Single Product End -->
-                        </div>
-                        <!-- #list view End -->
+                       
                     </div>
                     <!-- Grid & List Main Area End -->
                 </div>
@@ -473,7 +292,7 @@
                 <div class="shop-breadcrumb-area border-default">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-5">
-                            <span class="show-items">Showing 1-12 of 13 item(s) </span>
+                            <span class="show-items">Showing 1-12 of @countProduct item(s) </span>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-7">
                             <ul class="pfolio-breadcrumb-list text-center">

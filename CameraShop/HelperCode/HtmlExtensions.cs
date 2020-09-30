@@ -29,7 +29,7 @@ namespace CameraShop.HelperCode
 
             var img = String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(imageBytes));
 
-            return new MvcHtmlString("<img src='" + img + "' width = '" + "100" + "' height = '" + "100" + "' />");
+            return new MvcHtmlString("<img src='" + img + "' width = '" + "25" + "' height = '" + "25" + "' />");
         }
 
         public static MvcHtmlString ImageSlick(this HtmlHelper html, string imageBase6)

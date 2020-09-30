@@ -75,7 +75,7 @@
             @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
             {
                 <li class="breadcrumb-item">
-                     @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+                    @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
                 </li>
             }
 
@@ -106,14 +106,15 @@
                                         @Html.LargeImageDetails(img.file_base6)
                                     </div>
                                 }
-                                count++;
-                                if (count > 2)
+
+                                if (count >= 2)
                                 {
                                     <div id="thumb@(count)" class="tab-pane fade ">
 
                                         @Html.LargeImageDetails(img.file_base6)
                                     </div>
                                 }
+                                count++;
                             }
                         }
 
@@ -137,41 +138,37 @@
                             <a data-fancybox="images" href="img\products\p7.jpeg">
                                 <img src="~/img/products/p7.jpeg" alt="product-view">
                             </a>
-                        </div>
-                        <div id="5" class="tab-pane fade">
-                            <a data-fancybox="images" href="img\products\p8.jpeg">
-                                <img src="img\products\p8.jpeg" alt="product-view">
-                            </a>
                         </div>*@
+
                 </div>
                 <!-- Thumbnail Large Image End -->
                 <!-- Thumbnail Image End -->
                 <div class="product-thumbnail">
-
-
                     <div class="thumb-menu owl-carousel nav tabs-area" role="tablist">
                         @{
                             int countThumbnail = 1;
                             {
-                                foreach (var img in Model.FileImgs)
+                                if (count > 2)
                                 {
-
-                                    if (countThumbnail == 1)
+                                    foreach (var img in Model.FileImgs)
                                     {
-                                        <a class="active" data-toggle="tab" href="#thumb1">
-                                            @Html.ThumbnailImagesCount2(img.file_base6)
-                                        </a>
-                                    }
-                                    countThumbnail++;
+                                        if (countThumbnail == 1)
+                                        {
+                                            <a class="active" data-toggle="tab" href="#thumb1">
+                                                @Html.ThumbnailImagesCount2(img.file_base6)
+                                            </a>
+                                        }
 
-                                    if (countThumbnail > 2)
-                                    {
-                                        <a data-toggle="tab" href="#thumb@(countThumbnail)">
-                                            @Html.ThumbnailImagesCount2(img.file_base6)
-                                        </a>
+                                        if (countThumbnail >= 2 && countThumbnail <= count)
+                                        {
+                                            <a data-toggle="tab" href="#thumb@(countThumbnail)">
+                                                @Html.ThumbnailImagesCount2(img.file_base6)
+                                            </a>
+                                        }
+                                        countThumbnail++;
                                     }
-
                                 }
+
                             }
                         }
                         @*<a class="active" data-toggle="tab" href="#thumb1">
@@ -215,7 +212,7 @@
                     </ul>
                     <div class="pro-thumb-price mt-20">
                         <p>
-                            <span class="special-price text-danger">@Html.DisplayFor(modelItem => modelItem.DiscountedPrice) </span>
+                            <span class="special-price text-danger">@if (Model.DiscountedPrice > 10000) { @Html.DisplayFor(modelItem => modelItem.DiscountedPrice)} else {@Html.DisplayName("Liên hệ");  } </span>
                             <del class="old-price">@Html.DisplayFor(modelItem => modelItem.OriPrice)</del>
                         </p>
                     </div>

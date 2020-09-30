@@ -52,7 +52,7 @@
                         <!-- Logo Start -->
                         <div class="col-md-3 col order-1 order-md-1 mb-sm-30">
                             <div class="logo">
-                                <a href="index.html"><img src="~/img/logo/logo.png" alt="logo-img"></a>
+                                <a href="@Url.Action("Index","Home")"><img src="~/img/logo/logo.png" alt="logo-img"></a>
                             </div>
                         </div>
                         <!-- Logo End -->
@@ -161,16 +161,16 @@
                             <nav>
                                 <ul class="header-menu-list">
                                     <li class="active">
-                                        <a class="drop-icon" href="index.html">home</a>
+                                        <a  href="@Url.Action("Index","Home")">Home</a>
                                         <!-- Home Version Dropdown Start -->
-                                        <ul class="ht-dropdown">
+                                        @*<ul class="ht-dropdown">
                                             <li>
                                                 <a href="index.html">Home Style 1</a>
                                             </li>
                                             <li>
                                                 <a href="home-2.html">Home Style 2</a>
                                             </li>
-                                        </ul>
+                                        </ul>*@
                                         <!-- Home Version Dropdown End -->
                                     </li>
                                     <li>
@@ -246,7 +246,7 @@
                                         </ul>
                                         <!-- Mega-Menu End -->
                                     </li>
-                                    <li><a href="shop.html">accessories</a></li>
+                                    <li><a href="@Url.Action("Index","Category")">Camera quan sát</a></li>
                                     <li>
                                         <a class="drop-icon" href="#">pages</a>
                                         <!-- Home Version Dropdown Start -->
