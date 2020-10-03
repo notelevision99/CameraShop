@@ -1,4 +1,5 @@
 ﻿using CameraShop.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace CameraShop.ViewModels
 {
     public class ProductListViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public IPagedList<Product> Products { get; set; }
         public IEnumerable<Category> Categories { get; set; }
     }
 }

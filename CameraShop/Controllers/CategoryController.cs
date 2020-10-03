@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using CameraShop.DAL;
 using CameraShop.Models;
 using CameraShop.ViewModels;
+using PagedList;
 
 namespace CameraShop.Controllers
 {
@@ -17,28 +18,80 @@ namespace CameraShop.Controllers
         private ShopContext db = new ShopContext();
 
         // GET: Category
-        public ActionResult Index(string Category = null)
-        {
-            List<Product> products;
-            List<Category> categories = db.Categories.ToList();
+        //public ActionResult Index(string Category = null)
+        //{          
+        //    List<Product> products;
+        //    List<Category> categories = db.Categories.ToList();
 
+        //    if (Category == null)
+        //    {
+        //        products = db.Products
+        //            .Include(i => i.FileImgs)
+        //            .ToList();             
+        //    }
+        //    else
+        //    {                
+        //        products = db.Products.Where(p => p.Category.CategoryName == Category).ToList();
+        //        ViewBag.CountProd = products.Count();
+        //        ViewBag.Category = Category;          
+        //    }
+        //    ViewBag.CurrentFilter = Category;
+        //    ProductListViewModel model = new ProductListViewModel();
+        //    model.Products = products;
+        //    model.Categories = categories;
+
+
+        //    return View(model);
+        //}
+
+        //test IPAGELIST Category
+        public ActionResult Index(int? productPage, string sortOrder, string Category = null)
+        {
+            ViewBag.PriceSortParm = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "price_asc";
+            int ProductPageNumber = (productPage ?? 1);          
+           // IPagedList<Product> products;
+            List<Category> categories = db.Categories.ToList();
+            var viewmodel = new ProductListViewModel();
             if (Category == null)
             {
-                products = db.Products
+                viewmodel.Products = db.Products
                     .Include(i => i.FileImgs)
-                    .ToList();
-               
-            }
+                    .OrderBy(p => p.ProductName)
+                    .ToPagedList(ProductPageNumber, 9);
+                if(sortOrder != null && sortOrder == "price_desc")
+                {
+                    viewmodel.Products = db.Products.OrderByDescending(p => p.DiscountedPrice)
+                        .ToPagedList(ProductPageNumber, 9);
+                }
+                else if(sortOrder != null && sortOrder == "price_asc")
+                {
+                    viewmodel.Products = db.Products.OrderBy(p => p.DiscountedPrice)
+                       .ToPagedList(ProductPageNumber, 9);
+                }
+            }           
             else
-            {
-                products = db.Products.Where(p => p.Category.CategoryName == Category).ToList();
-                ViewBag.CountProd = products.Count();
+            {              
+                viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.ProductName).ToPagedList(ProductPageNumber, 9);                            
+                //ViewBag.CountProd = products.Count();
+
+                //lọc != null
+                if(sortOrder != null && sortOrder == "price_desc")
+                {
+                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderByDescending(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, 9);
+                }
+                else if(sortOrder != null && sortOrder == "price_asc")
+                {
+                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, 9);
+                }
+                //lấy giá trị của category hiện tại truyền cho view
                 ViewBag.Category = Category;
+
+                ViewBag.CountProd = viewmodel.Products.Count();
             }
-            ProductListViewModel model = new ProductListViewModel();
-            model.Products = products;
-            model.Categories = categories;
-            return View(model);
+            
+            
+            viewmodel.Categories = categories;
+            return View(viewmodel);
         }
 
         // GET: Category/Details/5
@@ -56,7 +109,7 @@ namespace CameraShop.Controllers
             return View(category);
         }
 
-       
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
