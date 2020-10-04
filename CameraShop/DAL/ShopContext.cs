@@ -51,7 +51,7 @@ namespace CameraShop.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_insert_file", file_nameParameter, file_extParameter, file_base64Parameter);
         }
 
-        public System.Data.Entity.DbSet<CameraShop.Models.ProductSpecification> ProductSpecifications { get; set; }
+        
     }
 
 

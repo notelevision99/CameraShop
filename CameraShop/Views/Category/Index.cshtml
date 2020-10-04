@@ -188,34 +188,33 @@
                     <div class="grid-list-view d-flex align-items-center  mb-sm-15">
                         @if (ViewBag.Category != null)
                         {
-                            <span class=" text-danger font-weight-bold">Tìm thấy @ViewBag.CountProd sản phẩm trong "@ViewBag.Category" </span>
+                            <p class="h4">@ViewBag.Category</p>
                         }
                         else
                         {
-                            <span class=" text-danger font-weight-bold">Tất cả sản phẩm  </span>
+                            <p class="h4">TẤT CẢ SẢN PHẨM</p>
                         }
 
                     </div>
                     <!-- Toolbar Short Area Start -->
                     <div class="main-toolbar-sorter clearfix">
 
-                        <div class="toolbar-sorter d-md-flex align-items-center">
+                        <div id="getSort" class="toolbar-sorter d-md-flex align-items-center">
                             <label>Sort By:</label>
-                            <select class="sorter wide">
-                                <option value="Position">Relevance</option>
-                                <option >@Html.ActionLink("Lọc theo giá", "Index", new { sortOrder = ViewBag.PriceSortParam })</option>
-                                <option value="Product Name">Neme, Z to A</option>
-                                <option value="Price">Price low to heigh</option>
-                                <option value="Price">Price heigh to low</option>
+                            <select name="type1" class="sorter wide">
+                                <option value="nothing">nothing</option>
+                                <option value="pricedesc"> a </option>
+                                <option value="priceasc">  b  </option>
+
                             </select>
-
                         </div>
+                        <a href="javascript:void(0);" onclick="NavigatePage();">click here</a>
 
                     </div>
-                    <div>
-                        <h4>@Html.ActionLink("Lọc theo giá cao -> thấp", "Index", new { Category = ViewBag.Category, sortOrder = "price_desc", })</h4>
-                        <h4>@Html.ActionLink("Lọc theo giá thấp -> cao", "Index", new { Category = ViewBag.Category, sortOrder = "price_asc", })</h4>
-                    </div>
+                    @*<div>
+                            <h4>@Html.ActionLink("Lọc theo giá cao -> thấp", "Index", new { Category = ViewBag.Category, sortOrder = "price_desc", })</h4>
+                            <h4>@Html.ActionLink("Lọc theo giá thấp -> cao", "Index", new { Category = ViewBag.Category, sortOrder = "price_asc", })</h4>
+                        </div>*@
                     <!-- Toolbar Short Area End -->
                 </div>
                 <!-- Grid & List View End -->
@@ -298,7 +297,7 @@
                 <div>
                     Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
 
-                    @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { ProductPage = page }))
+                    @Html.PagedListPager((IPagedList)ViewBag.Prod, Productpage => Url.Action("Index", new { sortOrder = Request["sortOrder"], Category = Request["Category"], Productpage }))
 
                 </div>
                 <!-- Shop Breadcrumb Area Start -->
@@ -340,3 +339,25 @@
 </div>
 <!-- Shop Page End -->
 <!-- Footer Area Start Here -->
+
+<script type="text/javascript">
+    function NavigatePage() {
+    var selectedValue = document.getElementById('getSort').value;
+    if(selectedValue == "pricedesc")
+        document.location = '@Url.Action("Index", "Categoryw")';
+    else if(selectedValue == "priceasc")
+        document.location = '@Url.Action("Index", "Categoryw")';
+    else
+        document.location= '@Url.Action("Index2", "Categoryw")';// add as needed
+}
+
+    @*$(function(){
+   $("#getSort").change(function(){
+         var selectedItem = $("#getSort option:selected").text();
+         var redirectURL = '@Url.Action("Index","Category")';
+         window.location.href = redirectURL + "?item=" + selectedItem;
+   }*@
+
+
+</script>
+

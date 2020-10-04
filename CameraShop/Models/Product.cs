@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+
 namespace CameraShop.Models
 {
     public class Product
@@ -22,8 +24,10 @@ namespace CameraShop.Models
         [ForeignKey("Category")]
         public int CategoryID { get; set; }
 
+        [AllowHtml]
+        public string ProductSpecification { get; set; }
         public virtual Category Category { get; set; }
-        public virtual ProductSpecification ProductSpecification { get; set; }
+        
        
         public virtual ICollection<FileImg> FileImgs { get; set; }
 

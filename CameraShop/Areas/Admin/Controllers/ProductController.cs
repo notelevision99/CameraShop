@@ -57,9 +57,9 @@ namespace CameraShop.Areas.Admin.Controllers
         // POST: Product/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,OriPrice,DiscountedPrice,CategoryID")] Product product, string[] selectedFileImgs)
+        [ValidateInput(false)]
+        [HttpPost]  
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,OriPrice,DiscountedPrice,CategoryID,ProductSpecification")] Product product, string[] selectedFileImgs)
         {
             if (selectedFileImgs != null)
             {
@@ -77,7 +77,7 @@ namespace CameraShop.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             PopulateAssignedImageData(product);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Category Name", product.CategoryID);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             return View(product);
         }
 
@@ -153,7 +153,7 @@ namespace CameraShop.Areas.Admin.Controllers
                .Single();
 
             if (TryUpdateModel(productToUpdate, "",
-               new string[] { "ProductID", "ProductName", "OriPrice", "DiscountedPrice", "CategoryID" }))
+               new string[] { "ProductID", "ProductName", "OriPrice", "DiscountedPrice", "CategoryID", "ProductSpecification" }))
             {
                 try
                 {

@@ -5,7 +5,7 @@
 }
 
 <h2>Create</h2>
-
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
 
 @using (Html.BeginForm()) 
 {
@@ -94,6 +94,19 @@
 
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                Thông số kĩ thuật
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="form-group">
+                <textarea class="ckeditor" name="ProductSpecification"></textarea>
             </div>
         </div>
     </div>

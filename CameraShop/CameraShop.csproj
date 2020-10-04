@@ -174,11 +174,14 @@
     <Compile Include="Migrations\202009280703241_something.designer.cs">
       <DependentUpon>202009280703241_something.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010040818055_AddProductSpecification.cs" />
+    <Compile Include="Migrations\202010040818055_AddProductSpecification.designer.cs">
+      <DependentUpon>202010040818055_AddProductSpecification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\FileImg.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AssignedImageData.cs" />
     <Compile Include="ViewModels\ImageViewModel.cs" />
@@ -738,6 +741,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009280703241_something.resx">
       <DependentUpon>202009280703241_something.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010040818055_AddProductSpecification.resx">
+      <DependentUpon>202010040818055_AddProductSpecification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -290,7 +290,7 @@
                 <div class="col-sm-12">
                     <ul class="main-thumb-desc nav tabs-area" role="tablist">
                         <li>
-                            <a class="active" data-toggle="tab" href="#dtail">Description</a>
+                            <a class="active" data-toggle="tab" href="#dtail">Thông số kĩ thuật</a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#review">Reviews (1)</a>
@@ -299,7 +299,13 @@
                     <!-- Product Thumbnail Tab Content Start -->
                     <div class="tab-content thumb-content">
                         <div id="dtail" class="tab-pane fade show active">
-                            <p>Important difference when compared to the latter is that the EOS 5D doesn't have any environmental seals. While Canon don't specifically refer to the EOS 5D as a 'professional' digital SLR it will have obvious appeal professionals who want a high quality digital SLR in a body lighter than the EOS-1D. It will also no doubt appeal to current EOS 20D owners although lets hope they've not bought too many EF-S lenses...</p>
+                            @if (Model.ProductSpecification != null)
+                            {
+                                foreach (var item in Model.ProductSpecification)
+                                {
+                                    @Html.Raw(item.ToString())
+                                }
+                            }
                         </div>
                         <div id="review" class="tab-pane fade">
                             <!-- Reviews Start -->
