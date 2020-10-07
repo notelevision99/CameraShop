@@ -154,6 +154,7 @@
     </Compile>
     <Compile Include="HelperCode\HtmlExtensions.cs" />
     <Compile Include="HelperCode\ImgObj.cs" />
+    <Compile Include="HelperCode\Item.cs" />
     <Compile Include="Migrations\202009171826554_InitialCre.cs" />
     <Compile Include="Migrations\202009171826554_InitialCre.designer.cs">
       <DependentUpon>202009171826554_InitialCre.cs</DependentUpon>
@@ -707,6 +708,7 @@
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Shared\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

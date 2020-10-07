@@ -23,6 +23,7 @@ namespace CameraShop.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             this.Configuration.LazyLoadingEnabled = false;
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<Product>()

@@ -1,4 +1,4 @@
-﻿
+﻿@using CameraShop.HelperCode
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
@@ -16,6 +16,9 @@
 
 
 </head>
+@{
+    int countProdAdd = 0;
+}
 
 <body>
     <!-- Header Area Start Here -->
@@ -69,86 +72,155 @@
                         </div>
                         <!-- Search Box End Here -->
                         <!-- Cart Box Start Here -->
-                        <div class="col-md-3 col order-2 order-md-3 mb-sm-30">
+                        @*<div class="col-md-3 col order-2 order-md-3 mb-sm-30">
                             <div class="cart-box float-md-right">
                                 <div class="drodown-show">
+
                                     <a href="#">
-                                        <span class="total-pro">2 sản phẩm <br><span>160000đ</span></span>
+                                        <span class="total-pro"> sản phẩm <br><span class="badge badge-danger">160000đ</span></span>
                                     </a>
                                     <ul class="dropdown cart-box-width">
-                                        <li>
-                                            <!-- Cart Box Start -->
-                                            <div class="single-cart-box">
-                                                <div class="cart-img">
-                                                    <a href="#">
-                                                        <img src="~/img/products/p2.jpeg" alt="cart-image">
-                                                    </a>
-                                                    <span class="pro-quantity">1X</span>
-                                                </div>
-                                                <div class="cart-content">
-                                                    <h6>
-                                                        <a href="product-details.html">Printed Summer Red </a>
-                                                    </h6>
-                                                    <span class="cart-price">27.45</span>
-                                                    <span>Size: S</span>
-                                                    <span>Color: Yellow</span>
-                                                </div>
-                                                <a class="del-icone" href="#">
-                                                    <span class="ti-close"></span>
-                                                </a>
-                                            </div>
-                                            <!-- Cart Box End -->
-                                            <!-- Cart Box Start -->
-                                            <div class="single-cart-box">
-                                                <div class="cart-img">
-                                                    <a href="#">
-                                                        <img src="~/img/products/p4.jpeg" alt="cart-image">
-                                                    </a>
-                                                    <span class="pro-quantity">1X</span>
-                                                </div>
-                                                <div class="cart-content">
-                                                    <h6>
-                                                        <a href="product-details.html">Printed Round Neck</a>
-                                                    </h6>
-                                                    <span class="cart-price">45.00</span>
-                                                    <span>Size: XL</span>
-                                                    <span>Color: Green</span>
-                                                </div>
-                                                <a class="del-icone" href="#">
-                                                    <span class="ti-close"></span>
-                                                </a>
-                                            </div>
-                                            <!-- Cart Box End -->
-                                            <!-- Cart Footer Inner Start -->
+                                        @if (Session["cart"] != null)
+                                        {
+                                            decimal totalPrice = 0;
+                                            foreach (var item in (List<Item>)Session["cart"])
+                                            {
+                                                int count = 0;
+
+                                                totalPrice += item.Product.DiscountedPrice;
+                                                <li>
+                                                     Cart Box Start 
+                                                    <div class="single-cart-box">
+                                                        <div class="cart-img">
+                                                            <a href="#">
+                                                                <img src="~/img/products/p2.jpeg" alt="cart-image">
+                                                                @foreach (var img in item.Product.FileImgs)
+                                                                {
+                                                                    count++;
+                                                                    if (count == 1)
+                                                                    {
+                                                                        @Html.Image(img.file_base6);
+                                                                    }
+                                                                }
+                                                            </a>
+                                                            <span class="pro-quantity">@item.Quantity</span>
+                                                        </div>
+                                                        <div class="cart-content">
+                                                            <h6>
+                                                                <a href="product-details.html">@item.Product.ProductName </a>
+                                                            </h6>
+                                                            <span class="cart-price">@item.Product.DiscountedPrice.ToString("0#,0") đ</span>
+
+                                                        </div>
+                                                        <a class="del-icone" href="#">
+                                                            <span class="ti-close"></span>
+                                                        </a>
+                                                    </div>
+                                                </li>
+
+                                            }
+                                            Cart Footer Inner Start
                                             <div class="cart-footer">
                                                 <ul class="price-content">
                                                     <li>
-                                                        Subtotal
-                                                        <span>$57.95</span>
-                                                    </li>
+                                                            Subtotal
+                                                            <span>null</span>
+                                                        </li>
+                                                        <li>
+                                                            Shipping
+                                                            <span>$7.00</span>
+                                                        </li>
+                                                        <li>
+                                                            Taxes
+                                                            <span>$0.00</span>
+                                                        </li>
                                                     <li>
-                                                        Shipping
-                                                        <span>$7.00</span>
-                                                    </li>
-                                                    <li>
-                                                        Taxes
-                                                        <span>$0.00</span>
-                                                    </li>
-                                                    <li>
-                                                        Total
-                                                        <span>$64.95</span>
+                                                        Tạm tính
+                                                        <span>@totalPrice.ToString("0#,0")đ</span>
                                                     </li>
                                                 </ul>
                                                 <div class="cart-actions text-center">
                                                     <a class="cart-checkout" href="checkout.html">Checkout</a>
                                                 </div>
                                             </div>
-                                            <!-- Cart Footer Inner End -->
-                                        </li>
+                                            Cart Footer Inner End
+                                        }
+
+
+                                        <li>
+                                                 Cart Box Start
+                                                <div class="single-cart-box">
+                                                    <div class="cart-img">
+                                                        <a href="#">
+                                                            <img src="~/img/products/p2.jpeg" alt="cart-image">
+                                                        </a>
+                                                        <span class="pro-quantity">1X</span>
+                                                    </div>
+                                                    <div class="cart-content">
+                                                        <h6>
+                                                            <a href="product-details.html">Printed Summer Red </a>
+                                                        </h6>
+                                                        <span class="cart-price">27.45</span>
+                                                        <span>Size: S</span>
+                                                        <span>Color: Yellow</span>
+                                                    </div>
+                                                    <a class="del-icone" href="#">
+                                                        <span class="ti-close"></span>
+                                                    </a>
+                                                </div>
+                                                 Cart Box End
+                                                 Cart Box Start
+                                                <div class="single-cart-box">
+                                                    <div class="cart-img">
+                                                        <a href="#">
+                                                            <img src="~/img/products/p4.jpeg" alt="cart-image">
+                                                        </a>
+                                                        <span class="pro-quantity">1X</span>
+                                                    </div>
+                                                    <div class="cart-content">
+                                                        <h6>
+                                                            <a href="product-details.html">Printed Round Neck</a>
+                                                        </h6>
+                                                        <span class="cart-price">45.00</span>
+                                                        <span>Size: XL</span>
+                                                        <span>Color: Green</span>
+                                                    </div>
+                                                    <a class="del-icone" href="#">
+                                                        <span class="ti-close"></span>
+                                                    </a>
+                                                </div>
+                                                 Cart Box End
+                                                 Cart Footer Inner Start
+                                                <div class="cart-footer">
+                                                    <ul class="price-content">
+                                                        <li>
+                                                            Subtotal
+                                                            <span>$57.95</span>
+                                                        </li>
+                                                        <li>
+                                                            Shipping
+                                                            <span>$7.00</span>
+                                                        </li>
+                                                        <li>
+                                                            Taxes
+                                                            <span>$0.00</span>
+                                                        </li>
+                                                        <li>
+                                                            Total
+                                                            <span>$64.95</span>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="cart-actions text-center">
+                                                        <a class="cart-checkout" href="checkout.html">Checkout</a>
+                                                    </div>
+                                                </div>
+                                                 Cart Footer Inner End
+                                            </li>
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
+                        @Html.Partial("Cart")
                         <!-- Cart Box End Here -->
                     </div>
                 </div>
@@ -161,9 +233,8 @@
                             <nav>
                                 <ul class="header-menu-list">
                                     <li class="active">
-                                        <a  href="@Url.Action("Index","Home")">home</a>
+                                        <a href="@Url.Action("Index","Home")">home</a>
                                         <!-- Home Version Dropdown Start -->
-                                        
                                         <!-- Home Version Dropdown End -->
                                     </li>
                                     <li>
@@ -369,7 +440,7 @@
                                                 <li>
                                                     <a href="shop.html">Integrated Systems</a>
                                                 </li>
-                                                
+
                                             </ul>
                                             <!-- Watches Dropdown End -->
                                         </li>
@@ -380,7 +451,7 @@
                                                 <li>
                                                     <a href="shop.html">Joggers</a>
                                                 </li>
-                                                
+
                                             </ul>
                                             <!-- Shoes Dropdown End -->
                                         </li>
@@ -391,7 +462,7 @@
                                                 <li>
                                                     <a href="shop.html">Men's Watches</a>
                                                 </li>
-                                               
+
                                             </ul>
                                             <!-- Bags Dropdown End -->
                                         </li>
@@ -402,7 +473,7 @@
                                                 <li>
                                                     <a href="shop.html">Pro Scooters</a>
                                                 </li>
-                                                
+
                                             </ul>
                                             <!-- Bags Dropdown End -->
                                         </li>
@@ -416,7 +487,7 @@
                                         <li>
                                             <a href="shop.html">Shop</a>
                                         </li>
-                                        
+
                                     </ul>
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
@@ -427,7 +498,7 @@
                                         <li>
                                             <a href="blog.html">blog</a>
                                         </li>
-                                        
+
                                     </ul>
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
@@ -438,7 +509,7 @@
                                         <li>
                                             <a href="about.html">about us</a>
                                         </li>
-                                       
+
                                     </ul>
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
@@ -466,6 +537,6 @@
 @Scripts.Render("~/bundles/clientjs")
 @*@Scripts.Render("~/bundles/clientModernizr")*@
 
-    <script src="~/Scripts/Clients/vendor/modernizr-3.5.0.min.js"></script>
+<script src="~/Scripts/Clients/vendor/modernizr-3.5.0.min.js"></script>
 
 @RenderSection("scripts", required: false)

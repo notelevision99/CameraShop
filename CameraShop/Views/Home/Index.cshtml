@@ -3,7 +3,7 @@
 @using CameraShop.HelperCode
 
 
-@{ 
+@{
     int countProductBestSeal = 1;
 }
 @*<table class="table">
@@ -50,6 +50,7 @@
     </table>*@
 
 <!-- Featured Product Start Here -->
+
 <div class="featured-pro pb-80">
     <div class="container">
         <div class="main-product-tab-area">
@@ -104,7 +105,15 @@
                                         <div class="pro-content">
                                             <div class="pro-info">
                                                 <h6 class="font-weight-bold" display="flex"><a href="@Url.Action("Details","Home", new { id = item.ProductID})">@Html.DisplayFor(modelItem => item.ProductName)</a></h6>
-                                                <p><span class="special-price text-danger">@if (item.DiscountedPrice > 10000) { @Html.DisplayFor(modelItem => item.DiscountedPrice)} else {@Html.DisplayName("Liên hệ");  } </span></p>
+                                                <p>
+                                                    <span class="special-price text-danger">
+                                                        @if (item.DiscountedPrice > 10000)
+                                                        {@Html.DisplayFor(modelItem => item.DiscountedPrice)}
+                                                    else
+                                                    {@Html.DisplayName("Liên hệ");
+                                                }
+                                                    </span>
+                                                </p>
                                                 <div class="product-rating">
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
@@ -114,9 +123,16 @@
                                                     <span class="quantity-pro">(200+)</span>
                                                 </div>
                                             </div>
-                                            <div class="pro-add-cart">
-                                                <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                            </div>
+                                            @if (item.DiscountedPrice > 10000)
+                                            {
+
+                                                <div class="pro-add-cart">
+                                                    @*<a href="cart.html" title="Add to Cart">Add To Cart</a>*@
+                                                    <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@item.ProductID" class="pro-cart">Thêm vào giỏ</button>
+                                                </div>
+
+                                            }
+
                                         </div>
                                         <!-- Product Content End -->
                                     </div>
@@ -133,6 +149,19 @@
                     <!-- Best Deal Product Activation End Here -->
                 </div>
                 <!-- #best-deal End Here -->
+                @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                </button>*@
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">                 
+                            <div class="alert alert-success">
+                               Đã thêm vào giỏ hàng <strong>thành công</strong>
+                            </div>
+                                              
+                    </div>
+                </div>
                 <div id="new-pro" class="tab-pane fade">
                     <!-- New Product Activation Start Here -->
                     <div class="feature-pro-active owl-carousel">
@@ -499,6 +528,7 @@
                                     <p><span class="special-price">$140.00</span></p>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
+
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -524,3 +554,46 @@
     </div>
 </div>
 <!-- Featured Product End Here -->
+<script type="text/javascript">
+    //$("#myLink").click(function (e) {
+
+    //    e.preventDefault();
+    //    $.ajax({
+
+    //        url: $(this).attr("href"), // comma here instead of semicolon
+    //        success: function () {
+    //            alert("Value Added");  // or any other indication if you want to show
+    //        }
+
+    //    });
+
+    //});
+    function AddToCart(item) {
+        var itemid = $(item).attr("itemid");
+        //alert(itemid);
+        var formData = new FormData();
+        formData.append("ProductID", itemid);
+        
+        $.ajax({
+            async: false,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Home/AddToCart',
+            success: function (data) {
+                if (data.success) {
+                    //alert("Đã thêm vào giỏ hàng")
+                    $("#exampleModal").show();
+                    $("#cartItem").text("" + data.Counter + " sản phẩm ");
+                   
+                    //$("dropdown cart-box-width active").show();
+                }
+            
+            },
+            error: function () {
+                alert("There is some problem");
+            }
+        })
+    }
+</script>
