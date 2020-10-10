@@ -59,34 +59,34 @@ namespace CameraShop.Controllers
                 if (sortOrder != null && sortOrder == "price_desc")
                 {
                     viewmodel.Products = db.Products.OrderByDescending(p => p.DiscountedPrice)
-                        .ToPagedList(ProductPageNumber, 2);
+                        .ToPagedList(ProductPageNumber, 5);
                 }
                 else if (sortOrder != null && sortOrder == "price_asc")
                 {
                     viewmodel.Products = db.Products.OrderBy(p => p.DiscountedPrice)
-                       .ToPagedList(ProductPageNumber, 2);
+                       .ToPagedList(ProductPageNumber, 5);
                 }
                 else
                 {
                     viewmodel.Products = db.Products
                       .Include(i => i.FileImgs)
                       .OrderBy(p => p.ProductName)
-                      .ToPagedList(ProductPageNumber, 2);
+                      .ToPagedList(ProductPageNumber, 5);
                 }
             }
             else
             {
-                viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.ProductName).ToPagedList(ProductPageNumber, 2);
+                viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.ProductName).ToPagedList(ProductPageNumber, 5);
                 //ViewBag.CountProd = products.Count();
 
                 //lọc != null
                 if (sortOrder != null && sortOrder == "price_desc")
                 {
-                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderByDescending(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, 2);
+                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderByDescending(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, 5);
                 }
                 else if (sortOrder != null && sortOrder == "price_asc")
                 {
-                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, 2);
+                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, 5);
                 }
                 //lấy giá trị của category hiện tại truyền cho view
                 ViewBag.Category = Category;
@@ -95,6 +95,7 @@ namespace CameraShop.Controllers
             }
 
             ViewBag.Prod = viewmodel.Products;
+            ViewBag.SortOrder = sortOrder;
             viewmodel.Categories = categories;
             return View(viewmodel);
         }

@@ -23,13 +23,6 @@ namespace CameraShop.Controllers
                 .Include(p => p.FileImgs);
              return View(products.ToList());
         }
-
-        [ChildActionOnly]
-        public ActionResult RenderPopUp()
-        {
-            return PartialView("PopUpMessage");
-        }
-
         // GET: Home/Details/5
         public ActionResult Details(int? id)
         {
@@ -44,6 +37,8 @@ namespace CameraShop.Controllers
             }
             return View(product);
         }
+
+
 
         [HttpPost]
         public ActionResult AddToCart(int productID)
@@ -61,22 +56,55 @@ namespace CameraShop.Controllers
                 });
                 Session["cart"] = cart;
                 Session["cartCounter"] = cart.Count();
-              
+                
                 
             }
             else
             {
                 List<Item> cart = (List<Item>)Session["cart"];
                 var product = db.Products.Include(p => p.FileImgs)
-                    .SingleOrDefault(x => x.ProductID == productID);
-                //var product = db.Products.Find(productID);
-                cart.Add(new Item()
+                    .Single(x => x.ProductID == productID);
+                List<int> addedItems = new List<int>();
+
+                foreach (var item in cart)
                 {
-                    Product = product,
-                    Quantity = 1
-                });
-                Session["cart"] = cart;
-                Session["cartCounter"] = cart.Count();
+                    addedItems.Add(item.Product.ProductID);
+                   
+                }
+                //var product = db.Products.Find(productID);
+                foreach (var item in cart.ToList())
+                {
+                    if (item.Product.ProductID == productID)
+                    {
+                        int preQty = item.Quantity;
+                        cart.Remove(item);
+                        cart.Add(new Item()
+                        {
+                            Product = product,
+                            Quantity = preQty + 1
+                        });
+                        Session["cart"] = cart;
+                    }
+                    else
+                    {
+                        if (addedItems.Contains(productID))
+                        {
+                            
+                        }
+                        else
+                        {
+                            cart.Add(new Item()
+                            {
+                                Product = product,
+                                Quantity = 1
+                            });
+                            Session["cartCounter"] = cart.Count();
+                            break;
+                        }
+                        Session["cart"] = cart;
+                                         
+                    }                    
+                }
                 
             }
 
@@ -85,6 +113,7 @@ namespace CameraShop.Controllers
 
         }
 
+        
 
         protected override void Dispose(bool disposing)
         {

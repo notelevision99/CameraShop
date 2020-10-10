@@ -1,0 +1,23 @@
+﻿@using CameraShop.HelperCode
+ <!-- Cart Box Start Here -->
+<div class="col-md-3 col order-2 order-md-3 mb-sm-30">
+    <div class="cart-box float-md-right">
+        <div class="btn-block">
+            @if (Session["cartCounter"] == null)
+            {
+            <a href="@Url.Action("Cart","Cart")">
+                <span class="total-pro ">Xem chi tiết <br><span class="badge badge-danger" id="cartItem"> 0 sản phẩm </span> </span>
+            </a>
+
+            }
+            else
+            {
+                <a href="@Url.Action("Cart","Cart")" >
+                    <span class="total-pro ">Xem chi tiết <br><span class="badge badge-danger"  id="cartItem"> @Session["cartCounter"] sản phẩm </span> </span>
+                </a>
+            }
+
+            </div>
+        </div>
+    </div>
+

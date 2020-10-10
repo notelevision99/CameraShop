@@ -154,14 +154,25 @@
                 </button>*@
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">                 
-                            <div class="alert alert-success">
-                               Đã thêm vào giỏ hàng <strong>thành công</strong>
-                            </div>
-                                              
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Giỏ hàng của bạn</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-success align-content-between"><span class="fasfa">Đã thêm thành công</span></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" onclick="document.location.href='@Url.Action("Cart","Cart")'" class="btn btn-success">Tiến hành thanh toán</button>
+                        </div>
                     </div>
                 </div>
+            </div>
                 <div id="new-pro" class="tab-pane fade">
                     <!-- New Product Activation Start Here -->
                     <div class="feature-pro-active owl-carousel">
