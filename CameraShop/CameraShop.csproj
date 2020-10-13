@@ -180,9 +180,19 @@
     <Compile Include="Migrations\202010040818055_AddProductSpecification.designer.cs">
       <DependentUpon>202010040818055_AddProductSpecification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010121305523_AddOrderandOrderDetail.cs" />
+    <Compile Include="Migrations\202010121305523_AddOrderandOrderDetail.designer.cs">
+      <DependentUpon>202010121305523_AddOrderandOrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010131046471_RemoveDataAnotationOrder.cs" />
+    <Compile Include="Migrations\202010131046471_RemoveDataAnotationOrder.designer.cs">
+      <DependentUpon>202010131046471_RemoveDataAnotationOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\FileImg.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AssignedImageData.cs" />
@@ -711,6 +721,8 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Shared\CartPartial.cshtml" />
     <Content Include="Views\Cart\Cart.cshtml" />
+    <Content Include="Views\Cart\CheckOut.cshtml" />
+    <Content Include="Views\Cart\OrderSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -748,6 +760,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010040818055_AddProductSpecification.resx">
       <DependentUpon>202010040818055_AddProductSpecification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010121305523_AddOrderandOrderDetail.resx">
+      <DependentUpon>202010121305523_AddOrderandOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010131046471_RemoveDataAnotationOrder.resx">
+      <DependentUpon>202010131046471_RemoveDataAnotationOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

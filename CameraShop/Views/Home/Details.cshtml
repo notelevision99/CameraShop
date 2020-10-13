@@ -212,74 +212,86 @@
                     </ul>
                     <div class="pro-thumb-price mt-20">
                         <p>
-                            <span class="special-price text-danger">@if (Model.DiscountedPrice > 10000) { @Html.DisplayFor(modelItem => modelItem.DiscountedPrice)} else {@Html.DisplayName("Liên hệ");  } </span>
-                            <del class="old-price">@Html.DisplayFor(modelItem => modelItem.OriPrice)</del>
-                        </p>
-                    </div>
-                    <p class="pro-desc-details">
-                        Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while
-                        we're not typically too concerned with marketing talk this particular statement is clearly
-                        pretty accurate...
+                            <span class="special-price text-danger">
+                                @if (Model.DiscountedPrice > 10000)
+                                {@Html.DisplayFor(modelItem => modelItem.DiscountedPrice)}
+                            else
+                            {@Html.DisplayName("Liên hệ");
+                        }
+                        </span>
+                        <del class="old-price">@Html.DisplayFor(modelItem => modelItem.OriPrice)</del>
                     </p>
-                    <ul class="pro-list-features">
+                </div>
+                <p class="pro-desc-details">
+                    Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while
+                    we're not typically too concerned with marketing talk this particular statement is clearly
+                    pretty accurate...
+                </p>
+                <ul class="pro-list-features">
+                    <li>
+                        Ex Tax:
+                        <span class="ex-text">$68.71</span>
+                    </li>
+                    <li>
+                        Brands
+                        <a href="#">Maron</a>
+                    </li>
+                    <li>
+                        Product Code:
+                        <span>Drone</span>
+                    </li>
+                </ul>
+                <div class="product-size mtb-30 clearfix">
+                    <label>Size</label>
+                    <select class="">
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                    </select>
+                </div>
+                <div class="color clearfix mb-30">
+                    <label>color</label>
+                    <ul class="color-list">
                         <li>
-                            Ex Tax:
-                            <span class="ex-text">$68.71</span>
+                            <a class="black" href="#"></a>
                         </li>
                         <li>
-                            Brands
-                            <a href="#">Maron</a>
+                            <a class="white" href="#"></a>
+                        </li>
+                        <li class="active">
+                            <a class="orange" href="#"></a>
                         </li>
                         <li>
-                            Product Code:
-                            <span>Drone</span>
+                            <a class="paste" href="#"></a>
                         </li>
                     </ul>
-                    <div class="product-size mtb-30 clearfix">
-                        <label>Size</label>
-                        <select class="">
-                            <option>S</option>
-                            <option>M</option>
-                            <option>L</option>
-                        </select>
-                    </div>
-                    <div class="color clearfix mb-30">
-                        <label>color</label>
-                        <ul class="color-list">
+                </div>
+                <div class="quatity-stock">
+                    <label>Quantity</label>
+                    <ul class="d-flex flex-wrap">
+                        <li class="box-quantity">
+                            <form action="#">
+                                <input class="quantity" type="number" min="1" value="1">
+                            </form>
+                        </li>
+                        @if (Model.DiscountedPrice > 10000)
+                        {
                             <li>
-                                <a class="black" href="#"></a>
+                                @*<a href="cart.html" title="Add to Cart">Add To Cart</a>*@
+                                <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@Model.ProductID" class="pro-cart">Thêm vào giỏ</button>
                             </li>
-                            <li>
-                                <a class="white" href="#"></a>
-                            </li>
-                            <li class="active">
-                                <a class="orange" href="#"></a>
-                            </li>
-                            <li>
-                                <a class="paste" href="#"></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="quatity-stock">
-                        <label>Quantity</label>
-                        <ul class="d-flex flex-wrap">
-                            <li class="box-quantity">
-                                <form action="#">
-                                    <input class="quantity" type="number" min="1" value="1">
-                                </form>
-                            </li>
-                            <li>
-                                <button class="pro-cart">add to cart</button>
-                            </li>
-                        </ul>
-                    </div>
+                        }
+                    </ul>
+
+
                 </div>
             </div>
-            <!-- Thumbnail Description End -->
         </div>
-        <!-- Row End -->
+        <!-- Thumbnail Description End -->
     </div>
-    <!-- Container End -->
+    <!-- Row End -->
+</div>
+<!-- Container End -->
 </div>
 <!-- Product Thumbnail End -->
 <!-- Product Thumbnail Description Start -->
@@ -296,6 +308,28 @@
                             <a data-toggle="tab" href="#review">Reviews (1)</a>
                         </li>
                     </ul>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Giỏ hàng của bạn</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-success align-content-between"><span class="fasfa">Đã thêm thành công</span></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                                    <button type="button" onclick="document.location.href='@Url.Action("Cart","Cart")'" class="btn btn-success">Tiến hành thanh toán</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Product Thumbnail Tab Content Start -->
                     <div class="tab-content thumb-content">
                         <div id="dtail" class="tab-pane fade show active">
@@ -427,3 +461,48 @@
 </div>
 <!-- Product Thumbnail Description End -->
 <!-- More Product Start Here -->
+
+<script type="text/javascript">
+    //$("#myLink").click(function (e) {
+
+    //    e.preventDefault();
+    //    $.ajax({
+
+    //        url: $(this).attr("href"), // comma here instead of semicolon
+    //        success: function () {
+    //            alert("Value Added");  // or any other indication if you want to show
+    //        }
+
+    //    });
+
+    //});
+    function AddToCart(item) {
+        var itemid = $(item).attr("itemid");
+        //alert(itemid);
+        var formData = new FormData();
+        formData.append("ProductID", itemid);
+
+        $.ajax({
+            async: false,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Home/AddToCart',
+            success: function (data) {
+                if (data.success) {
+                    //alert("Đã thêm vào giỏ hàng")
+                    $("#exampleModal").show();
+                    $("#cartItem").text("" + data.Counter + " sản phẩm ");
+
+                    //$("dropdown cart-box-width active").show();
+                }
+
+            },
+            error: function () {
+                alert("There is some problem");
+            }
+        })
+    }
+</script>
+    

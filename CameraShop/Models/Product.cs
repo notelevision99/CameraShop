@@ -26,9 +26,10 @@ namespace CameraShop.Models
 
         [AllowHtml]
         public string ProductSpecification { get; set; }
+
+
         public virtual Category Category { get; set; }
-        
-       
+        public virtual ICollection<OrderDetail> OrderDetails  { get; set; }
         public virtual ICollection<FileImg> FileImgs { get; set; }
 
 

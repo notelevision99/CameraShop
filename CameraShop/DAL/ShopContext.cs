@@ -19,8 +19,8 @@ namespace CameraShop.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<FileImg> FileImgs { get; set; }
-
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
@@ -31,8 +31,7 @@ namespace CameraShop.DAL
             .Map(t => t.MapLeftKey("ProductID")
              .MapRightKey("file_id")
             .ToTable("ProductImg"));
-
-
+         
 
         }
         public virtual int sp_insert_file(string file_name, string file_ext, string file_base64)
