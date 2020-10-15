@@ -51,7 +51,9 @@
                                             <td class="product-quantity">@*<input type="number" value="1">*@ @item.Quantity</td>
                                             @{totalPrice = item.Quantity * (int)item.Product.DiscountedPrice;}
                                             <td class="product-subtotal">@totalPrice.ToString("0#,0")</td>
-                                            <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                            @*<td class="product-remove"> <a href="@Url.Action("RemoveItemCart","Cart", new { productId = item.Product.ProductID})"> <i class="fa fa-times" aria-hidden="true" </a></td>*@
+                                            @*<td><button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="RemoveItemCart(this);" itemid="@item.Product.ProductID" class="pro-cart">Xoa</button></td>*@
+                                            <td><a href="@Url.Action("RemoveItemCart","Cart",new { productId = item.Product.ProductID})">Xoa</a></td>
                                             @{ totalPriceCart += totalPrice;}
                                         </tr>
                                     </tbody>
@@ -107,14 +109,11 @@
                         <!-- Cart Totals Start -->
                         <div class="col-md-4 col-sm-12">
                             <div class="cart_totals float-md-right text-md-right">
-                                <h2>Cart Totals</h2>
+                                <h2>Giỏ hàng của bạn</h2>
                                 <br>
                                 <table class="float-md-right">
                                     <tbody>
-                                        <tr class="cart-subtotal">
-                                            <th>Subtotal</th>
-                                            <td><span class="amount">$215.00</span></td>
-                                        </tr>
+                                        
                                         <tr class="order-total">
                                             <th>Tổng tiền</th>
                                             <td>
@@ -139,3 +138,4 @@
     </div>
 </div>
 <!-- Cart Main Area End -->
+<

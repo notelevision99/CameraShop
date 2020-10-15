@@ -1,0 +1,117 @@
+﻿@model CameraShop.Models.Order
+
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+}
+<div>
+    <h4>Chi tiết đơn hàng của @Html.DisplayFor(model => model.CustomerName)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+
+        
+
+        <dt>
+            Ngày đặt hàng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            Trạng thái
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            Tên khách hàng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+
+        <dt>
+            Số điện thoại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerPhone)
+        </dd>
+
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderNote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderNote)
+        </dd>
+
+    </dl>
+</div>
+@if (Model.OrderDetails != null)
+{
+    int totalPriceOrder = 0;
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Số lượng</th>
+
+                <th scope="col">Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetails)
+            {
+               
+                int totalPriceProd;
+                <tr>
+
+                    <td></td>
+                    <td><a href="@Url.Action("Index","")"><b>@item.Product.ProductName</b></a></td>
+
+                    <td>@item.Quantity</td>
+                    @{totalPriceProd = (int)item.Product.DiscountedPrice * item.Quantity;}
+                    @{ totalPriceOrder += totalPriceProd;}
+                    <td>@totalPriceProd.ToString("0#,0") đ</td>
+                </tr>
+            }
+            
+            <tr class="table-success">
+                <td></td>
+                <td><h5><b>Tổng tiền</b></h5></td>
+                <td></td>
+                <td><h5 class="text-danger">@totalPriceOrder.ToString("0#,0")đ</h5></td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+<p>
+
+    @Html.ActionLink("Back to List", "Order")
+</p>
+

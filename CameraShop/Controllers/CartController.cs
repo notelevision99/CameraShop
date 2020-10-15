@@ -39,8 +39,7 @@ namespace CameraShop.Controllers
                 CustomerEmail = frc["cusEmail"],
                 CustomerPhone = frc["cusPhone"],
                 OrderDate = DateTime.Now,
-                Status = true,
-                
+                Status = true
             };
             db.Orders.Add(order);
             db.SaveChanges();
@@ -51,7 +50,6 @@ namespace CameraShop.Controllers
                     OrderID = order.OrderID,
                     ProductID = item.Product.ProductID,
                     Quantity = item.Quantity
-
                 };
                 db.OrderDetails.Add(orderDetail);
                 db.SaveChanges();
@@ -59,6 +57,28 @@ namespace CameraShop.Controllers
             Session.Remove("cart");
 
             return View("OrderSuccess");
+        }
+               
+        public ActionResult RemoveItemCart(int productID)
+        {
+            List<Item> cart = (List<Item>)Session["cart"];
+          
+            foreach (var item in cart)
+            {
+                if (item.Product.ProductID == productID)
+                {
+                    cart.Remove(item);
+                    Session["cartCounter"] = cart.Count();
+                    if(cart.Count() == 0)
+                    {
+                        Session["cart"] = null;
+                    }
+                    break;
+                }                          
+                Session["cart"] = cart;
+            }           
+            return RedirectToAction("Cart");
+            //return Json(new { success = true, Counter = Session["cartCounter"] }, JsonRequestBehavior.AllowGet);
         }
     }
 }

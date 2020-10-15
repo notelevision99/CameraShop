@@ -9,8 +9,8 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-hover">
+    <tr class="table-info">
         <th>Anh</th>
         <th>
             @Html.DisplayName("Category Name")
@@ -53,7 +53,7 @@
         @Html.DisplayFor(modelItem => item.Category.CategoryName)
     </td>
     <td>
-        <h6 class="font-weight-bold">@Html.DisplayFor(modelItem => item.ProductName)</h6> 
+        <h6 class="font-weight-bold"><a href="@Url.Action("Details","Product", new { id = item.ProductID })">@Html.DisplayFor(modelItem => item.ProductName)</a></h6> 
     </td>
     <td>
         <p ><del class="old-price">@Html.DisplayFor(modelItem => item.OriPrice )</del></p>

@@ -14,6 +14,7 @@ namespace CameraShop.Controllers
 {
     public class HomeController : Controller
     {
+        
         private ShopContext db = new ShopContext();
 
         // GET: Home
@@ -42,8 +43,7 @@ namespace CameraShop.Controllers
 
         [HttpPost]
         public ActionResult AddToCart(int productID)
-        {
-             
+        {         
             if (Session["cart"] == null)
             {
                 var cart = new List<Item>();
@@ -55,9 +55,7 @@ namespace CameraShop.Controllers
                     Quantity = 1
                 });
                 Session["cart"] = cart;
-                Session["cartCounter"] = cart.Count();
-                
-                
+                Session["cartCounter"] = cart.Count();              
             }
             else
             {
