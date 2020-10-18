@@ -24,6 +24,11 @@ namespace CameraShop
               url: "danh-muc-san-pham/{action}/{id}",
               defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional }
           );
+            routes.MapRoute(
+            name: "gio-hang",
+            url: "gio-hang/{action}/{id}",
+            defaults: new { controller = "Cart", action = "Cart", id = UrlParameter.Optional }
+        );
 
             routes.MapRoute(
                 name: "Default",

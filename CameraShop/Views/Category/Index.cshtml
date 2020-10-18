@@ -7,69 +7,12 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
-@*<!DOCTYPE html>
-
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Index</title>
-    </head>
-    <body>
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CategoryName)
-                </th>
-                <th></th>
-            </tr>
-
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })
-                </td>
-            </tr>
-        }
-
-        </table>
-    </body>
-    </html>*@
 
 @{
     int countProduct = 0;
 }
-<div class="breadcrumb-area">
-    <div class="container">
-        <ol class="breadcrumb breadcrumb-list">
-            @if (ViewContext.RouteData.Values["controller"].ToString() != "Category")
-            {
-                <li class="breadcrumb-item">
-                    @Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())
-                </li>
-
-            }
-            @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-            {
-                <li class="breadcrumb-item">
-                    @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-                </li>
-            }
 
 
-
-        </ol>
-
-    </div>
-</div>
-<!-- Breadcrumb Area End Here -->
 <!-- Shop Page Start -->
 <div class="main-shop-page ptb-80">
     <div class="container">

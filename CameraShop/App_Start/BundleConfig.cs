@@ -51,8 +51,9 @@ namespace CameraShop
                      "~/Content/Client/css/bootstrap.min.css",
                      "~/Content/Client/css/default.css",
                      "~/Content/Client/css/slick.css",
-                     "~/Content/Client/css/responsive.css"
-                    
+                     "~/Content/Client/css/responsive.css",
+                     "~/Content/Site.css"
+
                      ));
             bundles.Add(new StyleBundle("~/Content/clientStyleCss").Include(
                      "~/Content/Client/style.css"));

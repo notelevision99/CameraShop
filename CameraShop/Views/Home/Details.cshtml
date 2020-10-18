@@ -95,7 +95,6 @@
                 <div class="tab-content">
                     @{
                         int count = 1;
-
                         {
                             foreach (var img in Model.FileImgs)
                             {
@@ -106,7 +105,6 @@
                                         @Html.LargeImageDetails(img.file_base6)
                                     </div>
                                 }
-
                                 if (count >= 2)
                                 {
                                     <div id="thumb@(count)" class="tab-pane fade ">
@@ -117,7 +115,6 @@
                                 count++;
                             }
                         }
-
                     }
                     @*<div id="thumb1" class="tab-pane fade show active">
                             <a data-fancybox="images" href="~/img/products/p2.jpeg">
@@ -139,7 +136,6 @@
                                 <img src="~/img/products/p7.jpeg" alt="product-view">
                             </a>
                         </div>*@
-
                 </div>
                 <!-- Thumbnail Large Image End -->
                 <!-- Thumbnail Image End -->
@@ -158,7 +154,6 @@
                                                 @Html.ThumbnailImagesCount2(img.file_base6)
                                             </a>
                                         }
-
                                         if (countThumbnail >= 2 && countThumbnail <= count)
                                         {
                                             <a data-toggle="tab" href="#thumb@(countThumbnail)">
@@ -227,44 +222,10 @@
                     we're not typically too concerned with marketing talk this particular statement is clearly
                     pretty accurate...
                 </p>
-                <ul class="pro-list-features">
-                    <li>
-                        Ex Tax:
-                        <span class="ex-text">$68.71</span>
-                    </li>
-                    <li>
-                        Brands
-                        <a href="#">Maron</a>
-                    </li>
-                    <li>
-                        Product Code:
-                        <span>Drone</span>
-                    </li>
-                </ul>
-                <div class="product-size mtb-30 clearfix">
-                    <label>Size</label>
-                    <select class="">
-                        <option>S</option>
-                        <option>M</option>
-                        <option>L</option>
-                    </select>
-                </div>
+                
                 <div class="color clearfix mb-30">
-                    <label>color</label>
-                    <ul class="color-list">
-                        <li>
-                            <a class="black" href="#"></a>
-                        </li>
-                        <li>
-                            <a class="white" href="#"></a>
-                        </li>
-                        <li class="active">
-                            <a class="orange" href="#"></a>
-                        </li>
-                        <li>
-                            <a class="paste" href="#"></a>
-                        </li>
-                    </ul>
+                    
+                    
                 </div>
                 <div class="quatity-stock">
                     <label>Quantity</label>

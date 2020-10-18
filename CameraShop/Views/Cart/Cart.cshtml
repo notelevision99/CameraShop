@@ -1,14 +1,41 @@
 ﻿<!-- Cart Main Area Start -->
 @using CameraShop.HelperCode
-@{ 
+@{
     decimal totalPriceCart = 0;
 }
+<div class="breadcrumb-area">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb-list">
+
+
+            @if (ViewContext.RouteData.Values["controller"].ToString() != "Cart1")
+            {
+                <li class="breadcrumb-item">
+                    @Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Cart", ViewContext.RouteData.Values["controller"].ToString())
+                </li>
+
+            }
+            @if (ViewContext.RouteData.Values["action"].ToString() != "Cart")
+            {
+                <li class="breadcrumb-item">
+                    @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+                </li>
+            }
+
+
+
+        </ol>
+    </div>
+</div>
+
 <div class="cart-main-area ptb-80">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <!-- Form Start -->
-                <form action="#">
+                @using(Html.BeginForm("UpdateCart","Cart",FormMethod.Post)) 
+                {
+               
                     <!-- Table Content Start -->
                     <div class="table-content table-responsive mb-45">
                         <table>
@@ -25,12 +52,12 @@
                             </thead>
                             @if (Session["cart"] != null)
                             {
-                                
+
                                 foreach (var item in (List<Item>)Session["cart"])
                                 {
                                     int count = 0;
                                     int totalPrice = 0;
-                                    
+
                                     <tbody>
                                         <tr>
                                             @foreach (var img in item.Product.FileImgs)
@@ -39,16 +66,20 @@
                                                 if (count == 1)
                                                 {
                                                     <td class="product-thumbnail">
-                                                       @Html.Image(img.file_base6)
+                                                        @Html.Image(img.file_base6)
                                                     </td>
-                                                    
+
                                                 }
 
                                             }
 
                                             <td class="product-name"><a href="@Url.Action("Details","Home", new { id = item.Product.ProductID})">@item.Product.ProductName</a></td>
                                             <td class="product-price"><span class="amount">@item.Product.DiscountedPrice.ToString("0#,0")</span></td>
-                                            <td class="product-quantity">@*<input type="number" value="1">*@ @item.Quantity</td>
+                                            <td class="product-quantity">
+
+                                                <input type="number" name="quantity" id="quantity" value="@item.Quantity" min="1" max="20">@*item.Quantity*@
+                                                &nbsp;<span id="errmsg"></span>
+                                            </td>
                                             @{totalPrice = item.Quantity * (int)item.Product.DiscountedPrice;}
                                             <td class="product-subtotal">@totalPrice.ToString("0#,0")</td>
                                             @*<td class="product-remove"> <a href="@Url.Action("RemoveItemCart","Cart", new { productId = item.Product.ProductID})"> <i class="fa fa-times" aria-hidden="true" </a></td>*@
@@ -62,37 +93,37 @@
                             }
 
                             @*<thead>
-            <tr>
-                <th class="product-thumbnail">Image</th>
-                <th class="product-name">Product</th>
-                <th class="product-price">Price</th>
-                <th class="product-quantity">Quantity</th>
-                <th class="product-subtotal">Total</th>
-                <th class="product-remove">Remove</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="product-thumbnail">
-                    <a href="#"><img src="img\products\p12.jpeg" alt="cart-image"></a>
-                </td>
-                <td class="product-name"><a href="product-details.html">summer dress</a></td>
-                <td class="product-price"><span class="amount">£165.00</span></td>
-                <td class="product-quantity"><input type="number" value="1"></td>
-                <td class="product-subtotal">£165.00</td>
-                <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-            </tr>
-            <tr>
-                <td class="product-thumbnail">
-                    <a href="#"><img src="img\products\p10.jpeg" alt="cart-image"></a>
-                </td>
-                <td class="product-name"><a href="product-details.html">Printed Winter collection</a></td>
-                <td class="product-price"><span class="amount">£50.00</span></td>
-                <td class="product-quantity"><input type="number" value="1"></td>
-                <td class="product-subtotal">£50.00</td>
-                <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-            </tr>
-        </tbody>*@
+                                    <tr>
+                                        <th class="product-thumbnail">Image</th>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-quantity">Quantity</th>
+                                        <th class="product-subtotal">Total</th>
+                                        <th class="product-remove">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <a href="#"><img src="img\products\p12.jpeg" alt="cart-image"></a>
+                                        </td>
+                                        <td class="product-name"><a href="product-details.html">summer dress</a></td>
+                                        <td class="product-price"><span class="amount">£165.00</span></td>
+                                        <td class="product-quantity"><input type="number" value="1"></td>
+                                        <td class="product-subtotal">£165.00</td>
+                                        <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <a href="#"><img src="img\products\p10.jpeg" alt="cart-image"></a>
+                                        </td>
+                                        <td class="product-name"><a href="product-details.html">Printed Winter collection</a></td>
+                                        <td class="product-price"><span class="amount">£50.00</span></td>
+                                        <td class="product-quantity"><input type="number" value="1"></td>
+                                        <td class="product-subtotal">£50.00</td>
+                                        <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                </tbody>*@
                         </table>
                     </div>
                     <!-- Table Content Start -->
@@ -101,8 +132,8 @@
 
                         <div class="col-md-8 col-sm-12">
                             <div class="buttons-cart">
-                                <input type="submit" value="Update Cart">
-                                <a href="#">Continue Shopping</a>
+                                <input type="submit" value="Cập nhật giỏ hàng">
+                                <a href="@Url.Action("Index","Home")">Continue Shopping</a>
                             </div>
                         </div>
                         <!-- Cart Button Start -->
@@ -113,7 +144,7 @@
                                 <br>
                                 <table class="float-md-right">
                                     <tbody>
-                                        
+
                                         <tr class="order-total">
                                             <th>Tổng tiền</th>
                                             <td>
@@ -123,14 +154,14 @@
                                     </tbody>
                                 </table>
                                 <div class="wc-proceed-to-checkout">
-                                    <a href="@Url.Action("CheckOut","Cart")">Proceed to Checkout</a>
+                                    <a href="@Url.Action("CheckOut","Cart")">Thanh toán</a>
                                 </div>
                             </div>
                         </div>
                         <!-- Cart Totals End -->
                     </div>
                     <!-- Row End -->
-                </form>
+                 }
                 <!-- Form End -->
             </div>
         </div>
@@ -138,4 +169,14 @@
     </div>
 </div>
 <!-- Cart Main Area End -->
-<
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#quantity").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errmsg").html("Kí tự số").show().fadeOut("slow");
+                return false;
+            }
+        });
+    });
+</script>
