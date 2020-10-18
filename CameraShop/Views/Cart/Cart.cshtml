@@ -1,5 +1,9 @@
 ﻿<!-- Cart Main Area Start -->
 @using CameraShop.HelperCode
+
+@{ 
+    ViewBag.Title = "Giỏ hàng";
+}
 @{
     decimal totalPriceCart = 0;
 }
@@ -73,7 +77,7 @@
 
                                             }
 
-                                            <td class="product-name"><a href="@Url.Action("Details","Home", new { id = item.Product.ProductID})">@item.Product.ProductName</a></td>
+                                            <td class="product-name"><a href="@Url.Action("Details","Home", new { alias = item.Product.Alias})">@item.Product.ProductName</a></td>
                                             <td class="product-price"><span class="amount">@item.Product.DiscountedPrice.ToString("0#,0")</span></td>
                                             <td class="product-quantity">
 
@@ -84,14 +88,12 @@
                                             <td class="product-subtotal">@totalPrice.ToString("0#,0")</td>
                                             @*<td class="product-remove"> <a href="@Url.Action("RemoveItemCart","Cart", new { productId = item.Product.ProductID})"> <i class="fa fa-times" aria-hidden="true" </a></td>*@
                                             @*<td><button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="RemoveItemCart(this);" itemid="@item.Product.ProductID" class="pro-cart">Xoa</button></td>*@
-                                            <td><a href="@Url.Action("RemoveItemCart","Cart",new { productId = item.Product.ProductID})">Xoa</a></td>
+                                            <td><a href="@Url.Action("RemoveItemCart","Cart",new { productId = item.Product.ProductID})">Xóa</a></td>
                                             @{ totalPriceCart += totalPrice;}
                                         </tr>
                                     </tbody>
                                 }
-
                             }
-
                             @*<thead>
                                     <tr>
                                         <th class="product-thumbnail">Image</th>

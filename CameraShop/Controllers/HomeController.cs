@@ -25,13 +25,13 @@ namespace CameraShop.Controllers
              return View(products.ToList());
         }
         // GET: Home/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string alias)
         {
-            if (id == null)
+            if (alias == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            var product = db.Products.SingleOrDefault(p => p.Alias == alias);
             if (product == null)
             {
                 return HttpNotFound();

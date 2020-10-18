@@ -15,19 +15,33 @@ namespace CameraShop
 
             routes.MapRoute(
             name: "chi-tiet-san-pham",
-            url: "san-pham/{id}",
+            url: "san-pham/{alias}",
             defaults: new { controller = "Home", action = "Details", id = UrlParameter.Optional }
         );
 
             routes.MapRoute(
+            name: "san-pham",
+            url: "san-pham/{id}",
+            defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional }
+        );
+
+            routes.MapRoute(
               name: "danh-muc-san-pham",
-              url: "danh-muc-san-pham/{action}/{id}",
+              url: "danh-muc-san-pham/{action}/{Category}",
               defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional }
           );
+
+
             routes.MapRoute(
             name: "gio-hang",
-            url: "gio-hang/{action}/{id}",
+            url: "gio-hang",
             defaults: new { controller = "Cart", action = "Cart", id = UrlParameter.Optional }
+        );
+
+            routes.MapRoute(
+            name: "thanh-toan",
+            url: "gio-hang/thanh-toan",
+            defaults: new { controller = "Cart", action = "CheckOut", id = UrlParameter.Optional }
         );
 
             routes.MapRoute(

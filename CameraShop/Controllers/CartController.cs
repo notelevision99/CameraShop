@@ -28,30 +28,30 @@ namespace CameraShop.Controllers
         
         public ActionResult ProcessOrder(FormCollection frc)
         {
-            //List<Item> lstCart = (List<Item>)Session["cart"];
-            //Order order = new Order()
-            //{
-            //    CustomerName = frc["cusName"],
-            //    CustomerAddress = frc["cusAddress"],
-            //    CustomerEmail = frc["cusEmail"],
-            //    CustomerPhone = frc["cusPhone"],
-            //    OrderDate = DateTime.Now,
-            //    Status = true
-            //};
-            //db.Orders.Add(order);
-            //db.SaveChanges();
-            //foreach (Item item in lstCart)
-            //{
-            //    OrderDetail orderDetail = new OrderDetail()
-            //    {
-            //        OrderID = order.OrderID,
-            //        ProductID = item.Product.ProductID,
-            //        Quantity = item.Quantity
-            //    };
-            //    db.OrderDetails.Add(orderDetail);
-            //    db.SaveChanges();
-            //}
-            //Session.Remove("cart");
+            List<Item> lstCart = (List<Item>)Session["cart"];
+            Order order = new Order()
+            {
+                CustomerName = frc["cusName"],
+                CustomerAddress = frc["cusAddress"],
+                CustomerEmail = frc["cusEmail"],
+                CustomerPhone = frc["cusPhone"],
+                OrderDate = DateTime.Now,
+                Status = true
+            };
+            db.Orders.Add(order);
+            db.SaveChanges();
+            foreach (Item item in lstCart)
+            {
+                OrderDetail orderDetail = new OrderDetail()
+                {
+                    OrderID = order.OrderID,
+                    ProductID = item.Product.ProductID,
+                    Quantity = item.Quantity
+                };
+                db.OrderDetails.Add(orderDetail);
+                db.SaveChanges();
+            }
+            Session.Remove("cart");
 
             return View("OrderSuccess");
         }
@@ -61,10 +61,14 @@ namespace CameraShop.Controllers
         {
             string[] quantities = frc.GetValues("quantity");
             List<Item> lstCart = (List<Item>)Session["cart"];
-            for(int i = 0; i < lstCart.Count; i++)
+            if(Session["cart"] != null)
             {
-                lstCart[i].Quantity = Convert.ToInt32(quantities[i]);
+                for (int i = 0; i < lstCart.Count; i++)
+                {
+                    lstCart[i].Quantity = Convert.ToInt32(quantities[i]);
+                }
             }
+           
             Session["cart"] = lstCart;
             return View("Cart");
         }

@@ -2,7 +2,9 @@
 
 @using CameraShop.HelperCode
 
-
+@{
+    ViewBag.Title = "Lắp đặt camera giá rẻ, nhận lắp đặt camera giá rẻ sài gòn";
+}
 @{
     int countProductBestSeal = 1;
 }
@@ -90,7 +92,7 @@
                                                     count++;
                                                     if (count == 1)
                                                     {
-                                                        <a href="@Url.Action("Details","Home",new { id = item.ProductID})">
+                                                        <a href="@Url.Action("Details","Home",new { alias = item.Alias})">
                                                             @Html.ImageSlick(img.file_base6)
                                                         </a>
 
@@ -104,14 +106,15 @@
                                         <!-- Product Content Start -->
                                         <div class="pro-content">
                                             <div class="pro-info">
-                                                <h6 class="font-weight-bold" display="flex"><a href="@Url.Action("Details","Home", new { id = item.ProductID})">@Html.DisplayFor(modelItem => item.ProductName)</a></h6>
+                                                <h6 class="font-weight-bold" display="flex"><a href="@Url.Action("Details","Home", new { alias = item.Alias})">@Html.DisplayFor(modelItem => item.ProductName)</a></h6>
                                                 <p>
                                                     <span class="special-price text-danger">
                                                         @if (item.DiscountedPrice > 10000)
                                                         {@Html.DisplayFor(modelItem => item.DiscountedPrice)}
                                                     else
-                                                    {@Html.DisplayName("Liên hệ");
-                                                }
+                                                    {
+                                                        @Html.DisplayName("Liên hệ");
+                                                    }
                                                     </span>
                                                 </p>
                                                 <div class="product-rating">
@@ -150,26 +153,21 @@
                 </div>
                 <!-- #best-deal End Here -->
                 @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Launch demo modal
-                </button>*@
+                        Launch demo modal
+                    </button>*@
 
                 <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable" role="document">
-                    
-                        
-                       
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-body">
                             <div class="alert alert-success" role="alert">
                                 <p class="text-center"><b>Thêm vào giỏ hàng thành công!</b></p>
                                 <div class="modal-content"><button type="button" onclick="document.location.href='@Url.Action("Cart","Cart")'" class="btn btn-success ">Tiến hành thanh toán</button></div>
                             </div>
-                            
-                            
                         </div>
-                        
+                    </div>
                 </div>
-            </div>
+                <!--End Modal-->
                 <div id="new-pro" class="tab-pane fade">
                     <!-- New Product Activation Start Here -->
                     <div class="feature-pro-active owl-carousel">
@@ -581,7 +579,7 @@
         //alert(itemid);
         var formData = new FormData();
         formData.append("ProductID", itemid);
-        
+
         $.ajax({
             async: false,
             type: "POST",
@@ -594,10 +592,10 @@
                     //alert("Đã thêm vào giỏ hàng")
                     $("#exampleModal").show();
                     $("#cartItem").text("" + data.Counter + " sản phẩm ");
-                   
+
                     //$("dropdown cart-box-width active").show();
                 }
-            
+
             },
             error: function () {
                 alert("There is some problem");

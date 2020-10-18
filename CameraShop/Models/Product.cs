@@ -18,6 +18,9 @@ namespace CameraShop.Models
         [DisplayFormat(DataFormatString = "{0:#,0} đ", ApplyFormatInEditMode = false)]
         public decimal OriPrice { get; set; }
 
+        [Required]
+        public string Alias { get; set; }
+
         [Display(Name = "Giá đã giảm")]
         [DisplayFormat(DataFormatString = "{0:#,0} đ", ApplyFormatInEditMode = false)]
         public decimal DiscountedPrice { get; set; }
@@ -27,6 +30,8 @@ namespace CameraShop.Models
         [AllowHtml]
         public string ProductSpecification { get; set; }
 
+        [AllowHtml]
+        public string ProductIntro { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails  { get; set; }

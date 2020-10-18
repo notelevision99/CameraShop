@@ -1,7 +1,7 @@
 ﻿@model CameraShop.Models.Product
 @using CameraShop.HelperCode
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tạo mới sản phẩm";
 }
 
 <h2>Tạo mới</h2>
@@ -12,11 +12,11 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4 class="text-danger">Sản phẩm</h4>
+    <h4 class="text-danger">Tạo mới sản phẩm</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2" for="ProductID"><b>Mã sản phẩm</b></label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
@@ -32,7 +32,15 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.OriPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-12 ">Tên sản phẩm (viết dưới dạng VD:camera-hksion-<span class="text-danger"><b>ProductID</b></span> viết thường không dấu có gạch ngang giữa các chữ</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-12">Giá gốc <span class="text-danger"><b>(giá gốc > giá chưa giảm , định dạng xxx.00)</b></span></label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.OriPrice, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.OriPrice, "", new { @class = "text-danger" })
@@ -40,7 +48,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DiscountedPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2" for="DiscountedPrice"><b>Giá đã giảm</b></label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.DiscountedPrice, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DiscountedPrice, "", new { @class = "text-danger" })
@@ -101,7 +109,17 @@
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
-                Thông số kĩ thuật
+                <b>Giới thiệu sản phẩm</b>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="form-group">
+                <textarea class="ckeditor" name="ProductIntro"></textarea>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <b>Thông số kĩ thuật</b>
             </div>
         </div>
         <div class="col-md-10">
@@ -109,6 +127,7 @@
                 <textarea class="ckeditor" name="ProductSpecification"></textarea>
             </div>
         </div>
+
     </div>
 
     <div class="form-group">

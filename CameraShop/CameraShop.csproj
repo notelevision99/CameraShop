@@ -189,6 +189,14 @@
     <Compile Include="Migrations\202010131046471_RemoveDataAnotationOrder.designer.cs">
       <DependentUpon>202010131046471_RemoveDataAnotationOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010180749046_AddProductIntroandAlias.cs" />
+    <Compile Include="Migrations\202010180749046_AddProductIntroandAlias.designer.cs">
+      <DependentUpon>202010180749046_AddProductIntroandAlias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010180829136_AliasRequired.cs" />
+    <Compile Include="Migrations\202010180829136_AliasRequired.designer.cs">
+      <DependentUpon>202010180829136_AliasRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\FileImg.cs" />
@@ -772,6 +780,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010131046471_RemoveDataAnotationOrder.resx">
       <DependentUpon>202010131046471_RemoveDataAnotationOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010180749046_AddProductIntroandAlias.resx">
+      <DependentUpon>202010180749046_AddProductIntroandAlias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010180829136_AliasRequired.resx">
+      <DependentUpon>202010180829136_AliasRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

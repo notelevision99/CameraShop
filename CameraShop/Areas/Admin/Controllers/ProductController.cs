@@ -59,7 +59,7 @@ namespace CameraShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [ValidateInput(false)]
         [HttpPost]  
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,OriPrice,DiscountedPrice,CategoryID,ProductSpecification")] Product product, string[] selectedFileImgs)
+        public ActionResult Create([Bind(Include = "ProductID,Alias,ProductName,OriPrice,DiscountedPrice,CategoryID,ProductSpecification,ProductIntro")] Product product, string[] selectedFileImgs)
         {
             if (selectedFileImgs != null)
             {
@@ -153,7 +153,7 @@ namespace CameraShop.Areas.Admin.Controllers
                .Single();
 
             if (TryUpdateModel(productToUpdate, "",
-               new string[] { "ProductID", "ProductName", "OriPrice", "DiscountedPrice", "CategoryID", "ProductSpecification" }))
+               new string[] { "ProductID", "Alias", "ProductName", "OriPrice", "DiscountedPrice", "CategoryID", "ProductSpecification", "ProductIntro" }))
             {
                 try
                 {

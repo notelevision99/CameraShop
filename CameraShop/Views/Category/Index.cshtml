@@ -6,13 +6,13 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-
+@{ 
+    ViewBag.Title = "Danh mục sản phẩm" + " - " +  ViewBag.Category + " " ;
+}
 
 @{
     int countProduct = 0;
 }
-
-
 <!-- Shop Page Start -->
 <div class="main-shop-page ptb-80">
     <div class="container">
@@ -31,10 +31,8 @@
                                 @Html.ActionLink("Tất cả sản phẩm", "Index", null, new { @class = Request["Category"] == null ? "text-danger" : null, })
 
                             </li>
-
                             @if (Model.Categories != null)
                             {
-
                                 foreach (var item in Model.Categories)
                                 {
                                     <li class="form-check">
@@ -45,7 +43,6 @@
                             }
                         </ul>
                     </div>
-
                 </div>
             </div>
             <!-- Sidebar Shopping Option End -->
@@ -60,9 +57,8 @@
                         }
                         else
                         {
-                            <p class="h4">TẤT CẢ SẢN PHẨM</p>
+                            <p class="h4">Tất cả sản phẩm</p>
                         }
-
                     </div>
                     <!-- Toolbar Short Area Start -->
                     <div class="main-toolbar-sorter clearfix">
@@ -77,58 +73,56 @@
 
                         <div id="getSort" class="toolbar-sorter d-md-flex align-items-center">
                             <label for="getSelect">Sort By:</label>
-                            <select id="getSelect"  class="sorter wide" onchange="window.open(this.value,'_self');">
-                                    <option value="">Choose Option</option>
-                                    <option value="@Url.Action("Index","Category", new { Category = ViewBag.Category, sortOrder = "price_desc" })">Sắp xếp theo giá giảm dần</option>
-                                    <option value="@Url.Action("Index","Category", new { Category = ViewBag.Category, sortOrder = "price_asc", })">Sắp xếp theo giá tăng dần</option>
-
-                                </select>
+                            <select id="getSelect" class="sorter wide" onchange="window.open(this.value,'_self');">
+                                <option value="">Choose Option</option>
+                                <option value="@Url.Action("Index","Category", new { Category = ViewBag.Category, sortOrder = "price_desc" })">Sắp xếp theo giá giảm dần</option>
+                                <option value="@Url.Action("Index","Category", new { Category = ViewBag.Category, sortOrder = "price_asc", })">Sắp xếp theo giá tăng dần</option>
+                            </select>
                             @*<select class="sort wide" id="getSort" onchange="getval(this);">
-                                <option>Lọc sản phẩm</option>
-                                <option id="price_desc" value="price_desc">Giá giảm dần</option>
-                                <option id="price_asc" value="price_asc">Giá tăng dần</option>
-                            </select>*@
+                        <option>Lọc sản phẩm</option>
+                        <option id="price_desc" value="price_desc">Giá giảm dần</option>
+                        <option id="price_asc" value="price_asc">Giá tăng dần</option>
+                    </select>*@
                         </div>
-
-
-                    </div>
-                    @*<div>
-                            <h4>@Html.ActionLink("Lọc theo giá cao -> thấp", "Index", new { Category = ViewBag.Category, sortOrder = "price_desc", })</h4>
-                            <h4>@Html.ActionLink("Lọc theo giá thấp -> cao", "Index", new { Category = ViewBag.Category, sortOrder = "price_asc", })</h4>
-                        </div>*@
+                    </div>             
                     <!-- Toolbar Short Area End -->
                 </div>
                 <!-- Grid & List View End -->
                 <div class="shop-area mb-all-40">
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-body">
+                                <div class="alert alert-success" role="alert">
+                                    <p class="text-center"><b>Thêm vào giỏ hàng thành công!</b></p>
+                                    <div class="modal-content"><button type="button" onclick="document.location.href='@Url.Action("Cart","Cart")'" class="btn btn-success ">Tiến hành thanh toán</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Grid & List Main Area End -->
                     <div class="tab-content">
                         <div id="grid-view" class="tab-pane fade show active">
                             <div class="row border-hover-effect ">
                                 @if (Model.Products != null)
                                 {
-
                                     foreach (var item in Model.Products)
                                     {
-
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-6">
                                             <!-- Single Product Start -->
-
                                             <div class="single-ponno-product">
                                                 <!-- Product Image Start -->
                                                 <div class="pro-img">
-
                                                     @{
-
                                                         int count = 0;
                                                         foreach (var img in item.FileImgs)
                                                         {
                                                             count++;
                                                             if (count == 1)
                                                             {
-                                                                <a href="@Url.Action("Details","Home",new { id = item.ProductID})">
+                                                                <a href="@Url.Action("Details","Home",new { alias = item.Alias})">
                                                                     @Html.ImageSlick(img.file_base6)
                                                                 </a>
-
                                                             }
                                                         }
                                                     }
@@ -142,10 +136,19 @@
                                                 <div class="pro-content">
                                                     <div class="pro-info">
                                                         <h4>
-                                                            <a href="@Url.Action("Details","Home",new { id = item.ProductID })">@Html.DisplayFor(modelItem => item.ProductName)</a>
+                                                            <a href="@Url.Action("Details","Home",new { alias = item.Alias })">@Html.DisplayFor(modelItem => item.ProductName)</a>
                                                         </h4>
                                                         <p>
-                                                            <span class="special-price text-danger">@Html.DisplayFor(modelItem => item.DiscountedPrice)</span>
+                                                            <span class="special-price text-danger">
+                                                                @if (item.DiscountedPrice > 10000)
+                                                                {
+                                                                    @Html.DisplayFor(modelItem => item.DiscountedPrice)
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.DisplayName("Liên hệ");
+                                                                }
+                                                            </span>
                                                         </p>
                                                         <div class="product-rating">
                                                             <i class="fa fa-star"></i>
@@ -157,7 +160,10 @@
                                                         </div>
                                                     </div>
                                                     <div class="pro-add-cart">
-                                                        <a href="cart.html" title="Add to Cart">Add To Cart</a>
+                                                        @if(item.DiscountedPrice > 10000)
+                                                        {
+                                                        <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@item.ProductID" class="pro-cart">Thêm vào giỏ</button>
+                                                        }
                                                     </div>
                                                 </div>
                                                 <!-- Product Content End -->
@@ -167,7 +173,6 @@
                                         countProduct++;
                                     }
                                 }
-
                             </div>
                             <!-- Row End -->
                         </div>
@@ -175,45 +180,15 @@
                     </div>
                     <!-- Grid & List Main Area End -->
                 </div>
-                <div>
-                    Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
+                    <div>
+                        Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
 
-                    @Html.PagedListPager((IPagedList)ViewBag.Prod, Productpage => Url.Action("Index", new { sortOrder = Request["sortOrder"], Category = Request["Category"], Productpage }))
-
-                </div>
-                <!-- Shop Breadcrumb Area Start -->
-                <div class="shop-breadcrumb-area border-default">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-5">
-                            <span class="show-items">Showing 1-12 of @countProduct item(s) </span>
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-sm-7">
-                            <ul class="pfolio-breadcrumb-list text-center">
-                                <li class="float-left prev">
-                                    <a href="#">
-                                        <i class="fa fa-angle-left" aria-hidden="true"></i>Previous
-                                    </a>
-                                </li>
-                                <li class="active">
-                                    <a href="#">1</a>
-                                </li>
-                                <li>
-                                    <a href="#">2</a>
-                                </li>
-                                <li class="float-right next">
-                                    <a href="#">
-                                        Next
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        @Html.PagedListPager((IPagedList)ViewBag.Prod, Productpage => Url.Action("Index", new { sortOrder = Request["sortOrder"], Category = Request["Category"], Productpage }))
                     </div>
+
                 </div>
-                <!-- Shop Breadcrumb Area End -->
+                <!-- product Categorie List End -->
             </div>
-            <!-- product Categorie List End -->
-        </div>
         <!-- Row End -->
     </div>
     <!-- Container End -->
@@ -222,30 +197,43 @@
 <!-- Footer Area Start Here -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-    @*function NavigatePage() {
-    var selectedValue = document.getElementById('getSort').value;
-    if(selectedValue == "pricedesc")
-        document.location = '@Url.Action("Index", "Categoryw")';
-    else if(selectedValue == "priceasc")
-        document.location = '@Url.Action("Index", "Categoryw")';
-    else
-        document.location= '@Url.Action("Index2", "Categoryw")';// add as needed
-}*@
+
     function getval(sel) {
         //alert(sel.value);
         var selectBox = document.getElementById("getSort");
         if (sel.value == "price_desc") {
             document.location = '@Url.Action("Index", "Category", new { Category = ViewBag.Category, sortOrder = "price_desc" })'
-           
-
-
         }
         else if (sel.value == "price_asc") {
             document.location = '@Url.Action("Index", "Category", new { Category = ViewBag.Category, sortOrder = "price_asc" })'
-            
         }
-
     }
 
+    function AddToCart(item) {
+        var itemid = $(item).attr("itemid");
+        //alert(itemid);
+        var formData = new FormData();
+        formData.append("ProductID", itemid);
+        $.ajax({
+            async: false,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Home/AddToCart',
+            success: function (data) {
+                if (data.success) {
+                    //alert("Đã thêm vào giỏ hàng")
+                    $("#exampleModal").show();
+                    $("#cartItem").text("" + data.Counter + " sản phẩm ");
+
+                    //$("dropdown cart-box-width active").show();
+                }
+            },
+            error: function () {
+                alert("There is some problem");
+            }
+        })
+    }
 </script>
 

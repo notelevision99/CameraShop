@@ -1,10 +1,10 @@
 ﻿@model CameraShop.Models.Product
 @using CameraShop.HelperCode
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Chỉnh sửa sản phẩm";
 }
 
-<h2>Edit</h2>
+<h2>Chỉnh sửa sản phẩm </h2>
 <script src="~/Scripts/ckeditor/ckeditor.js"></script>
 
 @using (Html.BeginForm())
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Product</h4>
+    <h4>Thông tin</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ProductID)
@@ -26,7 +26,22 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.OriPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-12 ">
+            Tên sản phẩm (viết dưới dạng VD:camera-hksion-
+            <span class="text-danger"><b>ProductID</b></span> viết thường không dấu có gạch ngang giữa các chữ
+            <span>
+                <a href="https://www.smartwebsolutions.org/replace-space-with-hyphen/"><b>Tool viết</b></a>
+            </span>
+        </label>
+
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-12">Giá gốc <span class="text-danger"><b>(giá gốc > giá chưa giảm , định dạng xxx.00)</b></span></label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.OriPrice, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.OriPrice, "", new { @class = "text-danger" })
@@ -91,14 +106,28 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-6">
             <div class="form-group">
-                Thông số kĩ thuật
+                Giới thiệu sản phẩm <span class="text-danger"><b>(viết gạch dầu dòng)</b></span> 
             </div>
         </div>
         <div class="col-md-10">
             <div class="form-group">
-                <textarea class="ckeditor" name="ProductSpecification">@Html.Raw(Model.ProductSpecification)</textarea>              
+                <textarea class="ckeditor" name="ProductIntro">@Html.Raw(Model.ProductIntro)</textarea>
+                <script>
+                    CKEDITOR.replace("ProductIntro", { htmlEncodeOutput: false });
+
+                </script>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <span>Thông số kỹ thuật (sử dụng <span class="text-danger"><b>table table-striped, xóa width</b></span>)</span> 
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="form-group">
+                <textarea class="ckeditor" name="ProductSpecification">@Html.Raw(Model.ProductSpecification)</textarea>
                 <script>
                     CKEDITOR.replace("ProductSpecification", { htmlEncodeOutput: false });
 

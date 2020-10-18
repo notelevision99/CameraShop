@@ -2,6 +2,10 @@
 
 @using CameraShop.HelperCode
 
+@{
+    ViewBag.Title = Model.ProductName  ;
+}
+
 @*<!DOCTYPE html>
 
     <html>
@@ -206,53 +210,66 @@
                         </li>
                     </ul>
                     <div class="pro-thumb-price mt-20">
-                        <p>
-                            <span class="special-price text-danger">
-                                @if (Model.DiscountedPrice > 10000)
-                                {@Html.DisplayFor(modelItem => modelItem.DiscountedPrice)}
-                            else
-                            {@Html.DisplayName("Liên hệ");
-                        }
-                        </span>
-                        <del class="old-price">@Html.DisplayFor(modelItem => modelItem.OriPrice)</del>
-                    </p>
-                </div>
-                <p class="pro-desc-details">
-                    Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while
-                    we're not typically too concerned with marketing talk this particular statement is clearly
-                    pretty accurate...
-                </p>
-                
-                <div class="color clearfix mb-30">
-                    
-                    
-                </div>
-                <div class="quatity-stock">
-                    <label>Quantity</label>
-                    <ul class="d-flex flex-wrap">
-                        <li class="box-quantity">
-                            <form action="#">
-                                <input class="quantity" type="number" min="1" value="1">
-                            </form>
-                        </li>
                         @if (Model.DiscountedPrice > 10000)
                         {
-                            <li>
-                                @*<a href="cart.html" title="Add to Cart">Add To Cart</a>*@
-                                <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@Model.ProductID" class="pro-cart">Thêm vào giỏ</button>
-                            </li>
+                            <p>
+                                <span class="special-price text-danger">
+
+                                    @Html.DisplayFor(modelItem => modelItem.DiscountedPrice)
+
+
+                                </span>
+                                <del class="old-price">@Html.DisplayFor(modelItem => modelItem.OriPrice)</del>
+                            </p>
                         }
-                    </ul>
+                        else
+                        {
+                            <span class="special-price text-danger">
+                                @Html.DisplayName("Liên hệ")
+                            </span>
+                        }
+                    </div>
+                    <div class="pro-desc-details">
+                        @if (Model.ProductIntro != null)
+                        {
+                            foreach (var item in Model.ProductIntro)
+                            {
+                                @Html.Raw(item.ToString())
+                            }
+                        }
+                    </div>
+
+                    <div class="color clearfix mb-30">
 
 
+                    </div>
+                    <div class="quatity-stock">
+                        @if (Model.DiscountedPrice > 10000)
+                        {
+                            <label>Quantity</label>
+                            <ul class="d-flex flex-wrap">
+                                <li class="box-quantity">
+                                    <form action="#">
+                                        <input class="quantity" type="number" min="1" value="1">
+                                    </form>
+                                </li>
+
+                                <li>
+                                    @*<a href="cart.html" title="Add to Cart">Add To Cart</a>*@
+                                    <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@Model.ProductID" class="pro-cart">Thêm vào giỏ</button>
+                                </li>
+
+                            </ul>
+                        }
+
+                    </div>
                 </div>
             </div>
+            <!-- Thumbnail Description End -->
         </div>
-        <!-- Thumbnail Description End -->
+        <!-- Row End -->
     </div>
-    <!-- Row End -->
-</div>
-<!-- Container End -->
+    <!-- Container End -->
 </div>
 <!-- Product Thumbnail End -->
 <!-- Product Thumbnail Description Start -->
@@ -466,4 +483,3 @@
         })
     }
 </script>
-    
