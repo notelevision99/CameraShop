@@ -30,3 +30,6 @@ textarea {
 #errmsg {
     color: red;
 }
+.nice-select.wide {
+    width: 78%;
+}

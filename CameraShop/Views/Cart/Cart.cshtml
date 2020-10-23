@@ -1,7 +1,7 @@
 ﻿<!-- Cart Main Area Start -->
 @using CameraShop.HelperCode
 
-@{ 
+@{
     ViewBag.Title = "Giỏ hàng";
 }
 @{
@@ -34,146 +34,131 @@
 
 <div class="cart-main-area ptb-80">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <!-- Form Start -->
-                @using(Html.BeginForm("UpdateCart","Cart",FormMethod.Post)) 
-                {
-               
-                    <!-- Table Content Start -->
-                    <div class="table-content table-responsive mb-45">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="product-thumbnail">Hình ảnh</th>
-                                    <th class="product-name">Tên sản phẩm</th>
-                                    <th class="product-price">Giá</th>
-                                    <th class="product-quantity">Số lượng</th>
-                                    <th class="product-subtotal">Tổng tiền</th>
-                                    <th class="product-remove">Xóa sản phẩm</th>
-                                </tr>
+        @if (Session["cart"] != null)
+        {
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <!-- Form Start -->
+                    @using (Html.BeginForm("UpdateCart", "Cart", FormMethod.Post))
+                    {
 
-                            </thead>
-                            @if (Session["cart"] != null)
-                            {
+                        <!-- Table Content Start -->
+                        <div class="table-content table-responsive mb-45">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail">Hình ảnh</th>
+                                        <th class="product-name">Tên sản phẩm</th>
+                                        <th class="product-price">Giá</th>
+                                        <th class="product-quantity">Số lượng</th>
+                                        <th class="product-subtotal">Tổng tiền</th>
+                                        <th class="product-remove">Xóa sản phẩm</th>
+                                    </tr>
 
-                                foreach (var item in (List<Item>)Session["cart"])
+                                </thead>
+                                @if (Session["cart"] != null)
                                 {
-                                    int count = 0;
-                                    int totalPrice = 0;
 
-                                    <tbody>
-                                        <tr>
-                                            @foreach (var img in item.Product.FileImgs)
-                                            {
-                                                count++;
-                                                if (count == 1)
+                                    foreach (var item in (List<Item>)Session["cart"])
+                                    {
+                                        int count = 0;
+                                        int totalPrice = 0;
+
+                                        <tbody>
+                                            <tr>
+                                                @foreach (var img in item.Product.FileImgs)
                                                 {
-                                                    <td class="product-thumbnail">
-                                                        @Html.Image(img.file_base6)
-                                                    </td>
+                                                    count++;
+                                                    if (count == 1)
+                                                    {
+                                                        <td class="product-thumbnail">
+                                                            @Html.Image(img.file_base6)
+                                                        </td>
+
+                                                    }
 
                                                 }
 
-                                            }
+                                                <td class="product-name"><a href="@Url.Action("Details", "Home", new { alias = item.Product.Alias })">@item.Product.ProductName</a></td>
+                                                <td class="product-price"><span class="amount">@item.Product.DiscountedPrice.ToString("0#,0")đ</span></td>
+                                                <td class="product-quantity">
 
-                                            <td class="product-name"><a href="@Url.Action("Details","Home", new { alias = item.Product.Alias})">@item.Product.ProductName</a></td>
-                                            <td class="product-price"><span class="amount">@item.Product.DiscountedPrice.ToString("0#,0")</span></td>
-                                            <td class="product-quantity">
-
-                                                <input type="number" name="quantity" id="quantity" value="@item.Quantity" min="1" max="20">@*item.Quantity*@
-                                                &nbsp;<span id="errmsg"></span>
-                                            </td>
-                                            @{totalPrice = item.Quantity * (int)item.Product.DiscountedPrice;}
-                                            <td class="product-subtotal">@totalPrice.ToString("0#,0")</td>
-                                            @*<td class="product-remove"> <a href="@Url.Action("RemoveItemCart","Cart", new { productId = item.Product.ProductID})"> <i class="fa fa-times" aria-hidden="true" </a></td>*@
-                                            @*<td><button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="RemoveItemCart(this);" itemid="@item.Product.ProductID" class="pro-cart">Xoa</button></td>*@
-                                            <td><a href="@Url.Action("RemoveItemCart","Cart",new { productId = item.Product.ProductID})">Xóa</a></td>
-                                            @{ totalPriceCart += totalPrice;}
-                                        </tr>
-                                    </tbody>
+                                                    <input type="number" name="quantity" id="quantity" value="@item.Quantity" min="1" max="20">@*item.Quantity*@
+                                                    &nbsp;<span id="errmsg"></span>
+                                                </td>
+                                                @{totalPrice = item.Quantity * (int)item.Product.DiscountedPrice;}
+                                                <td class="product-subtotal">@totalPrice.ToString("0#,0")</td>
+                                                @*<td class="product-remove"> <a href="@Url.Action("RemoveItemCart","Cart", new { productId = item.Product.ProductID})"> <i class="fa fa-times" aria-hidden="true" </a></td>*@
+                                                @*<td><button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="RemoveItemCart(this);" itemid="@item.Product.ProductID" class="pro-cart">Xoa</button></td>*@
+                                                <td><a href="@Url.Action("RemoveItemCart", "Cart", new { productId = item.Product.ProductID })">Xóa</a></td>
+                                                @{ totalPriceCart += totalPrice;}
+                                            </tr>
+                                        </tbody>
+                                    }
                                 }
-                            }
-                            @*<thead>
-                                    <tr>
-                                        <th class="product-thumbnail">Image</th>
-                                        <th class="product-name">Product</th>
-                                        <th class="product-price">Price</th>
-                                        <th class="product-quantity">Quantity</th>
-                                        <th class="product-subtotal">Total</th>
-                                        <th class="product-remove">Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#"><img src="img\products\p12.jpeg" alt="cart-image"></a>
-                                        </td>
-                                        <td class="product-name"><a href="product-details.html">summer dress</a></td>
-                                        <td class="product-price"><span class="amount">£165.00</span></td>
-                                        <td class="product-quantity"><input type="number" value="1"></td>
-                                        <td class="product-subtotal">£165.00</td>
-                                        <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#"><img src="img\products\p10.jpeg" alt="cart-image"></a>
-                                        </td>
-                                        <td class="product-name"><a href="product-details.html">Printed Winter collection</a></td>
-                                        <td class="product-price"><span class="amount">£50.00</span></td>
-                                        <td class="product-quantity"><input type="number" value="1"></td>
-                                        <td class="product-subtotal">£50.00</td>
-                                        <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-                                    </tr>
-                                </tbody>*@
-                        </table>
-                    </div>
-                    <!-- Table Content Start -->
-                    <div class="row">
-                        <!-- Cart Button Start -->
 
-                        <div class="col-md-8 col-sm-12">
-                            <div class="buttons-cart">
-                                <input type="submit" value="Cập nhật giỏ hàng">
-                                <a href="@Url.Action("Index","Home")">Continue Shopping</a>
-                            </div>
+                            </table>
                         </div>
-                        <!-- Cart Button Start -->
-                        <!-- Cart Totals Start -->
-                        <div class="col-md-4 col-sm-12">
-                            <div class="cart_totals float-md-right text-md-right">
-                                <h2>Giỏ hàng của bạn</h2>
-                                <br>
-                                <table class="float-md-right">
-                                    <tbody>
+                        <!-- Table Content Start -->
+                        <div class="row">
+                            <!-- Cart Button Start -->
 
-                                        <tr class="order-total">
-                                            <th>Tổng tiền</th>
-                                            <td>
-                                                <strong><span class="amount">@totalPriceCart.ToString("0#,0")</span></strong>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="wc-proceed-to-checkout">
-                                    <a href="@Url.Action("CheckOut","Cart")">Thanh toán</a>
+                            <div class="col-md-8 col-sm-12">
+                                <div class="buttons-cart">
+                                    <input type="submit" value="Cập nhật giỏ hàng">
+                                    <a href="@Url.Action("Index", "Home")">Tiếp tục mua sắm</a>
                                 </div>
                             </div>
+                            <!-- Cart Button Start -->
+                            <!-- Cart Totals Start -->
+                            <div class="col-md-4 col-sm-12">
+                                <div class="cart_totals float-md-right text-md-right">
+                                    <h2>Giỏ hàng của bạn</h2>
+                                    <br>
+                                    <table class="float-md-right">
+                                        <tbody>
+
+                                            <tr class="order-total">
+                                                <th>Tổng tiền</th>
+                                                <td>
+                                                    <strong><span class="amount">@totalPriceCart.ToString("0#,0")đ</span></strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="wc-proceed-to-checkout">
+                                        <a href="@Url.Action("CheckOut", "Cart")">Thanh toán</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Cart Totals End -->
                         </div>
-                        <!-- Cart Totals End -->
-                    </div>
-                    <!-- Row End -->
-                 }
-                <!-- Form End -->
+                        <!-- Row End -->
+                    }
+                    <!-- Form End -->
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <p class="text-danger"><b>Giỏ hàng của bạn đang rỗng</b></p>
+                    <a href="@Url.Action("Index","Home")"><span class="text-info">Quay lại trang chủ</span></a>
+                </div>
+            </div>
+        }
         <!-- Row End -->
+
+
+
+
     </div>
 </div>
 <!-- Cart Main Area End -->
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#quantity").keypress(function (e) {
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                 $("#errmsg").html("Kí tự số").show().fadeOut("slow");

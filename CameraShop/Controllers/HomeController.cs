@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using CameraShop.DAL;
 using CameraShop.HelperCode;
 using CameraShop.Models;
-
+using PagedList;
 namespace CameraShop.Controllers
 {
     public class HomeController : Controller
@@ -18,11 +18,32 @@ namespace CameraShop.Controllers
         private ShopContext db = new ShopContext();
 
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(string currentFilter,string searchString, int? page)
         {
+            int pageSize = 9;
+            int productPageNumber = (page ?? 1);
             var products = db.Products.Include(i => i.Category)
-                .Include(p => p.FileImgs);
-             return View(products.ToList());
+                .Include(p => p.FileImgs);      
+            //Paging when search
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ViewBag.SearchString = searchString;
+                products = products.Where(s => s.ProductName.Contains(searchString)
+                                       || s.Category.CategoryName.Contains(searchString));
+                ViewBag.CountProducts = products.Count();
+                return View("Search",products.OrderBy(p => p.ProductName).ToPagedList(productPageNumber,pageSize));
+            }
+          
+            return View(products.ToList());
         }
         // GET: Home/Details/5
         public ActionResult Details(string alias)

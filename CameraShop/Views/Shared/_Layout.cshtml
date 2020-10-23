@@ -3,17 +3,17 @@
 <html class="no-js" lang="zxx">
 <head>
     <meta charset="utf-8" />
-
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title</title>
 
-   
+
     @* @Styles.Render("~/Content/css")*@
     @Styles.Render("~/Content/clientcss")
     @Styles.Render("~/Content/clientStyleCss")
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
-
+    <script src="~/Scripts/Clients/vendor/modernizr-3.5.0.min.js"></script>
 </head>
 
 <body>
@@ -56,166 +56,9 @@
                         </div>
                         <!-- Logo End -->
                         <!-- Search Box Start Here -->
-                        <div class="col-md-6  order-3 order-md-2">
-                            <div class=" categorie-search-box">
-                                <form action="#">
-                                    <input type="text" name="search" placeholder="Search your keyword">
-                                    <button>
-                                        <span class="ti-search"></span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                        @Html.Partial("SearchBox")
                         <!-- Search Box End Here -->
-                        <!-- Cart Box Start Here -->
-                        @*<div class="col-md-3 col order-2 order-md-3 mb-sm-30">
-                                <div class="cart-box float-md-right">
-                                    <div class="drodown-show">
-
-                                        <a href="#">
-                                            <span class="total-pro"> sản phẩm <br><span class="badge badge-danger">160000đ</span></span>
-                                        </a>
-                                        <ul class="dropdown cart-box-width">
-                                            @if (Session["cart"] != null)
-                                            {
-                                                decimal totalPrice = 0;
-                                                foreach (var item in (List<Item>)Session["cart"])
-                                                {
-                                                    int count = 0;
-
-                                                    totalPrice += item.Product.DiscountedPrice;
-                                                    <li>
-                                                         Cart Box Start
-                                                        <div class="single-cart-box">
-                                                            <div class="cart-img">
-                                                                <a href="#">
-                                                                    <img src="~/img/products/p2.jpeg" alt="cart-image">
-                                                                    @foreach (var img in item.Product.FileImgs)
-                                                                    {
-                                                                        count++;
-                                                                        if (count == 1)
-                                                                        {
-                                                                            @Html.Image(img.file_base6);
-                                                                        }
-                                                                    }
-                                                                </a>
-                                                                <span class="pro-quantity">@item.Quantity</span>
-                                                            </div>
-                                                            <div class="cart-content">
-                                                                <h6>
-                                                                    <a href="product-details.html">@item.Product.ProductName </a>
-                                                                </h6>
-                                                                <span class="cart-price">@item.Product.DiscountedPrice.ToString("0#,0") đ</span>
-
-                                                            </div>
-                                                            <a class="del-icone" href="#">
-                                                                <span class="ti-close"></span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-
-                                                }
-                                                Cart Footer Inner Start
-                                                <div class="cart-footer">
-                                                    <ul class="price-content">
-                                                        <li>
-                                                                Subtotal
-                                                                <span>null</span>
-                                                            </li>
-                                                            <li>
-                                                                Shipping
-                                                                <span>$7.00</span>
-                                                            </li>
-                                                            <li>
-                                                                Taxes
-                                                                <span>$0.00</span>
-                                                            </li>
-                                                        <li>
-                                                            Tạm tính
-                                                            <span>@totalPrice.ToString("0#,0")đ</span>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="cart-actions text-center">
-                                                        <a class="cart-checkout" href="checkout.html">Checkout</a>
-                                                    </div>
-                                                </div>
-                                                Cart Footer Inner End
-                                            }
-
-
-                                            <li>
-                                                     Cart Box Start
-                                                    <div class="single-cart-box">
-                                                        <div class="cart-img">
-                                                            <a href="#">
-                                                                <img src="~/img/products/p2.jpeg" alt="cart-image">
-                                                            </a>
-                                                            <span class="pro-quantity">1X</span>
-                                                        </div>
-                                                        <div class="cart-content">
-                                                            <h6>
-                                                                <a href="product-details.html">Printed Summer Red </a>
-                                                            </h6>
-                                                            <span class="cart-price">27.45</span>
-                                                            <span>Size: S</span>
-                                                            <span>Color: Yellow</span>
-                                                        </div>
-                                                        <a class="del-icone" href="#">
-                                                            <span class="ti-close"></span>
-                                                        </a>
-                                                    </div>
-                                                     Cart Box End
-                                                     Cart Box Start
-                                                    <div class="single-cart-box">
-                                                        <div class="cart-img">
-                                                            <a href="#">
-                                                                <img src="~/img/products/p4.jpeg" alt="cart-image">
-                                                            </a>
-                                                            <span class="pro-quantity">1X</span>
-                                                        </div>
-                                                        <div class="cart-content">
-                                                            <h6>
-                                                                <a href="product-details.html">Printed Round Neck</a>
-                                                            </h6>
-                                                            <span class="cart-price">45.00</span>
-                                                            <span>Size: XL</span>
-                                                            <span>Color: Green</span>
-                                                        </div>
-                                                        <a class="del-icone" href="#">
-                                                            <span class="ti-close"></span>
-                                                        </a>
-                                                    </div>
-                                                     Cart Box End
-                                                     Cart Footer Inner Start
-                                                    <div class="cart-footer">
-                                                        <ul class="price-content">
-                                                            <li>
-                                                                Subtotal
-                                                                <span>$57.95</span>
-                                                            </li>
-                                                            <li>
-                                                                Shipping
-                                                                <span>$7.00</span>
-                                                            </li>
-                                                            <li>
-                                                                Taxes
-                                                                <span>$0.00</span>
-                                                            </li>
-                                                            <li>
-                                                                Total
-                                                                <span>$64.95</span>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="cart-actions text-center">
-                                                            <a class="cart-checkout" href="checkout.html">Checkout</a>
-                                                        </div>
-                                                    </div>
-                                                     Cart Footer Inner End
-                                                </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>*@
+                        <!--Cart Box Start Here-->
                         @Html.Partial("CartPartial")
                         <!-- Cart Box End Here -->
                     </div>
@@ -381,33 +224,7 @@
                                 <ul>
                                     <li class="drodown-show">
                                         <a href="#"><span class="ti-settings"></span></a>
-                                        <!-- Currency & Language Selection Start -->
-                                        <ul class="dropdown cart-box-width currency-selector">
-                                            <li>
-                                                <h3>My Account </h3>
-                                                <ul>
-                                                    <li><a href="register.html">Register</a></li>
-                                                    <li><a href="login.html">Login</a></li>
-                                                    <li><a href="account.html">My Account</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h3>Currency: USD</h3>
-                                                <ul>
-                                                    <li><a href="#">€ Euro</a></li>
-                                                    <li><a href="#">£ Pound Sterling</a></li>
-                                                    <li><a href="#">$ US Dollar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h3>Language: EN-GB</h3>
-                                                <ul>
-                                                    <li><a href="#"><img src="img\header\1.jpeg" alt="lang-icon"> English</a></li>
-                                                    <li><a href="#"><img src="img\header\2.jpeg" alt="lang-icon"> Germany</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <!-- Currency & Language Selection End -->
+                                        
                                     </li>
                                 </ul>
                             </div>
@@ -743,6 +560,6 @@
 @Scripts.Render("~/bundles/clientjs")
 @*@Scripts.Render("~/bundles/clientModernizr")*@
 
-<script src="~/Scripts/Clients/vendor/modernizr-3.5.0.min.js"></script>
+
 
 @RenderSection("scripts", required: false)

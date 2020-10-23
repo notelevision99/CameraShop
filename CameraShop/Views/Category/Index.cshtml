@@ -6,13 +6,37 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@{ 
-    ViewBag.Title = "Danh mục sản phẩm" + " - " +  ViewBag.Category + " " ;
+@{
+    ViewBag.Title = "Danh mục sản phẩm" + " - " + ViewBag.Category + " ";
 }
 
 @{
     int countProduct = 0;
 }
+@*Breadcrumb Area Start Here*@
+<div class="breadcrumb-area">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb-list">
+
+            @if (ViewContext.RouteData.Values["controller"].ToString() != "Cart1")
+            {
+                <li class="breadcrumb-item">
+                    @Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Cart", ViewContext.RouteData.Values["controller"].ToString())
+                </li>
+
+            }
+            @if (ViewContext.RouteData.Values["action"].ToString() != "Cart")
+            {
+                <li class="breadcrumb-item">
+                    @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+                </li>
+            }
+
+
+
+        </ol>
+    </div>
+</div>
 <!-- Shop Page Start -->
 <div class="main-shop-page ptb-80">
     <div class="container">
@@ -51,14 +75,16 @@
                 <!-- Grid & List View Start -->
                 <div class="grid-list-top border-default universal-padding d-md-flex justify-content-md-between align-items-center mb-30">
                     <div class="grid-list-view d-flex align-items-center  mb-sm-15">
-                        @if (ViewBag.Category != null)
-                        {
-                            <p class="h4">@ViewBag.Category</p>
-                        }
-                        else
-                        {
-                            <p class="h4">Tất cả sản phẩm</p>
-                        }
+                        <div class="nav tabs-area d-flex align-items-center">
+                            @if (ViewBag.Category != null)
+                            {
+                                <p class="h4">@ViewBag.Category</p>
+                            }
+                            else
+                            {
+                                <p class="h4">Tất cả sản phẩm</p>
+                            }
+                        </div>
                     </div>
                     <!-- Toolbar Short Area Start -->
                     <div class="main-toolbar-sorter clearfix">
@@ -72,19 +98,19 @@
                         }
 
                         <div id="getSort" class="toolbar-sorter d-md-flex align-items-center">
-                            <label for="getSelect">Sort By:</label>
-                            <select id="getSelect" class="sorter wide" onchange="window.open(this.value,'_self');">
+                            <label class="clearfix" for="getSelect">Sắp xếp:</label>
+                            <select  class="nice-select sorter wide" onchange="window.open(this.value,'_self');">
                                 <option value="">Choose Option</option>
                                 <option value="@Url.Action("Index","Category", new { Category = ViewBag.Category, sortOrder = "price_desc" })">Sắp xếp theo giá giảm dần</option>
                                 <option value="@Url.Action("Index","Category", new { Category = ViewBag.Category, sortOrder = "price_asc", })">Sắp xếp theo giá tăng dần</option>
                             </select>
                             @*<select class="sort wide" id="getSort" onchange="getval(this);">
-                        <option>Lọc sản phẩm</option>
-                        <option id="price_desc" value="price_desc">Giá giảm dần</option>
-                        <option id="price_asc" value="price_asc">Giá tăng dần</option>
-                    </select>*@
+                                    <option>Lọc sản phẩm</option>
+                                    <option id="price_desc" value="price_desc">Giá giảm dần</option>
+                                    <option id="price_asc" value="price_asc">Giá tăng dần</option>
+                                </select>*@
                         </div>
-                    </div>             
+                    </div>
                     <!-- Toolbar Short Area End -->
                 </div>
                 <!-- Grid & List View End -->
@@ -126,7 +152,7 @@
                                                             }
                                                         }
                                                     }
-                                                    <a class="sticker-new " href="wishlist.html">
+                                                    <a class="sticker-new " href="@Url.Action("Details","Home",new { alias = item.Alias})">
                                                         <span class="ti-heart"></span>
                                                     </a>
                                                     <span class="sticker-sale">new</span>
@@ -160,9 +186,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="pro-add-cart">
-                                                        @if(item.DiscountedPrice > 10000)
+                                                        @if (item.DiscountedPrice > 10000)
                                                         {
-                                                        <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@item.ProductID" class="pro-cart">Thêm vào giỏ</button>
+                                                            <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@item.ProductID" class="pro-cart">Thêm vào giỏ</button>
                                                         }
                                                     </div>
                                                 </div>
@@ -180,20 +206,22 @@
                     </div>
                     <!-- Grid & List Main Area End -->
                 </div>
-                    <div>
-                        Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
+                <div>
+                    Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
 
-                        @Html.PagedListPager((IPagedList)ViewBag.Prod, Productpage => Url.Action("Index", new { sortOrder = Request["sortOrder"], Category = Request["Category"], Productpage }))
-                    </div>
-
+                    @Html.PagedListPager((IPagedList)ViewBag.Prod, Productpage => Url.Action("Index", new { sortOrder = Request["sortOrder"], Category = Request["Category"], Productpage }))
                 </div>
-                <!-- product Categorie List End -->
+
             </div>
+            <!-- product Categorie List End -->
+        </div>
         <!-- Row End -->
     </div>
     <!-- Container End -->
 </div>
 <!-- Shop Page End -->
+
+<!--Shop Clone Page End-->
 <!-- Footer Area Start Here -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">

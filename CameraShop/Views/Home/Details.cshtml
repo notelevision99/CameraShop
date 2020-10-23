@@ -6,66 +6,7 @@
     ViewBag.Title = Model.ProductName  ;
 }
 
-@*<!DOCTYPE html>
-
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Details</title>
-    </head>
-    <body>
-        <div>
-            <h4>Product</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Category.CategoryName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Category.CategoryName)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.ProductSpecification.FirstTitle)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.ProductSpecification.FirstTitle)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.ProductName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.ProductName)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.OriPrice)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.OriPrice)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.DiscountedPrice)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.DiscountedPrice)
-                </dd>
-
-            </dl>
-        </div>
-        <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-    </body>
-    </html>*@
+    
 <div class="breadcrumb-area">
     <div class="container">
         <ol class="breadcrumb breadcrumb-list">
@@ -250,7 +191,7 @@
                             <ul class="d-flex flex-wrap">
                                 <li class="box-quantity">
                                     <form action="#">
-                                        <input class="quantity" type="number" min="1" value="1">
+                                        <input class="quantity" type="number" min="1" value="1" disabled>
                                     </form>
                                 </li>
 
@@ -290,20 +231,11 @@
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Giỏ hàng của bạn</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="text-success align-content-between"><span class="fasfa">Đã thêm thành công</span></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                                    <button type="button" onclick="document.location.href='@Url.Action("Cart","Cart")'" class="btn btn-success">Tiến hành thanh toán</button>
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-body">
+                                <div class="alert alert-success" role="alert">
+                                    <p class="text-center"><b>Thêm vào giỏ hàng thành công!</b></p>
+                                    <div class="modal-content"><button type="button" onclick="document.location.href='@Url.Action("Cart","Cart")'" class="btn btn-success ">Tiến hành thanh toán</button></div>
                                 </div>
                             </div>
                         </div>

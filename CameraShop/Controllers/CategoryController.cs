@@ -47,9 +47,10 @@ namespace CameraShop.Controllers
         //test IPAGELIST Category
         public ActionResult Index(string sortOrder,int? productPage, string Category = null )
         {
-           
-            ViewBag.PriceSortParm = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "price_asc";
             int ProductPageNumber = (productPage ?? 1);
+            int pageSize = 9;
+            ViewBag.PriceSortParm = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "price_asc";
+         
             // IPagedList<Product> products;
             List<Category> categories = db.Categories.ToList();
             var viewmodel = new ProductListViewModel();
@@ -59,34 +60,34 @@ namespace CameraShop.Controllers
                 if (sortOrder != null && sortOrder == "price_desc")
                 {
                     viewmodel.Products = db.Products.OrderByDescending(p => p.DiscountedPrice)
-                        .ToPagedList(ProductPageNumber, 9);
+                        .ToPagedList(ProductPageNumber, pageSize);
                 }
                 else if (sortOrder != null && sortOrder == "price_asc")
                 {
                     viewmodel.Products = db.Products.OrderBy(p => p.DiscountedPrice)
-                       .ToPagedList(ProductPageNumber, 9);
+                       .ToPagedList(ProductPageNumber, pageSize);
                 }
                 else
                 {
                     viewmodel.Products = db.Products
                       .Include(i => i.FileImgs)
                       .OrderBy(p => p.ProductName)
-                      .ToPagedList(ProductPageNumber, 9);
+                      .ToPagedList(ProductPageNumber, pageSize);
                 }
             }
             else
             {
-                viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.ProductName).ToPagedList(ProductPageNumber, 9);
+                viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.ProductName).ToPagedList(ProductPageNumber, pageSize);
                 //ViewBag.CountProd = products.Count();
 
                 //lọc != null
                 if (sortOrder != null && sortOrder == "price_desc")
                 {
-                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderByDescending(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, 9);
+                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderByDescending(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, pageSize);
                 }
                 else if (sortOrder != null && sortOrder == "price_asc")
                 {
-                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, 9);
+                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, pageSize);
                 }
                 //lấy giá trị của category hiện tại truyền cho view
                 ViewBag.Category = Category;

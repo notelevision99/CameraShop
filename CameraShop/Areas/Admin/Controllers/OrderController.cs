@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CameraShop.DAL;
 using CameraShop.Models;
+using PagedList;
 
 namespace CameraShop.Areas.Admin.Controllers
 {
@@ -16,9 +17,34 @@ namespace CameraShop.Areas.Admin.Controllers
         private ShopContext db = new ShopContext();
 
         // GET: Admin/Order
-        public ActionResult Index()
+        public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            return View(db.Orders.ToList());
+            int pageNumber = (page ?? 1);
+            int pageSize = 2;
+            var orders = db.Orders.OrderByDescending(c => c.OrderDate);
+            if(searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                currentFilter = searchString;
+            }
+            
+            ViewBag.CurrentFilter = currentFilter;
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                orders = orders.Where(c => c.CustomerName.Contains(searchString) || c.CustomerAddress.Contains(searchString) 
+                                    || c.CustomerEmail.Contains(searchString)
+                                    || c.CustomerPhone.Contains(searchString))
+                                    .OrderBy(p => p.CustomerName);
+
+
+                ViewBag.SearchString = searchString;
+                return View(orders.ToPagedList(pageNumber, pageSize));
+            }
+               
+            return View(orders.ToPagedList(pageNumber,pageSize));
         }
 
         // GET: Admin/Order/Details/5

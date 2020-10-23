@@ -16,8 +16,8 @@ namespace CameraShop.Areas.Admin
         {
             context.MapRoute(
                 "Admin_default",
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                "Admin-caothinh/{controller}/{action}/{id}",
+                new { action = "Index", controller = "Product", id = UrlParameter.Optional }
             );
         }
     }

@@ -10,6 +10,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using PagedList;
+
 namespace CameraShop.Areas.Admin.Controllers
 {
     public class ProductController : Controller
@@ -17,16 +19,33 @@ namespace CameraShop.Areas.Admin.Controllers
         private ShopContext db = new ShopContext();
 
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(string currentFilter,string searchString, int? page)
         {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            if(searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = currentFilter;
+
+            //select Product
             var products = db.Products.Include(p => p.Category)
-                .Include(i => i.FileImgs)
-                .ToList();
-            
-
-            return View(products);
+               .Include(i => i.FileImgs).OrderBy(c => c.ProductName);
+              
+            // input searchString success
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(c => c.ProductName.Contains(searchString) || c.Category.CategoryName.Contains(searchString)).OrderBy(c => c.ProductName);
+                ViewBag.SearchString = searchString;
+                return View(products.ToPagedList(pageNumber, pageSize));
+            }
+            return View(products.ToPagedList(pageNumber,pageSize));
         }
-
         // GET: Product/Details/5
         public ActionResult Details(int? id)
         {

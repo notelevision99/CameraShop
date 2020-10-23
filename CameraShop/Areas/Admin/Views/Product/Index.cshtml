@@ -1,17 +1,26 @@
-﻿@model IEnumerable<CameraShop.Models.Product>
+﻿@model PagedList.IPagedList<CameraShop.Models.Product>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @using CameraShop.HelperCode
 @{
     ViewBag.Title = "Danh sach san pham";
 }
 
-<h2>Danh sach san pham</h2>
+<h2>Danh sách sản phẩm</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index","Product",FormMethod.Get))
+{
+    <p>
+        Tìm kiếm sản phẩm: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table table-hover">
     <tr class="table-info">
-        <th>Anh</th>
+        <th>Ảnh</th>
         <th>
             @Html.DisplayName("Category Name")
         </th>
@@ -24,52 +33,55 @@
         <th>
             @Html.DisplayName("DiscountedPrice")
         </th>
-    
+
         <th></th>
     </tr>
 
-@foreach (var item in Model){
-<tr>
-    
-    <td>
+    @foreach (var item in Model)
+    {
+        <tr>
 
-        @{
-            if (item.FileImgs!= null)
-            {
-                int count = 0;
-                foreach (var img in item.FileImgs)
-                {
-                    count++;
-                    if (count == 1)
+            <td>
+
+                @{
+                    if (item.FileImgs != null)
                     {
-                        @Html.ImageDetail(img.file_base6)
+                        int count = 0;
+                        foreach (var img in item.FileImgs)
+                        {
+                            count++;
+                            if (count == 1)
+                            {
+                                @Html.ImageDetail(img.file_base6)
+                            }
+                        }
                     }
-                }
-            }
 
-        }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Category.CategoryName)
-    </td>
-    <td>
-        <h6 class="font-weight-bold"><a href="@Url.Action("Details","Product", new { id = item.ProductID })">@Html.DisplayFor(modelItem => item.ProductName)</a></h6> 
-    </td>
-    <td>
-        <p ><del class="old-price">@Html.DisplayFor(modelItem => item.OriPrice )</del></p>
-       
-    </td>
-    <td>
-        <p class="text-danger"> @Html.DisplayFor(modelItem => item.DiscountedPrice)</p>
-       
-    </td>
-    
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
-    </td>
-</tr>
-}
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                <h6 class="font-weight-bold"><a href="@Url.Action("Details","Product", new { id = item.ProductID })">@Html.DisplayFor(modelItem => item.ProductName)</a></h6>
+            </td>
+            <td>
+                <p><del class="old-price">@Html.DisplayFor(modelItem => item.OriPrice)</del></p>
+
+            </td>
+            <td>
+                <p class="text-danger"> @Html.DisplayFor(modelItem => item.DiscountedPrice)</p>
+
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+            </td>
+        </tr>
+    }
 
 </table>
+ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchString }))

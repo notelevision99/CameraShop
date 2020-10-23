@@ -1,14 +1,20 @@
-﻿@model IEnumerable<CameraShop.Models.Order>
-
-
+﻿@model PagedList.IPagedList<CameraShop.Models.Order>
+@using PagedList.Mvc;
+ <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Danh sách đơn hàng";
 }
+<h4>Danh sách đơn hàng</h4>
 <body>
+    @using(Html.BeginForm("Index","Order",FormMethod.Get))
+    {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        Tìm kiếm đơn hàng <b>(email, tên khách hàng) </b>: @Html.TextBox("SearchString")
+        <input type="submit" value="Tìm kiếm" />
     </p>
+        
+    }
     <table class="table table-hover ">
         <tr class="table-success">        
             <th>
@@ -65,6 +71,6 @@
         }
 
     </table>
-
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Order", new { page, searchString = ViewBag.SearchString}))
 </body>
 

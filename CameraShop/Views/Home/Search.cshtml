@@ -1,0 +1,182 @@
+﻿@model PagedList.IPagedList<CameraShop.Models.Product>
+@using PagedList.Mvc;
+@using CameraShop.HelperCode
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Tìm kiếm sản phẩm cho - " + ViewBag.SearchString + " - ";
+}
+<div class="coupon-area pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+</div>
+
+<div class="main-shop-page ptb-80">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Shopping Option Start -->
+            <div class="col-lg-3 order-2 order-lg-1 mt-all-30">
+                <div class="sidebar shop-sidebar">
+                    <!-- Price Filter Options Start -->
+                    <div class="search-filter mb-30">
+                        <h3 class="sidebar-title">Tìm kiếm cho <span class="text-danger">"@ViewBag.SearchString"</span></h3>
+
+                    </div>
+                    <!-- Price Filter Options End -->
+                </div>
+            </div>
+            <!-- Sidebar Shopping Option End -->
+            @if (ViewBag.CountProducts > 0)
+            {
+                <div class="col-lg-9 order-1 order-lg-2">
+
+                    <div class="shop-area mb-all-80">
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-body">
+                                    <div class="alert alert-success" role="alert">
+                                        <p class="text-center"><b>Thêm vào giỏ hàng thành công!</b></p>
+                                        <div class="modal-content"><button type="button" onclick="document.location.href='@Url.Action("Cart","Cart")'" class="btn btn-success ">Tiến hành thanh toán</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Grid & List Main Area End -->
+                        <div class="tab-content">
+                            <div id="grid-view" class="tab-pane fade show active">
+                                <div class="row border-hover-effect ">
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                <!-- Single Product Start -->
+                                                <div class="single-ponno-product">
+                                                    <!-- Product Image Start -->
+                                                    <div class="pro-img">
+                                                        @{
+                                                            int count = 0;
+                                                            foreach (var img in item.FileImgs)
+                                                            {
+                                                                count++;
+                                                                if (count == 1)
+                                                                {
+                                                                    <a href="@Url.Action("Details","Home",new { alias = item.Alias})">
+                                                                        @Html.ImageSlick(img.file_base6)
+                                                                    </a>
+                                                                }
+                                                            }
+                                                        }
+                                                        <a class="sticker-new " href="wishlist.html">
+                                                            <span class="ti-heart"></span>
+                                                        </a>
+                                                        <span class="sticker-sale">new</span>
+                                                    </div>
+                                                    <!-- Product Image End -->
+                                                    <!-- Product Content Start -->
+                                                    <div class="pro-content">
+                                                        <div class="pro-info">
+                                                            <h4>
+                                                                <a href="@Url.Action("Details","Home",new { alias = item.Alias })">@Html.DisplayFor(modelItem => item.ProductName)</a>
+                                                            </h4>
+                                                            <p>
+                                                                <span class="special-price text-danger">
+                                                                    @if (item.DiscountedPrice > 10000)
+                                                                    {
+                                                                        @Html.DisplayFor(modelItem => item.DiscountedPrice)
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @Html.DisplayName("Liên hệ");
+                                                                    }
+                                                                </span>
+                                                            </p>
+                                                            <div class="product-rating">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <span class="quantity-pro">(200+)</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pro-add-cart">
+                                                            @if (item.DiscountedPrice > 10000)
+                                                            {
+                                                                <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@item.ProductID" class="pro-cart">Thêm vào giỏ</button>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <!-- Product Content End -->
+                                                </div>
+                                                <!-- Single Product End -->
+                                            </div>
+                                            //countProduct++;
+                                        }
+                                    }
+                                </div>
+                                <!-- Row End -->
+                            </div>
+
+                        </div>
+                        <!-- Grid & List Main Area End -->
+                    </div>
+                    <div>
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12">
+                    <div class="error-wrapper text-center">
+                        <div class="error-text">
+                            <h1>404</h1>
+                            <h2>Opps!</h2>
+                            <p>Xin lỗi nhưng từ khóa của bạn có vẻ không hợp lý. Hãy thử viết có dấu hoặc tìm kiếm sản phẩm khác</p>
+                        </div>
+
+                        <div class="error-button">
+                            <a href="@Url.Action("Index","Home")">Quay lại trang chủ</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function AddToCart(item) {
+        var itemid = $(item).attr("itemid");
+        //alert(itemid);
+        var formData = new FormData();
+        formData.append("ProductID", itemid);
+        $.ajax({
+            async: false,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Home/AddToCart',
+            success: function (data) {
+                if (data.success) {
+                    //alert("Đã thêm vào giỏ hàng")
+                    $("#exampleModal").show();
+                    $("#cartItem").text("" + data.Counter + " sản phẩm ");
+
+                    //$("dropdown cart-box-width active").show();
+                }
+            },
+            error: function () {
+                alert("There is some problem");
+            }
+        })
+    }
+</script>
