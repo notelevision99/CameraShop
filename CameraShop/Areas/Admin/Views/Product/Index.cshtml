@@ -8,9 +8,11 @@
 
 <h2>Danh sách sản phẩm</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<button type="button" class="btn btn-success mb-2" onclick="document.location.href = '@Url.Action("Create","Product")'">
+  Tạo mới sản phẩm
+
+</button>
+
 @using (Html.BeginForm("Index","Product",FormMethod.Get))
 {
     <p>

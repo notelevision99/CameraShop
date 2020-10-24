@@ -5,8 +5,11 @@ using CameraShop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
+using PagedList;
 
 namespace CameraShop.Areas.Admin.Controllers
 {
@@ -14,10 +17,23 @@ namespace CameraShop.Areas.Admin.Controllers
     {
         // GET: Admin/Img
         private ShopContext db = new ShopContext();
-        public ActionResult Index()
+        public ActionResult Index(string currentFilter,string searchString, int? page)
         {
+            
+            
             ImageViewModel model = new ImageViewModel { FileAttach = null, ImgLst = new List<ImgObj>() };
-
+            
+            
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                model.ImgLst = db.FileImgs.Where(p => p.file_name.Contains(searchString)).Select(p => new ImgObj
+                {
+                    FileId = p.file_id,
+                    FileName = p.file_name,
+                    FileContentType = p.file_ext    
+                }).ToList();
+                return View(model);
+            }
             try
             {
                 // Settings.  
@@ -26,7 +42,7 @@ namespace CameraShop.Areas.Admin.Controllers
                     FileId = p.file_id,
                     FileName = p.file_name,
                     FileContentType = p.file_ext
-                }).ToList(); ;
+                }).ToList() ;
             }
             catch (Exception ex)
             {
@@ -133,19 +149,32 @@ namespace CameraShop.Areas.Admin.Controllers
             // info.  
             return file;
         }
-        public ActionResult About()
+       
+        public ActionResult Delete(int? id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            FileImg img = db.FileImgs.Find(id);
+            if(img == null)
+            {
+                return HttpNotFound();
+            }
+            return View(img);
+           
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            FileImg img = db.FileImgs.Find(id);
+            db.FileImgs.Remove(img);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+      
 
     }
 }
