@@ -1,13 +1,36 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+﻿@{ 
+    ViewBag.Title = "Page not found";
+} 
+
+ <!-- Error 404 Area Start -->
+<div class="error404-area ptb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-wrapper text-center">
+                    <div class="error-text">
+                        <h1>404</h1>
+                        <h2>Opps! PAGE NOT BE FOUND</h2>
+                        <p>Có vẻ như trang bạn tìm kiếm không phù hợp, chúng tôi xin lỗi vì sự bất tiện này</p>
+                    </div>
+                    <div class="search-error">
+                        <div class="categorie-search-box">
+                            
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                            {
+                                @Html.TextBox("SearchString")
+                                <button>
+                                    <span class="ti-search"></span>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                    <div class="error-button">
+                        <a href="@Url.Action("Index","Home")">Quay lại trang chủ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Error 404 Area End -->

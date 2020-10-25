@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using CameraShop.DAL;
 using CameraShop.HelperCode;
 using CameraShop.Models;
+using CameraShop.ViewModels;
 using PagedList;
 namespace CameraShop.Controllers
 {
@@ -48,16 +49,22 @@ namespace CameraShop.Controllers
         // GET: Home/Details/5
         public ActionResult Details(string alias)
         {
+            RelateProductViewModel model = new RelateProductViewModel();
             if (alias == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
-            var product = db.Products.SingleOrDefault(p => p.Alias == alias);
-            if (product == null)
+            //Chi tiết 1 sản phẩm
+            model.Product = db.Products.SingleOrDefault(p => p.Alias == alias);
+            ViewBag.Category = model.Product.Category.CategoryName;
+            //List sản phẩm liên quan
+            model.Products = db.Products.Include(p => p.Category)
+                .Include(p => p.FileImgs).OrderBy(p => p.ProductName);
+            if (model.Product == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(product);
+            return View(model);
         }
 
 

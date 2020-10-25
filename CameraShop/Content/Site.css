@@ -33,3 +33,10 @@ textarea {
 .nice-select.wide {
     width: 78%;
 }
+
+.blue-bg {
+    background: #0493a1;
+}
+.pro-cart {
+    background: #0493a1 none repeat scroll 0 0;
+}

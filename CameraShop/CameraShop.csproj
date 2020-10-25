@@ -208,6 +208,7 @@
     <Compile Include="ViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\ProductListViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModels\RelateProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\css\styles.css" />
