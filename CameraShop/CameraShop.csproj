@@ -149,6 +149,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InfoCompanyController.cs" />
     <Compile Include="DAL\ShopContext.cs" />
     <Compile Include="DAL\ShopInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -157,45 +158,9 @@
     <Compile Include="HelperCode\HtmlExtensions.cs" />
     <Compile Include="HelperCode\ImgObj.cs" />
     <Compile Include="HelperCode\Item.cs" />
-    <Compile Include="Migrations\202009171826554_InitialCre.cs" />
-    <Compile Include="Migrations\202009171826554_InitialCre.designer.cs">
-      <DependentUpon>202009171826554_InitialCre.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009191637025_addNavigaPropProductandFileImg.cs" />
-    <Compile Include="Migrations\202009191637025_addNavigaPropProductandFileImg.designer.cs">
-      <DependentUpon>202009191637025_addNavigaPropProductandFileImg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009201000075_addMapLeftKey.cs" />
-    <Compile Include="Migrations\202009201000075_addMapLeftKey.designer.cs">
-      <DependentUpon>202009201000075_addMapLeftKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009221108305_Add-ProductSpec.cs" />
-    <Compile Include="Migrations\202009221108305_Add-ProductSpec.designer.cs">
-      <DependentUpon>202009221108305_Add-ProductSpec.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009280703241_something.cs" />
-    <Compile Include="Migrations\202009280703241_something.designer.cs">
-      <DependentUpon>202009280703241_something.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010040818055_AddProductSpecification.cs" />
-    <Compile Include="Migrations\202010040818055_AddProductSpecification.designer.cs">
-      <DependentUpon>202010040818055_AddProductSpecification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010121305523_AddOrderandOrderDetail.cs" />
-    <Compile Include="Migrations\202010121305523_AddOrderandOrderDetail.designer.cs">
-      <DependentUpon>202010121305523_AddOrderandOrderDetail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010131046471_RemoveDataAnotationOrder.cs" />
-    <Compile Include="Migrations\202010131046471_RemoveDataAnotationOrder.designer.cs">
-      <DependentUpon>202010131046471_RemoveDataAnotationOrder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010180749046_AddProductIntroandAlias.cs" />
-    <Compile Include="Migrations\202010180749046_AddProductIntroandAlias.designer.cs">
-      <DependentUpon>202010180749046_AddProductIntroandAlias.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010180829136_AliasRequired.cs" />
-    <Compile Include="Migrations\202010180829136_AliasRequired.designer.cs">
-      <DependentUpon>202010180829136_AliasRequired.cs</DependentUpon>
+    <Compile Include="Migrations\202010261230546_initialCre.cs" />
+    <Compile Include="Migrations\202010261230546_initialCre.designer.cs">
+      <DependentUpon>202010261230546_initialCre.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -212,6 +177,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\css\styles.css" />
+    <Content Include="Content\alertifyjs\alertify.css" />
+    <Content Include="Content\alertifyjs\alertify.min.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.css" />
+    <Content Include="Content\alertifyjs\themes\default.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.min.css" />
+    <Content Include="Content\Banner\s2.jpeg" />
+    <Content Include="Content\Banner\s3.jpeg" />
     <Content Include="Content\Client\css\animate.css" />
     <Content Include="Content\Client\css\bootstrap.min.css" />
     <Content Include="Content\Client\css\default.css" />
@@ -229,6 +212,7 @@
     <Content Include="Content\Client\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Client\fonts\themify.svg" />
     <Content Include="Content\Client\style.css" />
+    <Content Include="Content\Banner\s1.jpeg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="img\banner\b10.jpeg" />
     <Content Include="img\banner\b11.jpeg" />
@@ -273,8 +257,10 @@
     <Content Include="img\slider\s1.jpeg" />
     <Content Include="img\slider\s1_1.png" />
     <Content Include="img\slider\s1_2.png" />
+    <Content Include="img\slider\s1_3.jpg" />
     <Content Include="img\slider\s2.jpeg" />
     <Content Include="img\slider\s3.jpeg" />
+    <Content Include="img\slider\tu-van.jpg" />
     <Content Include="img\support\s1.png" />
     <Content Include="img\support\s2.png" />
     <Content Include="img\support\s3.png" />
@@ -300,6 +286,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\alertify.js" />
+    <Content Include="Scripts\alertify.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -735,6 +723,7 @@
     <Content Include="Views\Cart\OrderSuccess.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\SearchBox.cshtml" />
+    <Content Include="Views\InfoCompany\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -755,35 +744,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009171826554_InitialCre.resx">
-      <DependentUpon>202009171826554_InitialCre.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009191637025_addNavigaPropProductandFileImg.resx">
-      <DependentUpon>202009191637025_addNavigaPropProductandFileImg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009201000075_addMapLeftKey.resx">
-      <DependentUpon>202009201000075_addMapLeftKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009221108305_Add-ProductSpec.resx">
-      <DependentUpon>202009221108305_Add-ProductSpec.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009280703241_something.resx">
-      <DependentUpon>202009280703241_something.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010040818055_AddProductSpecification.resx">
-      <DependentUpon>202010040818055_AddProductSpecification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010121305523_AddOrderandOrderDetail.resx">
-      <DependentUpon>202010121305523_AddOrderandOrderDetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010131046471_RemoveDataAnotationOrder.resx">
-      <DependentUpon>202010131046471_RemoveDataAnotationOrder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010180749046_AddProductIntroandAlias.resx">
-      <DependentUpon>202010180749046_AddProductIntroandAlias.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010180829136_AliasRequired.resx">
-      <DependentUpon>202010180829136_AliasRequired.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010261230546_initialCre.resx">
+      <DependentUpon>202010261230546_initialCre.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -31,12 +31,40 @@ textarea {
     color: red;
 }
 .nice-select.wide {
-    width: 78%;
+    width: 100%;
 }
 
 .blue-bg {
-    background: #0493a1;
+    background: #2fa0ca;
 }
 .pro-cart {
-    background: #0493a1 none repeat scroll 0 0;
+    background: #208088 none repeat scroll 0 0;
+}
+.pro-cart:hover {
+    background: #27909a;
+}
+.mean-container .mean-bar {
+    background: #246066 none repeat scroll 0 0;
+}
+
+.cart-box .total-pro {
+    background: #12292b none repeat scroll 0 0;
+}
+
+.black-bg {
+    border: 1px solid #e6e6e6;
+    background: #ffffff;
+}
+
+.footer-list li, .footer-list li a {
+    color: #afafaf;
+    font-size: 18px;
+}
+
+.ptb-60 {
+    padding: 20px 0;
+}
+
+.hotrobanner {
+    background-color: #d2d2d2
 }

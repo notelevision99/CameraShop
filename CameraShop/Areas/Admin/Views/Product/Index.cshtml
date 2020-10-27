@@ -9,11 +9,11 @@
 <h2>Danh sách sản phẩm</h2>
 
 <button type="button" class="btn btn-success mb-2" onclick="document.location.href = '@Url.Action("Create","Product")'">
-  Tạo mới sản phẩm
+    Tạo mới sản phẩm
 
 </button>
 
-@using (Html.BeginForm("Index","Product",FormMethod.Get))
+@using (Html.BeginForm("Index", "Product", FormMethod.Get))
 {
     <p>
         Tìm kiếm sản phẩm: @Html.TextBox("SearchString")
@@ -87,3 +87,18 @@
 </table>
  Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchString }))
+
+@section scripts{
+    <script>
+    $(function () {
+        var successMessage = '@TempData["message"]'
+        if (successMessage != '')
+            alertify.success(successMessage);
+        });
+    </script>
+
+}
+
+
+
+

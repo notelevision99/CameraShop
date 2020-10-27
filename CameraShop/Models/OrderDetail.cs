@@ -10,6 +10,7 @@ namespace CameraShop.Models
     public class OrderDetail
     {
         
+        [Key]
         public int ID { get; set; }
         public int ProductID { get; set; }
 

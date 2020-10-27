@@ -40,7 +40,8 @@ namespace CameraShop.Areas.Admin.Controllers
             // input searchString success
             if (!String.IsNullOrEmpty(searchString))
             {
-                products = products.Where(c => c.ProductName.Contains(searchString) || c.Category.CategoryName.Contains(searchString)).OrderBy(c => c.ProductName);
+                products = products.Where(c => c.ProductName.Contains(searchString) || c.Category.CategoryName.Contains(searchString)
+                || c.ProductSKU.Contains(searchString)).OrderBy(c => c.ProductName);
                 ViewBag.SearchString = searchString;
                 return View(products.ToPagedList(pageNumber, pageSize));
             }
@@ -69,17 +70,18 @@ namespace CameraShop.Areas.Admin.Controllers
             product.FileImgs = new List<FileImg>();
             PopulateAssignedImageData(product);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-
+            
             return View();
         }
 
         // POST: Product/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [ValidateInput(false)]
+       
         [HttpPost]  
-        public ActionResult Create([Bind(Include = "ProductID,Alias,ProductName,OriPrice,DiscountedPrice,CategoryID,ProductSpecification,ProductIntro")] Product product, string[] selectedFileImgs)
+        public ActionResult Create([Bind(Include = "ProductSKU,Alias,ProductName,OriPrice,DiscountedPrice,CategoryID,ProductSpecification,ProductIntro")] Product product, string[] selectedFileImgs)
         {
+           
             if (selectedFileImgs != null)
             {
                 product.FileImgs = new List<FileImg>();
@@ -93,9 +95,11 @@ namespace CameraShop.Areas.Admin.Controllers
             {
                 db.Products.Add(product);
                 db.SaveChanges();
+                TempData["message"] = "Thêm sản phẩm thành công";
                 return RedirectToAction("Index");
             }
             PopulateAssignedImageData(product);
+            
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             return View(product);
         }
@@ -182,6 +186,7 @@ namespace CameraShop.Areas.Admin.Controllers
                     }
 
                     UpdateProductFileImgs(selectedFileImgs, productToUpdate);
+                    TempData["message"] = "Cập nhật sản phẩm thành công";
 
                     db.SaveChanges();
 
@@ -225,6 +230,7 @@ namespace CameraShop.Areas.Admin.Controllers
         {
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
+            TempData["message"] = "Xóa sản phẩm thành công";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

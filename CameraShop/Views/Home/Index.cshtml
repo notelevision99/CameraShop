@@ -10,22 +10,180 @@
 }
 
 
+<!-- Slider Area Start -->
+<div class="slider-area">
+    <!-- Slider Area Start Here -->
+    <div class="slider-activation owl-carousel">
+        <!-- Start Single Slide -->
+        <div class="slide align-center-left fullscreen animation-style-01 bg-image-1 ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-5">
+                        <div class="sldier-right-img">
+                            <img src="~/img/slider/s1_3.jpg" alt="slider-img">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="slider-content">
+                            <h6>camerasg247.com</h6>
+                            <h1>Lắp đặt camera 24/7</h1>
+                            <p>Uy tín chất lượng - Nhanh chóng - Giá cạnh tranh</p>
+                            <p>Liên hệ: <span class="text-danger">0923123xxxx</span></p>
+                            <div class="slide-btn small-btn">
+                                <a href="@Url.Action("Index","Category")">Xem sản phẩm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide align-center-left fullscreen animation-style-02 bg-image-1">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-5">
+                        <div class="sldier-right-img">
+                            <img src="~/img/slider/tu-van.jpg" alt="slider-img">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="slider-content">
+                            <h6>camerasg247.com </h6>
+                            <h1>tư vấn - lắp đặt camera   </h1>
+                            <p>Nhận tư vấn, lắp đặt camera khu vực TPHCM và các vùng lân cận!</p>
+                            <p>Liên hệ: <span class="text-danger">093232323xx</span></p>
+                            <div class="slide-btn small-btn">
+                                <a href="@Url.Action("Index","Category")">Xem sản phẩm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- Slider Area End Here -->
+</div>
+<!-- Slider Area End -->
 <!-- Featured Product Start Here -->
+<!-- Hot Deal Area Start Here -->
+<div class="hot-deal pt-50 pb-80">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Blog Details Start -->
+            <div class="col-xl-9 col-lg-8">
+                <div class="blog-details mb-all-40">
+                    
+                    <div class="text-upper-portion">
+                        <h3 class="blog-dtl-header portfolio-header">Kinh nghiệm lắp đặt camera quan sát</h3>
+                        <ul class="meta-box meta-blog d-flex">
 
+                           
+                        </ul>
+                        <p >– Không lắp đặt camera không rõ nguồn gốc, kém chất lượng vì sẽ bị sự cố thường xuyên.</p>
+                        <p>– Yêu cầu cam kết rõ ràng về chất lượng và hậu mãi từ công ty lắp đặt.</p>
+                        <p>– Không lắp đặt camera với giá quá rẻ trừ khi bạn có thể tự bảo hành hệ thống.</p>
+                        <p>– Nếu bạn không yên tâm có thể yêu cầu giữ lại một phần tiền cho phí bảo hành.</p>
+                        <p>– Chúng tôi cam kết cung cấp các sản phẩm chính hãng, đúng tiêu chuẩn, đúng nguồn gốc xuất xứ và yêu cầu kỹ thuật của nhà sản xuất.</p>
+                        <p>– Giá cả cạnh tranh nhất cho chất lượng hoàn hảo nhất và mang lại lợi ích cao trong quá trình sử dụng.</p>
+                        <p>– Tư vấn, thi công – Bảo hành, bảo trì chu đáo nhất.</p>
+                        <p>– Chúng tôi rất hân hạnh được phục vụ khi bạn cần. Cảm ơn bạn đã quan tâm đến sản phẩm chúng tôi. Mọi yêu cầu lắp đặt camera xin vui lòng gọi số hotline 24/7 :<span class="text-danger font-weight-bold">0912 123 123</span> </p>
+                    </div>
+                    
+                   
+                </div>
+            </div>
+            <!-- Blog Details End -->
+            <div class="col-xl-3">
+                <!-- Single Product Start -->
+                <div class="hot-deal deal-active owl-carousel">
+                    <!-- Single Product Start -->
+                    @if (Model != null)
+                    {
+
+
+                        foreach (var item in Model.Take(5))
+                        {
+                            <div class="single-ponno-product">
+                                <!-- Product Image Start -->
+                                <div class="pro-img">
+                                    @{
+
+                                        int countImgProdHotDeal = 0;
+                                        foreach (var img in item.FileImgs)
+                                        {
+                                            countImgProdHotDeal++;
+                                            if (countImgProdHotDeal == 1)
+                                            {
+                                                <a href="@Url.Action("Details","Home",new { alias = item.Alias})">
+                                                    @Html.ImageSlick(img.file_base6)
+                                                </a>
+
+                                            }
+                                        }
+                                    }
+                                    <a class="sticker-new " href="@Url.Action("Details","Home",new { alias = item.Alias})"><span class="ti-heart"></span></a>
+                                    <span class="sticker-sale">new</span>
+                                </div>
+                                <!-- Product Image End -->
+                                <!-- Product Content Start -->
+                                <div class="pro-content">
+                                    <div class="pro-info">
+                                        <h6 class="font-weight-bold" display="flex"><a href="@Url.Action("Details","Home", new { alias = item.Alias})">@Html.DisplayFor(modelItem => item.ProductName)</a></h6>
+                                        <p>
+                                            <span class="special-price text-danger">
+                                                @if (item.DiscountedPrice > 10000)
+                                                {@Html.DisplayFor(modelItem => item.DiscountedPrice)}
+                                            else
+                                            {
+                                                @Html.DisplayName("Liên hệ");
+                                            }
+                                            </span>
+                                        </p>
+                                        <div class="product-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <span class="quantity-pro">(5+)</span>
+                                        </div>
+                                    </div>
+                                    @if (item.DiscountedPrice > 10000)
+                                    {
+
+                                        <div class="pro-add-cart">
+                                            @*<a href="cart.html" title="Add to Cart">Add To Cart</a>*@
+                                            <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@item.ProductID" class="pro-cart">Thêm vào giỏ</button>
+                                        </div>
+
+                                    }
+
+                                </div>
+                                <!-- Product Content End -->
+                            </div>
+                        }
+                        
+                    }
+                 
+                  
+                </div>
+                <!-- Single Product End -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hot Deal Area End Here -->
 <div class="featured-pro pb-80">
     <div class="container">
         <div class="main-product-tab-area">
             <!-- Nav tabs -->
             <ul class="nav tabs-area pro-tabs-area" role="tablist">
                 <li class="nav-item">
-                    <a class="active" data-toggle="tab" href="#best-deal">Best deal</a>
+                    <a class="active" data-toggle="tab" href="#best-deal">Sản phẩm bán chạy</a>
                 </li>
-                <li class="nav-item">
-                    <a data-toggle="tab" href="#new-pro">New Product</a>
-                </li>
-                <li class="nav-item">
-                    <a data-toggle="tab" href="#featured">Featured</a>
-                </li>
+
             </ul>
             <!-- Tab Contetn Start -->
             <div class="tab-content">
@@ -127,390 +285,9 @@
                     </div>
                 </div>
                 <!--End Modal-->
-                <div id="new-pro" class="tab-pane fade">
-                    <!-- New Product Activation Start Here -->
-                    <div class="feature-pro-active owl-carousel">
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                    </div>
-                    <!-- New Product Activation End Here -->
-                </div>
+                <!-- #new-pro Start Here -->
                 <!-- #new-pro End Here -->
-                <div id="featured" class="tab-pane fade">
-                    <!-- Featured Product Activation Start Here -->
-                    <div class="feature-pro-active owl-carousel">
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                        <!-- Single Product Start -->
-                        <div class="single-ponno-product">
-                            <!-- Product Image Start -->
-                            <div class="pro-img">
-                                <a href="product-details.html">
-                                    <img class="primary-img" src="img\products\p1.jpeg" alt="single-product">
-                                    <img class="secondary-img" src="img\products\p2.jpeg" alt="single-product">
-                                </a>
-                                <div class="pro-actions-link">
-                                    <a href="compare.html" title="Compare"><span class="icon icon-MusicMixer"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View"><span class="icon icon-Eye"></span></a>
-                                </div>
-                                <a class="sticker-new " href="wishlist.html"><span class="ti-heart"></span></a>
-                                <span class="sticker-sale">new</span>
-                            </div>
-                            <!-- Product Image End -->
-                            <!-- Product Content Start -->
-                            <div class="pro-content">
-                                <div class="pro-info">
-                                    <h4><a href="product-details.html">Ponno 360 Camera</a></h4>
-                                    <p><span class="special-price">$140.00</span></p>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star"></i>
-
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <span class="quantity-pro">(200+)</span>
-                                    </div>
-                                </div>
-                                <div class="pro-add-cart">
-                                    <a href="cart.html" title="Add to Cart">Add To Cart</a>
-                                </div>
-                            </div>
-                            <!-- Product Content End -->
-                        </div>
-                        <!-- Single Product End -->
-                    </div>
-                    <!-- Featured Product Activation End Here -->
-                </div>
+                <!-- #featured Start Here -->
                 <!-- #featured End Here -->
             </div>
             <!-- Tab Content End -->
@@ -519,6 +296,8 @@
     </div>
 </div>
 <!-- Featured Product End Here -->
+
+
 <script type="text/javascript">
     //$("#myLink").click(function (e) {
 

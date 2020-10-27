@@ -10,7 +10,9 @@
     @Styles.Render("~/Content/admincss")
 
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
 
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -134,9 +136,8 @@
 <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.iframe-transport.js"></script>
-<script type="text/javascript" src="~/Scripts/jquery.fileupload.js"></script>
-<script type="text/javascript" src="~/Scripts/jquery.cloudinary.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-
+<script src="~/Scripts/alertify.min.js"></script>
 @RenderSection("scripts", required: false)

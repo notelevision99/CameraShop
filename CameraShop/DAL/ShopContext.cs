@@ -7,6 +7,7 @@ using CameraShop.Models;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CameraShop.DAL
 {
@@ -31,7 +32,7 @@ namespace CameraShop.DAL
             .Map(t => t.MapLeftKey("ProductID")
              .MapRightKey("file_id")
             .ToTable("ProductImg"));
-         
+          
 
         }
         public virtual int sp_insert_file(string file_name, string file_ext, string file_base64)

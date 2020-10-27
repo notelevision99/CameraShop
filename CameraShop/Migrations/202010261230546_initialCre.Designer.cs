@@ -7,13 +7,13 @@ namespace CameraShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitialCre : IMigrationMetadata
+    public sealed partial class initialCre : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCre));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialCre));
         
         string IMigrationMetadata.Id
         {
-            get { return "202009171826554_InitialCre"; }
+            get { return "202010261230546_initialCre"; }
         }
         
         string IMigrationMetadata.Source

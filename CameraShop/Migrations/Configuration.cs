@@ -13,6 +13,7 @@
         {
             AutomaticMigrationsEnabled = false;
             
+
         }
 
         protected override void Seed(CameraShop.DAL.ShopContext context)

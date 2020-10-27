@@ -35,6 +35,7 @@ namespace CameraShop.Controllers
                 CustomerAddress = frc["cusAddress"],
                 CustomerEmail = frc["cusEmail"],
                 CustomerPhone = frc["cusPhone"],
+                OrderNote = frc["cusNote"],
                 OrderDate = DateTime.Now,
                 Status = true
             };

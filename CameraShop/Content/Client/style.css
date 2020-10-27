@@ -1,7 +1,5 @@
 ﻿/*--------------------------------------------------------------------
-Template Name: ponno;
-Description:  eCommerce Bootstrap 4 Template;
-Version: 1.0;
+
 -----------------------------------------------------
 
     CSS INDEX
@@ -103,7 +101,7 @@ p {
 
 .small-btn a,
 .pro-add-cart a {
-    background: #0438a1 none repeat scroll 0 0;
+    background: #2fa0ca none repeat scroll 0 0;
     border-radius: 5px;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -139,20 +137,20 @@ p {
 /* all background bg */
 
 .bg-image-1 {
-    background-image: url(img/slider/s1.jpeg);
+    background-image: url('/Content/Banner/s1.jpeg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
 }
 
 .bg-image-2 {
-    background-image: url(img/slider/s2.jpeg);
+    background-image: url('/Content/Banner/s2.jpeg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
 }
 .bg-image-3 {
-    background-image: url(img/slider/s3.jpeg);
+    background-image: url('/Content/Banner/s3.jpeg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -578,9 +576,10 @@ p {
 }
 
 .cart-box .total-pro {
-    background: #0438a1 none repeat scroll 0 0;
-    border-radius: 5px;
-    color: #f4f6ff;
+    background: #fffdfd none repeat scroll 0 0;
+    border: 1px solid darkslategray;
+    border-radius: 12px;
+    color: #2fa0ca;
     display: inline-block;
     font-size: 15px;
     line-height: 20px;
@@ -598,7 +597,7 @@ p {
 }
 
 .cart-box .total-pro:hover {
-    color: #fff;
+    color: #000;
 }
 
 .setting-box ul li a span {
@@ -1578,7 +1577,7 @@ p {
 }
 
 .footer-title.e-header {
-    color: #f1f1f1;
+    color: #434a54;
     font-size: 20px;
 }
 
@@ -1612,13 +1611,13 @@ p {
 
 .footer-list li,
 .footer-list li a {
-    color: #f1f1f1;
+    color: ##afafaf;
     font-size: 18px;
 }
 
 .footer-social li a:hover,
 .footer-list li a:hover {
-    color: #fff;
+    color: #442f2f;
 }
 
 .quick-link li a {
@@ -2867,7 +2866,7 @@ p {
 }
 
 .pro-cart {
-    background: #343434 none repeat scroll 0 0;
+    background: #3bafda none repeat scroll 0 0;
     border: medium none;
     border-radius: 30px;
     color: #fff;
@@ -2879,7 +2878,7 @@ p {
 }
 
 .pro-cart:hover {
-    background: #0438a1;
+    background: #027ad1;
 }
 
 .color-list li.active,

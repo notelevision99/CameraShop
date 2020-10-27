@@ -14,6 +14,12 @@ namespace CameraShop
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+            name: "about",
+            url: "about/{id}",
+            defaults: new { controller = "InfoCompany", action = "About", id = UrlParameter.Optional }
+        );
+
+            routes.MapRoute(
             name: "chi-tiet-san-pham",
             url: "san-pham/{alias}",
             defaults: new { controller = "Home", action = "Details", id = UrlParameter.Optional }
