@@ -22,6 +22,7 @@ namespace CameraShop.DAL
         public DbSet<FileImg> FileImgs { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

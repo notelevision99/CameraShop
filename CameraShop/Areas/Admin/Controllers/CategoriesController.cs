@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CameraShop.DAL;
 using CameraShop.Models;
+using CameraShop.ViewModels.Admin.CategoryView;
 
 namespace CameraShop.Areas.Admin.Controllers
 {
@@ -37,9 +38,27 @@ namespace CameraShop.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            return View();
+            if(id == null)
+            {
+                return View();
+            }
+            Category categories = db.Categories.FirstOrDefault(p => p.CategoryID == id);
+            categories.CategoryParentID = id;
+            return View(categories);
+            //cateogoriesDto.Categories.Add(categories);
+
+            //var isHasSubCates = db.Categories.FirstOrDefault(p => p.CategoryParentID == categories.CategoryID);
+            //if (isHasSubCates != null)
+            //{
+            //    var subCates = db.Categories.Where(p => p.CategoryParentID == categories.CategoryID).ToList();
+            //    foreach (var item in subCates)
+            //    {
+            //        cateogoriesDto.Categories.Add(item);
+            //    }
+            //}
+
         }
 
         // POST: Admin/Categories/Create
@@ -47,13 +66,21 @@ namespace CameraShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryID,CategoryName")] Category category)
+        public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryParentID")] Category category)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                if (category.CategoryID == 0)
+                {
+                    db.Categories.Add(category);
+                }
+                else
+                {
+                    category.CategoryParentID = category.CategoryID;
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
 
             return View(category);
@@ -62,16 +89,24 @@ namespace CameraShop.Areas.Admin.Controllers
         // GET: Admin/Categories/Edit/5
         public ActionResult Edit(int? id)
         {
+            CategoryDto cateogoriesDto = new CategoryDto();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
+            Category categories = db.Categories.FirstOrDefault(p => p.CategoryID == id);
+            //cateogoriesDto.Categories.Add(categories);
+
+            //var isHasSubCates = db.Categories.FirstOrDefault(p => p.CategoryParentID == categories.CategoryID);
+            //if(isHasSubCates != null)
+            //{
+            //    var subCates = db.Categories.Where(p => p.CategoryParentID == categories.CategoryID).ToList();
+            //    foreach(var item in subCates)
+            //    {
+            //        cateogoriesDto.Categories.Add(item);
+            //    }
+            //}
+            return View(categories);
         }
 
         // POST: Admin/Categories/Edit/5
@@ -79,7 +114,7 @@ namespace CameraShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName")] Category category)
+        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,CategoryParentID")] Category category)
         {
             if (ModelState.IsValid)
             {

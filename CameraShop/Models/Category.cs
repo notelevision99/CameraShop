@@ -13,6 +13,7 @@ namespace CameraShop.Models
         [Display(Name ="Loại sản phẩm")]
         [Required]
         public string  CategoryName { get; set; }
+        public int? CategoryParentID { get; set; }
 
         public virtual ICollection<Product> Products{ get; set; }
     }

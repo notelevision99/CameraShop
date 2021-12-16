@@ -14,6 +14,7 @@ using PagedList;
 
 namespace CameraShop.Areas.Admin.Controllers
 {
+
     public class ProductController : Controller
     {
         private ShopContext db = new ShopContext();
