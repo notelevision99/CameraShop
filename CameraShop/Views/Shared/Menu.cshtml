@@ -1,0 +1,123 @@
+﻿@model List<CameraShop.Models.Category>
+
+<div class="row align-items-center">
+    <div class="col-lg-11 d-none d-lg-block">
+        <nav>
+            <ul class="header-menu-list">
+                <li class="active">
+                    <a href="@Url.Action("Index","Home")">Trang chủ</a>
+                </li>
+
+                @foreach (var item in Model)
+                {
+                    var listRelatedCates = Model.Where(p => p.CategoryParentID == item.CategoryID).ToList();
+
+                    if (listRelatedCates.Count != 0)
+                    {
+                        <li>
+                            <a class="drop-icon" href="@Url.Action("Index","Category",new { Category = item.CategoryName})">@item.CategoryName</a>
+                            <ul class="ht-dropdown">
+                                <li>
+                                    <ul>
+                                        @foreach (var subCate in listRelatedCates)
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("Index","Category",new { Category = subCate.CategoryName})">@subCate.CategoryName</a>
+                                            </li>
+
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                    }
+                    if (listRelatedCates.Count == 0 && item.CategoryParentID == null)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index","Category",new { Category = item.CategoryName})">@item.CategoryName</a>
+                        </li>
+                    }
+
+
+                }
+
+            </ul>
+        </nav>
+    </div>
+    <!-- Cart Box Start Here -->
+    <div class="col-lg-1">
+        <div class="setting-box float-right">
+            <ul>
+                <li class="drodown-show">
+                    <a href="#"><span class="ti-settings"></span></a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Cart Box End Here -->
+</div>
+
+<!-- Mobile Menu Start Here -->
+<div class="mobile-menu d-block d-lg-none" data-menu="Menu">
+    <nav>
+        <ul>
+            <li>
+                <a href="@Url.Action("Index","Home")">Trang chủ</a>
+            </li>
+            @foreach (var item in Model)
+            {
+                var listRelatedCates = Model.Where(p => p.CategoryParentID == item.CategoryID).ToList();
+
+                    if (listRelatedCates.Count != 0)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index","Category",new { Category = item.CategoryName})">@item.CategoryName</a>
+                            <!-- Home Version Dropdown Start -->
+                            <ul>
+                                @foreach (var subCate in listRelatedCates)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index","Category",new { Category = subCate.CategoryName})">@subCate.CategoryName</a>
+                                    </li>
+
+                                }
+                            </ul>
+                            <!-- Home Version Dropdown End -->
+                        </li>
+                    }
+                    if(listRelatedCates.Count == 0 && item.CategoryParentID == null) 
+                    { 
+                        <li>
+                            <a href="@Url.Action("Index","Category",new { Category = item.CategoryName})">@item.CategoryName</a>
+                        </li>
+                    }
+                @*<li>
+                <a href="@Url.Action("Index","Category",new { Category = item.CategoryName})">@item.CategoryName</a>
+                @{
+
+                    if (listRelatedCates.Count != 0)
+                    {
+                        <ul class="submobile-mega-dropdown">
+                            @{
+
+                                foreach (var subCate in listRelatedCates)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index","Category",new { Category = subCate.CategoryName})">@subCate.CategoryName</a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    }
+
+
+                }
+            </li>*@
+
+            }
+        </ul>
+    </nav>
+</div>
+<!-- Mobile Menu End Here -->

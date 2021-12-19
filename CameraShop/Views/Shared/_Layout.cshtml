@@ -51,7 +51,7 @@
                 <div class="p-2">
                     <span class="text-danger font-weight-bold">
                         Hỗ trợ: 0941667918
-                    </span>                 
+                    </span>
                 </div>
             </div>
             <div class="header-top">
@@ -60,7 +60,7 @@
                         <!-- Logo Start -->
                         <div class="col-md-3 col order-1 order-md-1 mb-sm-30">
                             <div class="logo">
-                                <a href="@Url.Action("Index","Home")"><img src="~/img/logo/logo.png" alt="logo-img"></a>
+                                <a href="@Url.Action("Index", "Home")"><img src="~/img/logo/logo.png" alt="logo-img"></a>
                             </div>
                         </div>
                         <!-- Logo End -->
@@ -75,64 +75,12 @@
             </div>
             <div class="header-bottom blue-bg header-sticky">
                 <div class="container">
-                    <div class="row align-items-center">
-                        <!-- Menu Area Start Here -->
-                        <div class="col-lg-11 d-none d-lg-block">
-                            <nav>
-                                <ul class="header-menu-list">
-                                    <li class="active">
-                                        <a href="@Url.Action("Index","Home")">home</a>
-                                        <!-- Home Version Dropdown Start -->
-                                        <!-- Home Version Dropdown End -->
-                                    </li>
-
-                                    <li><a href="@Url.Action("Index","Category")">Camera quan sát</a></li>
-                                    <li><a href="@Url.Action("Index","Category")">Ổ cứng lưu trữ camera</a></li>
-                                    <li><a href="@Url.Action("Index","Category")">Linh phụ kiện camera</a></li>
-                                    <li><a href="@Url.Action("Index","Category")">VIP</a></li>
-                                    <li><a href="@Url.Action("About","InfoCompany")">Ve chung toi</a></li>
-
-                                </ul>
-                            </nav>
-                        </div>
-                        <!-- Menu Area End Here -->
-                        <!-- Cart Box Start Here -->
-                        <div class="col-lg-1">
-                            <div class="setting-box float-right">
-                                <ul>
-                                    <li class="drodown-show">
-                                        <a href="#"><span class="ti-settings"></span></a>
-                                        
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Cart Box End Here -->
-                    </div>
-                    <!-- Row End -->
-                    <!-- Mobile Menu Start Here -->
-                    <div class="mobile-menu d-block d-lg-none" data-menu="Menu">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="@Url.Action("Index","Home")">home</a>
-                                    <!-- Home Version Dropdown Start -->
-                                    <!-- Home Version Dropdown End -->
-                                </li>
-                                <li><a href="@Url.Action("Index","Category")">Camera quan sát</a></li>
-                              
-                              
-                               
-                              
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- Mobile Menu End Here -->
+                    @{
+                        Html.RenderAction("Menu", "Home");
+                    }
                 </div>
-                <!-- Container End -->
             </div>
+            <!-- Mobile Menu End Here -->
         </header>
 
         <!-- Header Area End Here -->
@@ -142,7 +90,7 @@
     <!-- Footer Area Start Here -->
     <footer class="footer-area black-bg pt-60">
         <div class="container">
-           
+
             <div class="footer-middle ptb-60">
 
                 <div class="row">
@@ -161,7 +109,7 @@
                                     <li>
                                         <a href="#">Liên hệ</a>
                                     </li>
-                                   
+
                                 </ul>
                             </div>
                         </div>
@@ -179,7 +127,7 @@
                                     <li>
                                         <a href="#">Hỗ trợ kỹ thuật</a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </div>
@@ -193,14 +141,14 @@
                                 <ul class="footer-list contact-info">
                                     <li class="location">
                                         <p>329, Cách mạng tháng 8,phường 11, quận 10, TPHCM</p>
-                                     
+
                                     </li>
                                     <li class="mail">
                                         <p>caothinh@gmail.com</p>
-                                        
+
                                     </li>
                                     <li class="phone">
-                                        <p>0923456689</p>                                       
+                                        <p>0923456689</p>
                                     </li>
                                 </ul>
                             </div>
@@ -219,12 +167,12 @@
                                         </p>
                                     </li>
                                     <li class="footer-search mb-30">
-                                       
-                                            <input type="text" placeholder="Email" name="footer-mail" id="footer-mail">
-                                            <button>
-                                                <i class="zmdi zmdi-mail-send"></i>
-                                            </button>
-                                        
+
+                                        <input type="text" placeholder="Email" name="footer-mail" id="footer-mail">
+                                        <button>
+                                            <i class="zmdi zmdi-mail-send"></i>
+                                        </button>
+
                                     </li>
                                     <li>
                                         <h5 class="e-header">Mạng xã hội</h5>
@@ -233,7 +181,7 @@
                                                 <a href="#">
                                                     <i class="zmdi zmdi-facebook"></i>
                                                 </a>
-                                            </li>                                       
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -244,7 +192,7 @@
                 </div>
             </div>
         </div>
-      
+
     </footer>
     <!-- Footer Area End Here -->
 </body>

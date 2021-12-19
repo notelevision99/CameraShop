@@ -138,8 +138,14 @@ namespace CameraShop.Controllers
             //return RedirectToAction("Index");
 
         }
+        [ChildActionOnly]
+        public ActionResult Menu()
+        {
+            var categories = db.Categories.ToList();
+            ViewBag.Categories = categories;
+            return PartialView("Menu",categories);
+        }
 
-        
 
         protected override void Dispose(bool disposing)
         {
