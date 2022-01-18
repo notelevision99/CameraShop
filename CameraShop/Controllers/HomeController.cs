@@ -70,7 +70,7 @@ namespace CameraShop.Controllers
 
 
         [HttpPost]
-        public ActionResult AddToCart(int productID)
+        public ActionResult AddToCart(int productID, int quantity)
         {         
             if (Session["cart"] == null)
             {
@@ -80,7 +80,7 @@ namespace CameraShop.Controllers
                 cart.Add(new Item()
                 {
                     Product = product,
-                    Quantity = 1
+                    Quantity = quantity
                 });
                 Session["cart"] = cart;
                 Session["cartCounter"] = cart.Count();              
@@ -107,7 +107,7 @@ namespace CameraShop.Controllers
                         cart.Add(new Item()
                         {
                             Product = product,
-                            Quantity = preQty + 1
+                            Quantity = preQty + quantity
                         });
                         Session["cart"] = cart;
                     }
@@ -122,7 +122,7 @@ namespace CameraShop.Controllers
                             cart.Add(new Item()
                             {
                                 Product = product,
-                                Quantity = 1
+                                Quantity = quantity
                             });
                             Session["cartCounter"] = cart.Count();
                             break;

@@ -61,12 +61,17 @@ namespace CameraShop.Controllers
         public ActionResult UpdateCart(FormCollection frc)
         {
             string[] quantities = frc.GetValues("quantity");
+            string[] productId = frc.GetValues("ProductID");
             List<Item> lstCart = (List<Item>)Session["cart"];
             if(Session["cart"] != null)
             {
                 for (int i = 0; i < lstCart.Count; i++)
                 {
-                    lstCart[i].Quantity = Convert.ToInt32(quantities[i]);
+                    if (lstCart[i].Product.ProductID == Convert.ToInt32(productId[0]))
+                    {
+                        lstCart[i].Quantity = Convert.ToInt32(quantities[0]);
+
+                    }
                 }
             }
            

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CameraShop.DAL;
 using CameraShop.Models;
+using CameraShop.ViewModels;
 using CameraShop.ViewModels.Admin.CategoryView;
 
 namespace CameraShop.Areas.Admin.Controllers
@@ -19,7 +20,12 @@ namespace CameraShop.Areas.Admin.Controllers
         // GET: Admin/Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            List<Category> mainCategories = db.Categories.Where(p => p.CategoryParentID == null).ToList();
+            List<Category> allCategories = db.Categories.ToList();
+            var viewmodel = new ProductListViewModel();
+            viewmodel.MainCategories = mainCategories;
+            viewmodel.AllCategories = allCategories;
+            return View(viewmodel);
         }
 
         // GET: Admin/Categories/Details/5

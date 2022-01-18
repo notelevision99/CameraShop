@@ -55,14 +55,32 @@
                                 @Html.ActionLink("Tất cả sản phẩm", "Index", null, new { @class = Request["Category"] == null ? "text-danger" : null, })
 
                             </li>
-                            @if (Model.Categories != null)
+                            @if (Model.MainCategories != null)
                             {
-                                foreach (var item in Model.Categories)
+                                foreach (var item in Model.MainCategories)
                                 {
-                                    <li class="form-check">
-                                        @Html.ActionLink(item.CategoryName, "Index", new { Category = item.CategoryName }, new { @class = Request["Category"] == item.CategoryName ? "text-danger" : null })
+                                    var listSubCates = Model.AllCategories.Where(p => p.CategoryParentID == item.CategoryID);
+                                    if (listSubCates != null)
+                                    {
+                                        <li class="form-check">
+                                            @Html.ActionLink(item.CategoryName, "Index", new { Category = item.CategoryName }, new { @class = Request["Category"] == item.CategoryName ? "text-danger" : null })
+                                        </li>
 
-                                    </li>
+                                        foreach (var subCate in listSubCates)
+                                        {
+                                            <li class="form-check">
+                                                <span style="padding-left: 5%">@Html.ActionLink(subCate.CategoryName, "Index", new { Category = subCate.CategoryName }, new { @class = Request["Category"] == subCate.CategoryName ? "text-danger" : null })</span>
+                                            </li>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="form-check">
+                                            @Html.ActionLink(item.CategoryName, "Index", new { Category = item.CategoryName }, new { @class = Request["Category"] == item.CategoryName ? "text-danger" : null })
+                                        </li>
+                                    }
+
                                 }
                             }
                         </ul>
@@ -166,7 +184,7 @@
                                                         </h4>
                                                         <p>
                                                             <span class="special-price text-danger">
-                                                                @if (item.DiscountedPrice > 10000)
+                                                                @if (item.DiscountedPrice > 1000)
                                                                 {
                                                                     @Html.DisplayFor(modelItem => item.DiscountedPrice)
                                                                 }
@@ -186,7 +204,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="pro-add-cart">
-                                                        @if (item.DiscountedPrice > 10000)
+                                                        @if (item.DiscountedPrice > 1000000000)
                                                         {
                                                             <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@item.ProductID" class="pro-cart">Thêm vào giỏ</button>
                                                         }

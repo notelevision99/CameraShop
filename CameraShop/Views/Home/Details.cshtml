@@ -7,6 +7,7 @@
 }
 @{
     int countProductRelate = 1;
+    int? quantityChange = null;
 }
 
 <div class="breadcrumb-area">
@@ -153,7 +154,7 @@
                         </li>
                     </ul>
                     <div class="pro-thumb-price mt-20">
-                        @if (Model.Product.DiscountedPrice > 10000)
+                        @if (Model.Product.DiscountedPrice > 1000)
                         {
                             <p>
                                 <span class="special-price text-danger">
@@ -187,13 +188,25 @@
 
                     </div>
                     <div class="quatity-stock">
-                        @if (Model.Product.DiscountedPrice > 10000)
+                        @if (Model.Product.DiscountedPrice > 1000)
                         {
                             <label>Số lượng</label>
                             <ul class="d-flex flex-wrap">
                                 <li class="box-quantity">
                                     <form action="#">
-                                        <input class="quantity" type="number" min="1" value="1" disabled>
+                                        <select id="quantity" onchange="checkChangeQuantity()">
+                                            <option value="10" >10</option>
+                                            <option value="20" >20</option>
+                                            <option value="30" >30</option>
+                                            <option value="40" >40</option>
+                                            <option value="50" >50</option>
+                                            <option value="60" >60</option>
+                                            <option value="70" >70</option>
+                                            <option value="80" >80</option>
+                                            <option value="90" >90</option>
+                                            <option value="100" >100</option>
+                                        </select>
+                                        
                                     </form>
                                 </li>
 
@@ -306,7 +319,7 @@
                                     <h6 class="font-weight-bold" display="flex"><a href="@Url.Action("Details","Home", new { alias = item.Alias})">@item.ProductName</a></h6>
                                     <p>
                                         <span class="special-price text-danger">
-                                            @if (item.DiscountedPrice > 10000)
+                                            @if (item.DiscountedPrice > 1000)
                                             {@Html.DisplayFor(modelItem => item.DiscountedPrice)}
                                         else
                                         {
@@ -322,15 +335,6 @@
                                             <span class="quantity-pro">(200+)</span>
                                         </div>
                                 </div>
-                                @if (item.DiscountedPrice > 10000)
-                                {
-
-                                    <div class="pro-add-cart">
-                                        @*<a href="cart.html" title="Add to Cart">Add To Cart</a>*@
-                                        <button type="submit" data-toggle="modal" data-target="#exampleModal" onclick="AddToCart(this);" itemid="@item.ProductID" class="pro-cart">Thêm vào giỏ</button>
-                                    </div>
-
-                                }
                             </div>
                             <!-- Product Content End -->
                         </div>
@@ -359,12 +363,23 @@
     //    });
 
     //});
+    function checkChangeQuantity() {
+        debugger
+        var data = document.getElementById("quantity").value;
+        console.log(data)
+        if (data) {
+            return data;
+        }
+    }
+    
     function AddToCart(item) {
+        debugger
+        var quantity = checkChangeQuantity();
         var itemid = $(item).attr("itemid");
         //alert(itemid);
         var formData = new FormData();
         formData.append("ProductID", itemid);
-
+        formData.append("Quantity", quantity);
         $.ajax({
             async: false,
             type: "POST",
@@ -373,6 +388,7 @@
             data: formData,
             url: '/Home/AddToCart',
             success: function (data) {
+                debugger
                 if (data.success) {
                     //alert("Đã thêm vào giỏ hàng")
                     $("#exampleModal").show();

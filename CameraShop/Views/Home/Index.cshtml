@@ -133,7 +133,7 @@
                                         <h6 class="font-weight-bold" display="flex"><a href="@Url.Action("Details","Home", new { alias = item.Alias})">@Html.DisplayFor(modelItem => item.ProductName)</a></h6>
                                         <p>
                                             <span class="special-price text-danger">
-                                                @if (item.DiscountedPrice > 10000)
+                                                @if (item.DiscountedPrice > 1000)
                                                 {@Html.DisplayFor(modelItem => item.DiscountedPrice)}
                                             else
                                             {
@@ -150,7 +150,7 @@
                                             <span class="quantity-pro">(5+)</span>
                                         </div>
                                     </div>
-                                    @if (item.DiscountedPrice > 10000)
+                                    @if (item.DiscountedPrice > 100000000)
                                     {
 
                                         <div class="pro-add-cart">
@@ -226,7 +226,7 @@
                                                 <h6 class="font-weight-bold" display="flex"><a href="@Url.Action("Details","Home", new { alias = item.Alias})">@Html.DisplayFor(modelItem => item.ProductName)</a></h6>
                                                 <p>
                                                     <span class="special-price text-danger">
-                                                        @if (item.DiscountedPrice > 10000)
+                                                        @if (item.DiscountedPrice > 1000)
                                                         {@Html.DisplayFor(modelItem => item.DiscountedPrice)}
                                                     else
                                                     {
@@ -243,7 +243,7 @@
                                                     <span class="quantity-pro">(200+)</span>
                                                 </div>
                                             </div>
-                                            @if (item.DiscountedPrice > 10000)
+                                            @if (item.DiscountedPrice > 10000000)
                                             {
 
                                                 <div class="pro-add-cart">

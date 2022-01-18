@@ -49,14 +49,17 @@ namespace CameraShop.Controllers
         {
             int ProductPageNumber = (productPage ?? 1);
             int pageSize = 9;
+            List<string> listRelateMainCategory = null;
             ViewBag.PriceSortParm = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "price_asc";
+
          
             // IPagedList<Product> products;
-            List<Category> categories = db.Categories.ToList();
+            List<Category> mainCategories = db.Categories.Where(p => p.CategoryParentID == null).ToList();
+            List<Category> allCategories = db.Categories.ToList();
             var viewmodel = new ProductListViewModel();
             if (Category == null)
             {
-
+                
                 if (sortOrder != null && sortOrder == "price_desc")
                 {
                     viewmodel.Products = db.Products.OrderByDescending(p => p.DiscountedPrice)
@@ -77,18 +80,34 @@ namespace CameraShop.Controllers
             }
             else
             {
-                viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.ProductName).ToPagedList(ProductPageNumber, pageSize);
+                var catedId = db.Categories.Where(p => p.CategoryName == Category).Select(p => p.CategoryID).FirstOrDefault();
+                listRelateMainCategory = db.Categories.Where(p => p.CategoryParentID == catedId).Select(p => p.CategoryName).ToList();
+                if(listRelateMainCategory.Count != 0)
+                {
+                    viewmodel.Products = db.Products.Include(p => p.Category).Where(p => listRelateMainCategory.Contains(p.Category.CategoryName)).OrderBy(i => i.ProductName).ToPagedList(ProductPageNumber, pageSize);
+                    if (sortOrder != null && sortOrder == "price_desc")
+                    {
+                        viewmodel.Products = db.Products.Where(p => listRelateMainCategory.Contains(p.Category.CategoryName)).OrderByDescending(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, pageSize);
+                    }
+                    else if (sortOrder != null && sortOrder == "price_asc")
+                    {
+                        viewmodel.Products = db.Products.Where(p => listRelateMainCategory.Contains(p.Category.CategoryName)).OrderBy(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, pageSize);
+                    }
+                }
+                else
+                {
+                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.ProductName).ToPagedList(ProductPageNumber, pageSize);
+                    if (sortOrder != null && sortOrder == "price_desc")
+                    {
+                        viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderByDescending(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, pageSize);
+                    }
+                    else if (sortOrder != null && sortOrder == "price_asc")
+                    {
+                        viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, pageSize);
+                    }
+                }
                 //ViewBag.CountProd = products.Count();
 
-                //lọc != null
-                if (sortOrder != null && sortOrder == "price_desc")
-                {
-                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderByDescending(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, pageSize);
-                }
-                else if (sortOrder != null && sortOrder == "price_asc")
-                {
-                    viewmodel.Products = db.Products.Where(p => p.Category.CategoryName == Category).OrderBy(i => i.DiscountedPrice).ToPagedList(ProductPageNumber, pageSize);
-                }
                 //lấy giá trị của category hiện tại truyền cho view
                 ViewBag.Category = Category;
 
@@ -97,7 +116,8 @@ namespace CameraShop.Controllers
 
             ViewBag.Prod = viewmodel.Products;
             ViewBag.SortOrder = sortOrder;
-            viewmodel.Categories = categories;
+            viewmodel.MainCategories = mainCategories;
+            viewmodel.AllCategories = allCategories;
             return View(viewmodel);
         }
 

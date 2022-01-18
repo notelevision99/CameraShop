@@ -10,6 +10,7 @@ namespace CameraShop.ViewModels
     public class ProductListViewModel
     {
         public IPagedList<Product> Products { get; set; }
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Category> MainCategories { get; set; }
+        public IEnumerable<Category> AllCategories { get; set; }
     }
 }

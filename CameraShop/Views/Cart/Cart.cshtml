@@ -83,8 +83,9 @@
                                                 <td class="product-price"><span class="amount">@item.Product.DiscountedPrice.ToString("0#,0")đ</span></td>
                                                 <td class="product-quantity">
 
-                                                    <input type="number" name="quantity" id="quantity" value="@item.Quantity" min="1" max="20">@*item.Quantity*@
+                                                    <input type="number" name="quantity" id="quantity" onchange="changePrice(this.value, @item.Product.ProductID)" itemid="this.value" step="10" value="@item.Quantity"  max="101" >@*item.Quantity*@
                                                     &nbsp;<span id="errmsg"></span>
+                                                    
                                                 </td>
                                                 @{totalPrice = item.Quantity * (int)item.Product.DiscountedPrice;}
                                                 <td class="product-subtotal">@totalPrice.ToString("0#,0")</td>
@@ -164,6 +165,38 @@
                 $("#errmsg").html("Kí tự số").show().fadeOut("slow");
                 return false;
             }
+            
         });
     });
+    function closestNumber(number) {
+        return Math.round(number / 10) * 10
+    }
+    function changePrice(counter, productId) {
+        //alert(itemid);
+        var formData = new FormData();
+        if (counter > 100) {
+            counter = 100;
+            alert("Vui lòng nhập số lượng sản phẩm hợp lệ (nhỏ hơn 100)");
+        }
+        if (counter % 10 !== 0) {
+            $("#errmsg").html("Số lượng sỉ").show().fadeOut("slow")
+            counter = closestNumber(counter)
+        }
+        formData.append("quantity", counter);
+        formData.append("ProductID", productId)
+        $.ajax({
+            async: false,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Cart/UpdateCart',
+            success: function (data) {
+                document.location.reload(true)
+            },
+            error: function () {
+                alert("There is some problem");
+            }
+        })
+    }
 </script>

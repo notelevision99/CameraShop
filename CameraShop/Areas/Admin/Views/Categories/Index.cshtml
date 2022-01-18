@@ -1,8 +1,7 @@
-﻿@model IEnumerable<CameraShop.Models.Category>
+﻿@model CameraShop.ViewModels.ProductListViewModel
 
 
-
-@{ 
+@{
     ViewBag.Title = "Loại sản phẩm";
 }
 <body>
@@ -12,25 +11,39 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
+                @*  @Html.DisplayNameFor(model => model.CategoryName)*@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.CategoryID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID }) |
-                @Html.ActionLink("Add Children", "Create", new { id = item.CategoryID }) |
-            </td>
-        </tr>
-    }
-    
+        @if (Model.MainCategories != null)
+        {
+            @foreach (var item in Model.MainCategories)
+            {
+                var listSubCates = Model.AllCategories.Where(p => p.CategoryParentID == item.CategoryID);
+                if (listSubCates != null)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.CategoryID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID }) |
+                            @{
+                                if (item.CategoryParentID == null)
+                                {
+                                    @Html.ActionLink("Add Children", "Create", new { id = item.CategoryID })
+                                }
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            }
+        }
+
     </table>
 </body>
 </html>
